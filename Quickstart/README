@@ -6,6 +6,6 @@ librsvg2-2
 INSTALLATION:
 =============
 
-chmod +x MeeGen-start.sh    
-./MeeGen-start.sh   // extracts the image resources and creates a ComponentDB.xml file
+chmod +x MeeGen-start.sh
+./MeeGen-start.sh // extract image files and create ComponentDB.xml
 mono MeeGen.exe
