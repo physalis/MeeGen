@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<component-database directory="extracted">
+	<category name="accessories">
+		<entry image="ball.svg" />
+		<entry image="chaplet.svg" />
+		<entry image="cord.svg" />
+		<entry image="curl.svg" />
+		<entry image="earphone.svg" />
+		<entry image="earphone2.svg" />
+		<entry image="eyepatch.svg" />
+		<entry image="hammer.svg" />
+		<entry image="handheld.svg" />
+		<entry image="hat.svg" />
+		<entry image="headphones.svg" />
+		<entry image="headphones2.svg" />
+		<entry image="headphones3.svg" />
+		<entry image="lips.svg" />
+		<entry image="nail.svg" />
+		<entry image="netbook-rocks.svg" />
+		<entry image="netbook.svg" />
+		<entry image="oscar.svg" />
+		<entry image="pacifier.svg" />
+		<entry image="skateboard.svg" />
+		<entry image="stereo.svg" />
+		<entry image="sunglasses.svg" />
+		<entry image="water-level.svg" />
+	</category>
+	<category name="arms-hands">
+		<entry image="baby.svg" />
+		<entry image="hand.svg" />
+		<entry image="head-scratching.svg" />
+		<entry image="holding.svg" />
+		<entry image="holding2.svg" />
+		<entry image="rock.svg" />
+		<entry image="simple.svg" />
+		<entry image="snap.svg" />
+		<entry image="stretched.svg" />
+		<entry image="stretched2.svg" />
+	</category>
+	<category name="bodies">
+		<entry image="dress.svg" />
+		<entry image="standard.svg" />
+		<entry image="suit.svg" />
+		<entry image="tilted.svg" />
+	</category>
+	<category name="else">
+		<entry image="chair.svg" />
+		<entry image="chair2.svg" />
+		<entry image="table.svg" />
+	</category>
+	<category name="eyes">
+		<entry image="angry.svg" />
+		<entry image="happy.svg" />
+		<entry image="one.svg" />
+		<entry image="standard.svg" />
+	</category>
+	<category name="hair">
+		<entry image="afro.svg" />
+		<entry image="flow.svg" />
+		<entry image="perm.svg" />
+		<entry image="pigtail.svg" />
+	</category>
+	<category name="heads">
+		<entry image="happy-longface.svg" />
+		<entry image="happy.svg" />
+		<entry image="laughing-longface.svg" />
+		<entry image="laughing-longface2.svg" />
+		<entry image="laughing-longface3.svg" />
+		<entry image="laughing.svg" />
+		<entry image="longface.svg" />
+		<entry image="longface2.svg" />
+		<entry image="longface3.svg" />
+		<entry image="standard.svg" />
+		<entry image="tilted.svg" />
+		<entry image="wideface-talking.svg" />
+		<entry image="wideface.svg" />
+	</category>
+	<category name="legs">
+		<entry image="closer.svg" />
+		<entry image="sitting.svg" />
+		<entry image="sitting2.svg" />
+		<entry image="skating.svg" />
+		<entry image="standard.svg" />
+		<entry image="standing.svg" />
+		<entry image="stumble.svg" />
+		<entry image="walking.svg" />
+		<entry image="walking2.svg" />
+		<entry image="walking3.svg" />
+		<entry image="wobble.svg" />
+	</category>
+	<category name="pets">
+		<entry image="bird.svg" />
+		<entry image="cat-upright.svg" />
+		<entry image="cat-with-ball.svg" />
+		<entry image="cat.svg" />
+		<entry image="dog.svg" />
+		<entry image="fox-sitting.svg" />
+		<entry image="fox.svg" />
+		<entry image="penguin-looking-down.svg" />
+		<entry image="penguin-looking-up.svg" />
+		<entry image="penguin-sitting.svg" />
+		<entry image="penguin.svg" />
+		<entry image="squirrel-handheld.svg" />
+		<entry image="squirrel.svg" />
+		<entry image="tweet-birg.svg" />
+	</category>
+</component-database>

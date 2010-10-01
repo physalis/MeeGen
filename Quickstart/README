@@ -1,0 +1,11 @@
+Besides a recent mono version you'll also need (debian names):
+
+librsvg2-2.18-cil
+librsvg2-2
+
+INSTALLATION:
+=============
+
+chmod +x MeeGen-start.sh    
+./MeeGen-start.sh   // extracts the image resources and creates a ComponentDB.xml file
+mono MeeGen.exe

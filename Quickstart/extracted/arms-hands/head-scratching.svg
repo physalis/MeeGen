@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="45.070618"
+   height="113.91415"
+   id="svg4201">
+  <defs
+     id="defs4203">
+    <mask
+       id="mask20">
+      <g
+         id="g233"
+         style="filter:url(#alpha)">
+        <rect
+           width="1190.55"
+           height="841.89001"
+           x="0"
+           y="0"
+           id="rect235"
+           style="fill:#ffffff;fill-opacity:0.60000598;stroke:none" />
+      </g>
+    </mask>
+    <filter
+       filterUnits="objectBoundingBox"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       color-interpolation-filters="sRGB"
+       id="alpha">
+      <feColorMatrix
+         id="feColorMatrix10"
+         values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
+         in="SourceGraphic"
+         type="matrix" />
+    </filter>
+    <clipPath
+       id="clip22">
+      <rect
+         width="45"
+         height="75"
+         x="0"
+         y="0"
+         id="rect238" />
+    </clipPath>
+  </defs>
+  <g
+     transform="translate(-298.12456,-407.57368)"
+     id="layer1">
+    <g
+       transform="matrix(1.25,0,0,1.25,-330.57173,-52.667453)"
+       id="g3729">
+      <path
+         d="m 522.15234,373.8125 c 0.32032,-0.79297 1.90625,-2.22266 3.01563,-2.91016 0.84765,-0.52343 1.98828,-1.05078 2.91406,-1.42578 2.44141,-0.98437 5.20313,-1.79297 7.8125,-0.89453 1.25,0.43359 4.53906,2.95313 2.42969,4.28906 -1.6211,1.02735 -3.3125,-3.57031 -4.61719,-2.07812 -0.50391,0.57812 -0.375,1.82812 -0.29297,2.51172 0.11328,0.92187 0.0117,1.96093 -0.48828,2.76953 -0.46875,0.75781 -1.76172,1.54297 -2.61719,1.74219 -1.28906,0.30468 -2.66406,0.0195 -3.84765,-0.48829 -0.60157,-0.26171 -1.21094,-0.1914 -1.85938,-0.19921 -0.83203,-0.008 -1.66797,-0.0469 -2.5039,-0.0469"
+         id="path724"
+         style="fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         d="m 525.07422,454.67578 -14.56641,-40.41797 17.30469,-36.53125 -5.64063,-4.55469 -19.21484,40.25391 15.96484,45.89844 6.15235,-4.64844 z m 0,0"
+         id="path726"
+         style="fill:#ff6e33;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    </g>
+  </g>
+</svg>
