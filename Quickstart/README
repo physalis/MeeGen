@@ -8,4 +8,4 @@ INSTALLATION:
 
 chmod +x MeeGen-start.sh
 ./MeeGen-start.sh // extract image files and create ComponentDB.xml
-mono MeeGen.exe
+mono MeeGen.exe // you should start the app from the terminal to see exception & crash output.
