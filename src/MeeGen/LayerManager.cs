@@ -253,23 +253,28 @@ namespace MeeGen
 			//DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, 10, 10, 5);
 			//cx.Color = new Color(0, 255, 0);
 			//DrawRoundedRectangle(cx, this.Location.X, this.Location.Y, 10, 10, 5);
+			
+			
 			if(this.Selected)
 			{
-				DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, this.size.Width, this.size.Height, 5);
-				cx.Color = new Color(1, 0.8, 0.01);
+				DrawRoundedRectangle(cx, this.Location.X-this.size.Width/2, this.Location.Y-this.size.Height/2, this.size.Width, this.size.Height, 5);
+				cx.Color = new Color(0.58, 0.65, 0.19);
+				//150 166 50
 				cx.SetDash(new double[]{1, 0, 0,0,0,0, 1}, 0);
-				cx.LineWidth = 4;
+				cx.LineWidth = 2;
 				cx.Stroke();
 			}
 			
-			cx.Translate(this.Center.X, this.Center.Y);
+			
 			//if(this.Selected)
 			//	cx.Scale(2, 2);
 			//cx.LineWidth = 4;
 			
-			
-			//DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, this.size.Width, this.size.Height, 2);
+			cx.Translate(this.Center.X, this.Center.Y);
 			cx.Rotate(this.Rotation);
+			cx.Scale(zoom, zoom);
+			//DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, this.size.Width, this.size.Height, 2);
+			//cx.Rotate(this.Rotation);
 			cx.Scale(zoom, zoom);
 			this.svgHandle.RenderCairo(cx);
 			//cx.Rotate(-Math.PI/2);
