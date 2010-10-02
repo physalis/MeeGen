@@ -1,7 +1,7 @@
 Besides a recent mono version you'll also need (debian names):
 
 gtk-sharp2
-librsvg2-2.18-cil (available as local .dll in the Quickstart folder)
+librsvg2-2.18-cil (available as local .dll in this folder)
 librsvg2-2
 
 INSTALLATION:
