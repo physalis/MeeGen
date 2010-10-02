@@ -2,6 +2,7 @@
 *.userprefs
 
 *.exe
+*.exe.mdb
 *.dll
 
 extracted
