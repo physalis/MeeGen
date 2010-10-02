@@ -1,4 +1,13 @@
 
 Quickstart contains binaries and a compressed archive of meegon body parts.
 
-src folder will contain the actual project's source code.
+src folder contains source code for MeeGen and the Meegon Component Database Creator
+(mcdbc.exe).
+
+This software has been tested on MeeGo and Linux Mint 9 (Ubuntu-based).
+
+# WARNING #
+###########
+
+It is currently far more probable that this program will not work or explode in your face when
+run than flawlessly executing.
