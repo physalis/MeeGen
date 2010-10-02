@@ -1,13 +1,35 @@
 
-Quickstart contains binaries and a compressed archive of meegon body parts.
+INTRODUCTION:
+=============
+MeeGen (name not final) is an easy to use designer
+for custom Meego avatars (wiki.meego.com/Meegons).
+It was designed to run and flawlessly integrate in 
+the MeeGo netbook UX, though due to the nature of
+mono's CLR, it should work on most modern UNIX/Linux 
+distributions that fullfill the requirements 
+(see next section).
 
-src folder contains source code for MeeGen and the Meegon Component Database Creator
-(mcdbc.exe).
+REQUIREMENTS:
+=============
+MeeGen (and MeegonComponentDB respectively) was written
+using C# and targets the mono CIL runtime. Therefore it
+requires a modern Unix/Linux distibution and, though not 
+tested, at least the mono-core package. The following
+table summarizes al requirements for running or compiling
+MeeGen:
 
-This software has been tested on MeeGo and Linux Mint 9 (Ubuntu-based).
+o Mono JIT compiler (tested with version 2.6.7) 
+o Gtk# (gtk-sharp2)
+o Cairo (Mono.Cairo is part of the mono-core package)
+o RSVG (librsvg2 [Dynamic Link Library available at the Quickstart/ folder]
 
-# WARNING #
-###########
+o gmcs (for compiling the source code)
 
-It is currently far more probable that this program will not work or explode in your face when
-run than flawlessly executing.
+Note: The CIL bindings require the native version of
+      the mentioned libraries (gtk+, cairo, librsvg2) to be installed.
+      
+INSTALLATION:
+=============
+Check the Quickstart folder to test this app.
+
+
