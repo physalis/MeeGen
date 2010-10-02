@@ -1,9 +1,8 @@
 
 *.userprefs
 
-*.exe
-*.exe.mdb
-*.dll
+Debug
+Release
 
 extracted
 
