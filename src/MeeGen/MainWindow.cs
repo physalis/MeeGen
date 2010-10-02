@@ -18,7 +18,7 @@ namespace MeeGen
 		
 		LayerManager layerManager;
 		
-		public MainWindow() : base(Gtk.WindowType.Toplevel)
+		public MainWindow(string databaseFile) : base(Gtk.WindowType.Toplevel)
 		{
 			Build();
 			
@@ -60,7 +60,7 @@ namespace MeeGen
 			
 			try
 			{
-				LoadImages("ComponentDB.xml");
+				LoadImages(databaseFile);
 				this.iconview.Model = iconDict["heads"];
 				this.Category = "heads";
 			}catch(Exception e)
