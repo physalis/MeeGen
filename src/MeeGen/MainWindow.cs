@@ -24,7 +24,6 @@ namespace MeeGen
 			
 			this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(105, 89, 205));
 			this.drawingarea.DoubleBuffered = true;
-						
 			this.ModifyBg(StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
 
 			// doens't look bad in light grey, might add a settings xml file for such options

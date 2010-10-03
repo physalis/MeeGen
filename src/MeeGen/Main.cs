@@ -56,7 +56,7 @@ namespace MeeGen
 				writer.WriteStartDocument();
 			
 				writer.WriteStartElement("component-database"); // root element
-				writer.WriteAttributeString("directory", parent.Name);
+				writer.WriteAttributeString("directory", parent.FullName);
 
 			
 				foreach(DirectoryInfo dir in parent.GetDirectories())
