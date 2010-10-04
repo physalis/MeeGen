@@ -217,7 +217,7 @@ namespace MeeGen
 		protected virtual void DragData_Received (object o, Gtk.DragDataReceivedArgs args)
 		{			
 			this.layerManager.Add(new Layer(args.SelectionData.Text, new Point(args.X, args.Y) ));
-			//Console.WriteLine(args.SelectionData.Data.Length);
+			
 			Gtk.Drag.Finish(args.Context, true, false, args.Time);
 		}
 
@@ -230,7 +230,7 @@ namespace MeeGen
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
 			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
-			//this.layerManager.Export("/home/gulch/Desktop/fooo.png", Format.ARGB32);
+			this.layerManager.Export("/home/gulch/Desktop/fooo.svg", Format.ARGB32);
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)
@@ -265,8 +265,6 @@ namespace MeeGen
 		
 		protected virtual void ZoomInButtonClicked (object sender, System.EventArgs e)
 		{
-//			foreach(Layer l in this.layerManager)
-//				l.ZoomIn(0.1);
 			this.layerManager.Selected.ZoomIn(0.1);
 			this.drawingarea.QueueDraw();
 		}
@@ -310,7 +308,13 @@ namespace MeeGen
 			this.layerManager.UnselectAll();
 			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
 			this.drawingarea.QueueDraw();
+			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Arrow);
 			//Console.WriteLine(args.Event.X + " " + args.Event.Y);
+		}
+		
+		protected virtual void DrawingAreaPress (object o, Gtk.ButtonPressEventArgs args)
+		{
+			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand1);
 		}
 		
 #endregion	

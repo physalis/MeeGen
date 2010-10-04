@@ -447,6 +447,7 @@
                     <signal name="ExposeEvent" handler="DrawingAreaExpose" />
                     <signal name="DragDataReceived" handler="DragData_Received" />
                     <signal name="ButtonReleaseEvent" handler="DrawingAreaClickReleased" />
+                    <signal name="ButtonPressEvent" handler="DrawingAreaPress" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>

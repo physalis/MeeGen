@@ -619,6 +619,7 @@ namespace MeeGen
 			this.drawingarea.ExposeEvent += new global::Gtk.ExposeEventHandler (this.DrawingAreaExpose);
 			this.drawingarea.DragDataReceived += new global::Gtk.DragDataReceivedHandler (this.DragData_Received);
 			this.drawingarea.ButtonReleaseEvent += new global::Gtk.ButtonReleaseEventHandler (this.DrawingAreaClickReleased);
+			this.drawingarea.ButtonPressEvent += new global::Gtk.ButtonPressEventHandler (this.DrawingAreaPress);
 			this.BtnScrollLeft.Clicked += new global::System.EventHandler (this.ScrollLeftButtonClicked);
 			this.iconview.DragDataGet += new global::Gtk.DragDataGetHandler (this.DragData_Get);
 			this.iconview.DragBegin += new global::Gtk.DragBeginHandler (this.Drag_Begin);

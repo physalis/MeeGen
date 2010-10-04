@@ -58,7 +58,7 @@ namespace MeeGen
 				//yep: -> selected = l;
 				// rectangular selection.
 				if(PointInRectangle(new Point(x,y),
-				                    new Rectangle(l.Center, l.Size.Width,l.Size.Height)))
+				                    new Rectangle(new Point((int)(l.Position.X-l.Size.Width/2), (int)(l.Position.Y-l.Size.Height/2)), l.Size.Width, l.Size.Height)))
 				{
 					selected = l;
 				}
@@ -95,11 +95,11 @@ namespace MeeGen
 		
 		public void Export(string filename, Format format)
 		{
-			ImageSurface surf = new ImageSurface(format, 100, 200);
+			SvgSurface surface = new SvgSurface(filename, 1000, 1000);
 			
-			Cairo.Context c = new Context(surf);
+			Cairo.Context c = new Context(surface);
 			this.Draw(c);
-			surf.WriteToPng(filename);
+			surface.Finish();
 		}
 		
 		public void Draw(Cairo.Context context)
@@ -131,7 +131,7 @@ namespace MeeGen
 	
 	public class Layer
 	{
-		protected Point location;
+		protected Point position;
 		protected Handle svgHandle;
 		protected Size size;
 		
@@ -139,9 +139,9 @@ namespace MeeGen
 		protected double rotation; // in rad
 		protected bool selected;
 		
-		public Layer(string filename, Point location)
+		public Layer(string filename, Point pos)
 		{
-			this.location = location;
+			this.position = pos;
 			
 			this.svgHandle = new Handle(filename);
 			
@@ -157,7 +157,7 @@ namespace MeeGen
 		
 		public Layer()
 		{
-			this.location = new Point(0,0);
+			this.position = new Point(0,0);
 			this.svgHandle = new Handle();
 			this.size = new Size();
 			this.size.Width = 0;
@@ -175,20 +175,14 @@ namespace MeeGen
 		/// <summary>
 		/// The position of the upper left corner of the image
 		/// </summary>
-		public Point Location
+		public Point Position
 		{
-			get {return this.location;}
+			get {return this.position;}
 		}
 		
 		public Size Size
 		{
 			get{return this.size;}
-		}
-		
-		public Point Center
-		{
-			get{return new Point(this.Location.X - (int)(this.Size.Width/2),
-				                 this.Location.Y - (int)(this.Size.Height/2));}
 		}
 		
 		public double Rotation
@@ -211,15 +205,15 @@ namespace MeeGen
 		public void ZoomIn(double val)
 		{
 			this.zoom += val;
-			this.size.Width += val;
-			this.size.Height += val;
+			this.size.Width *= zoom;
+			this.size.Height *= zoom;
 		}
 		
 		public void ZoomOut(double val)
 		{
 			this.zoom -= val;
-			this.size.Width += val;
-			this.size.Height += val;
+			this.size.Width *= zoom;
+			this.size.Height *= zoom;
 		}
 		
 		public void Colorify(Gdk.Color color)
@@ -235,52 +229,50 @@ namespace MeeGen
 		
 		public void Move(int x, int y)
 		{
-			this.location.X = x;
-			this.location.Y = y;
+			this.position.X = x;
+			this.position.Y = y;
 		}
 		
 		public void MoveRelative(int dx, int dy)
 		{
-			this.location.X += dx;
-			this.location.Y += dy;
+			this.position.X += dx;
+			this.position.Y += dy;
 		}
 		
 		public void Draw(Cairo.Context cx)
 		{
-			cx.Save();
-			
+			//cx.Save();
 			//cx.Color = new Color(255, 0, 0);
 			//DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, 10, 10, 5);
 			//cx.Color = new Color(0, 255, 0);
 			//DrawRoundedRectangle(cx, this.Location.X, this.Location.Y, 10, 10, 5);
+			//cx.MoveTo(0, 0);
+			//cx.SetDash(new double[]{6}, 0);
+			//cx.LineTo((double)this.Position.X, (double)this.Position.Y);
+			//cx.Stroke();
+			//cx.Restore();
 			
+			cx.Save();
+			
+			cx.Translate(this.Position.X, this.Position.Y);
+			cx.Scale(zoom, zoom);
+			cx.Rotate(this.Rotation);
+			cx.Translate(-this.size.Width/2, -this.size.Height/2);
 			
 			if(this.Selected)
 			{
-				DrawRoundedRectangle(cx, this.Location.X-this.size.Width/2, this.Location.Y-this.size.Height/2, this.size.Width, this.size.Height, 5);
-				cx.Color = new Color(0.58, 0.65, 0.19);
-				//150 166 50
+				DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
+				//cx.Color = new Color(0.58, 0.65, 0.19);
+				cx.Color = new Color(0, 0, 0);
+				//Console.WriteLine("selc");
 				cx.SetDash(new double[]{1, 0, 0,0,0,0, 1}, 0);
 				cx.LineWidth = 2;
 				cx.Stroke();
 			}
+			//DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
+			//cx.Stroke();
+			this.SvgHandle.RenderCairo(cx);
 			
-			
-			//if(this.Selected)
-			//	cx.Scale(2, 2);
-			//cx.LineWidth = 4;
-			
-			cx.Translate(this.Center.X, this.Center.Y);
-			cx.Rotate(this.Rotation);
-			cx.Scale(zoom, zoom);
-			//DrawRoundedRectangle(cx, this.Center.X, this.Center.Y, this.size.Width, this.size.Height, 2);
-			//cx.Rotate(this.Rotation);
-			cx.Scale(zoom, zoom);
-			this.svgHandle.RenderCairo(cx);
-			//cx.Rotate(-Math.PI/2);
-			//this.SvgHandle.RenderCairo(cx);
-			//cx.Translate(-(Location.X-this.Size.Width/2), -(Location.Y - this.Size.Height/2));
-			//cx.Scale(1, 1);
 			cx.Restore();
 		}
 		
