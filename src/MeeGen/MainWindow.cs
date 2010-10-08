@@ -43,7 +43,7 @@ namespace MeeGen
 			this.GtkScrolledWindow.VScrollbar.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
 			this.GtkScrolledWindow.VScrollbar.ModifyFg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
 			this.GtkScrolledWindow.VScrollbar.ModifyBase(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
-		
+					
 			this.iconDict = new Dictionary<string, ListStore>();
 			this.imageDict = new Dictionary<string, string[]>();
 			
@@ -153,15 +153,50 @@ namespace MeeGen
 		protected virtual void FillIconView(string category)
 		{
 			this.iconview.Model = this.iconDict[category];
+			this.iconview.ScrollToPath(new TreePath("0"));
 			this.Category = category;
 		}
 #endregion
 		
 #region 8< ------------ Widget Events ---------------- 
 		
-		protected virtual void ItemsButtonClicked (object sender, System.EventArgs e)
+		protected virtual void MoreButtonClicked (object sender, System.EventArgs e)
 		{
-			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
+			// Move all this to a new class, derived from Gtk.Menu
+			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
+			Menu m = new Menu();
+			m.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
+			
+			MenuItem im = new MenuItem("Items");
+			Pango.FontDescription font = new Pango.FontDescription();
+			//font.Family = "Arial";
+			font.AbsoluteSize = 15 * Pango.Scale.PangoScale;
+			foreach(Widget w in im.AllChildren)
+			{
+				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
+				w.ModifyFont(font);
+			}
+			m.Append(im);
+			
+			im = new MenuItem("Basic shapes");
+			foreach(Widget w in im.AllChildren)
+			{
+				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
+				w.ModifyFont(font);
+
+			}
+			m.Append(im);
+			
+			im = new MenuItem("Other");
+			foreach(Widget w in im.AllChildren)
+			{
+				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
+				w.ModifyFont(font);
+			}
+			m.Append(im);
+			
+			m.ShowAll();
+			m.Popup();
 		}
 		
 		protected virtual void DrawingAreaExpose (object o, Gtk.ExposeEventArgs args)
@@ -217,7 +252,7 @@ namespace MeeGen
 		protected virtual void DragData_Received (object o, Gtk.DragDataReceivedArgs args)
 		{			
 			this.layerManager.Add(new Layer(args.SelectionData.Text, new Point(args.X, args.Y) ));
-			
+			this.layerManager.UnselectAll();
 			Gtk.Drag.Finish(args.Context, true, false, args.Time);
 		}
 
@@ -229,7 +264,7 @@ namespace MeeGen
 
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
-			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
+			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
 			this.layerManager.Export("/home/gulch/Desktop/fooo.svg", Format.ARGB32);
 		}
 
@@ -293,9 +328,11 @@ namespace MeeGen
 			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
 		}
 		
-		protected virtual void SyncButtonClicked (object sender, System.EventArgs e)
+		protected virtual void SettingsButtonClicked (object sender, System.EventArgs e)
 		{
 			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
+			//SettingsDialog dia  = new SettingsDialog();
+			//dia.Run();
 		}
 		
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)
@@ -305,9 +342,7 @@ namespace MeeGen
 		
 		protected virtual void DrawingAreaClickReleased (object o, Gtk.ButtonReleaseEventArgs args)
 		{
-			this.layerManager.UnselectAll();
-			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
-			this.drawingarea.QueueDraw();
+			
 			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Arrow);
 			//Console.WriteLine(args.Event.X + " " + args.Event.Y);
 		}
@@ -315,6 +350,18 @@ namespace MeeGen
 		protected virtual void DrawingAreaPress (object o, Gtk.ButtonPressEventArgs args)
 		{
 			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand1);
+			this.layerManager.UnselectAll();
+			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
+			this.drawingarea.QueueDraw();
+		}
+		
+		protected virtual void DrawingAreaMotionNorify (object o, Gtk.MotionNotifyEventArgs args)
+		{
+			if((args.Event.State & Gdk.ModifierType.Button1Mask) == Gdk.ModifierType.Button1Mask)
+			{
+				this.layerManager.Selected.Move((int)args.Event.X, (int)args.Event.Y);
+				this.drawingarea.QueueDraw();
+			}
 		}
 		
 #endregion	
@@ -323,6 +370,6 @@ namespace MeeGen
 		{
 			Application.Quit ();
 			a.RetVal = true;
-		}	
+		}
 	}
 }

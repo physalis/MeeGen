@@ -10,7 +10,6 @@
     <RootNamespace>MeeGen</RootNamespace>
     <AssemblyName>MeeGen</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ApplicationIcon>Resources\laughing.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,10 +45,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Package>glib-sharp-2.0</Package>
     </Reference>
-    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <Package>glade-sharp-2.0</Package>
-    </Reference>
     <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
       <Package>gtk-sharp-2.0</Package>
@@ -72,20 +67,20 @@
     <EmbeddedResource Include="Resources\arrow-right.png" />
     <EmbeddedResource Include="Resources\arrow-left.png" />
     <EmbeddedResource Include="Resources\arrow-up.png" />
-    <EmbeddedResource Include="Resources\laughing.svg" />
     <EmbeddedResource Include="Resources\folder-remote.png" />
     <EmbeddedResource Include="Resources\user-trash.png" />
     <EmbeddedResource Include="Resources\dialog-question.png" />
     <EmbeddedResource Include="Resources\document-save.png" />
     <EmbeddedResource Include="Resources\small-arrow-right.png" />
     <EmbeddedResource Include="Resources\dialog-information.png" />
-    <EmbeddedResource Include="Resources\logo2.svg" />
     <EmbeddedResource Include="Resources\zoom-in.png" />
     <EmbeddedResource Include="Resources\zoom-out.png" />
     <EmbeddedResource Include="Resources\object-rotate-left.png" />
     <EmbeddedResource Include="Resources\object-rotate-right.png" />
     <EmbeddedResource Include="Resources\object-flip-horizontal.png" />
     <EmbeddedResource Include="Resources\color-chooser.png" />
+    <EmbeddedResource Include="Resources\logo.svg" />
+    <EmbeddedResource Include="Resources\edit-preferences.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -97,6 +92,8 @@
     <Compile Include="LayerManager.cs" />
     <Compile Include="InfoDialog.cs" />
     <Compile Include="gtk-gui\MeeGen.InfoDialog.cs" />
+    <Compile Include="SettingsDialog.cs" />
+    <Compile Include="gtk-gui\MeeGen.SettingsDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

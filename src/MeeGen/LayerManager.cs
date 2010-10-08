@@ -42,6 +42,8 @@ namespace MeeGen
 			this.layers.Insert(index, l);
 		}
 		
+		// Move Up/down
+		
 		public void Select(int index)
 		{
 			if(index < this.Count && index >= 0)
@@ -95,7 +97,10 @@ namespace MeeGen
 		
 		public void Export(string filename, Format format)
 		{
-			SvgSurface surface = new SvgSurface(filename, 1000, 1000);
+			this.UnselectAll(); // else there may still be the selection rectangles
+			
+			//SvgSurface surface = new SvgSurface(filename, 1000, 1000);
+			PdfSurface surface = new PdfSurface(filename, 1000, 1000);
 			
 			Cairo.Context c = new Context(surface);
 			this.Draw(c);
@@ -144,6 +149,7 @@ namespace MeeGen
 			this.position = pos;
 			
 			this.svgHandle = new Handle(filename);
+			this.svgHandle.AddNotification(handle);
 			
 			this.size = new Size();
 			this.size.Width = this.svgHandle.Dimensions.Width;
@@ -153,6 +159,11 @@ namespace MeeGen
 			this.rotation = 0d;
 			
 			this.selected = false;
+		}
+			                                                      
+		public void handle(object o, GLib.NotifyArgs args)
+		{
+			Console.WriteLine(args.Property + "1");		
 		}
 		
 		public Layer()
@@ -258,21 +269,34 @@ namespace MeeGen
 			cx.Scale(zoom, zoom);
 			cx.Rotate(this.Rotation);
 			cx.Translate(-this.size.Width/2, -this.size.Height/2);
+			this.svgHandle.RenderCairo(cx);
 			
 			if(this.Selected)
 			{
-				DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
 				//cx.Color = new Color(0.58, 0.65, 0.19);
+				cx.Save();
 				cx.Color = new Color(0, 0, 0);
-				//Console.WriteLine("selc");
-				cx.SetDash(new double[]{1, 0, 0,0,0,0, 1}, 0);
-				cx.LineWidth = 2;
+				cx.LineWidth = 1;
+				
+				cx.Rectangle(4, 4, 7, 7); //upper right
+				cx.Rectangle(this.Size.Width-10, 4, 7, 7); // upper left
+				cx.Rectangle(4, this.Size.Height-10, 7, 7);
+				cx.Rectangle(this.Size.Width-10, this.Size.Height-10, 7, 7);
+				
+//				DrawRoundedRectangle(cx, this.Size.Width-9, 3, 7, 7, 1); // upper right
+//				DrawRoundedRectangle(cx, 3, 3, 7, 7, 1); // upper left
+//				DrawRoundedRectangle(cx, 3, this.Size.Height-9, 7, 7, 1); // bottom left
+//				DrawRoundedRectangle(cx, this.Size.Width-9, this.Size.Height-9, 7, 7, 1); // bottom right
+				cx.Fill();
+				cx.Restore();
+				
+				DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
+				cx.SetDash(new double[]{7, 4}, 0);
+				cx.LineWidth = 1.2;
 				cx.Stroke();
+
 			}
-			//DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
-			//cx.Stroke();
-			this.SvgHandle.RenderCairo(cx);
-			
+						
 			cx.Restore();
 		}
 		
@@ -299,6 +323,34 @@ namespace MeeGen
 	        
 	        gr.ClosePath ();
 	        gr.Restore ();
+		}
+		
+		static void DrawTriangle(Cairo.Context c, double x, double y, double width)
+		{
+			c.Save();
+			c.MoveTo(x, y);
+			c.LineTo(x, y+width);
+			c.MoveTo(x, y+width);
+			c.LineTo(x+width, y);
+			c.MoveTo(x+width, y);
+			c.LineTo(x, y);
+			c.ClosePath();
+			c.Restore();
+		}
+		
+		static void DrawSquare(Cairo.Context c, double x, double y, double width)
+		{
+			c.Save();
+			c.MoveTo(x, y);
+			c.LineTo(x, y+width);
+			c.MoveTo(x, y+width);
+			c.LineTo(x+width, y+width);
+			c.MoveTo(x+width, y+width);
+			c.LineTo(x+width, y);
+			c.MoveTo(x+width, y);
+			c.LineTo(x, y);
+			c.ClosePath();
+			c.Restore();
 		}
 
 	}

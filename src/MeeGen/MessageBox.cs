@@ -16,18 +16,15 @@ namespace MeeGen
 			                                      DialogFlags.Modal,
 			                                      MessageType.Error,
 			                                      ButtonsType.Ok,
-			                                      //"hello world",
 			                                      message);
 			
 			msg.ModifyBg(StateType.Normal, new Gdk.Color(0xeb, 0x5f, 0x54));
-			
-			// not necessary for the default MeeGo UX but makes it look better on every other distro
-			msg.Icon = Gtk.IconTheme.Default.LoadIcon (Stock.DialogError, 48, (IconLookupFlags) 0);
-			//msg.ModifyText(StateType.Normal, new Gdk.Color(255, 0, 0));
 			msg.SetPosition(WindowPosition.CenterOnParent);
+			msg.Modal = true;
 			msg.Title = "Error";
 			msg.Decorated = false;
 			msg.GrabFocus();
+			SetButtonRelief(msg);
 			int result = msg.Run();
 			msg.Destroy();
 			return result;
@@ -42,15 +39,27 @@ namespace MeeGen
 			                                      message);
 			
 			msg.ModifyBg(StateType.Normal, new Gdk.Color(0x54, 0xb8, 0x7b));
-			msg.Icon = Gtk.IconTheme.Default.LoadIcon (Stock.DialogInfo, 48, (IconLookupFlags) 0);
 			msg.SetPosition(WindowPosition.CenterOnParent);
+			msg.Modal = true;
 			msg.Title = "Info";
 			msg.Decorated = false;
 			msg.GrabFocus();
-			    
+			SetButtonRelief(msg);
 			int result = msg.Run();
 			msg.Destroy();
 			return result;
+		}
+		
+		static void SetButtonRelief(Container c)
+		{
+			foreach(Widget w in c.AllChildren)
+			{
+				Button b;
+				if((b = w as Button) != null)
+					b.Relief = ReliefStyle.None;
+				if((w as Container) != null)
+					SetButtonRelief((Container)w);
+			}
 		}
 	}
 }
