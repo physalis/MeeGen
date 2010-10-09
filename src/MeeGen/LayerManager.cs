@@ -71,11 +71,12 @@ namespace MeeGen
 		
 		// not yet working for polygons, also error prone when rotated
 		// -> needs some more math
-		private bool PointInRectangle(Point p, Rectangle r)
+		internal static bool PointInRectangle(Point p, Rectangle r)
 		{
-			if(p.X >= r.X && p.X <= r.X+r.Width && p.Y <= r.Y +r.Height && p.Y >= r.Y)
-				return true;
-			return false;
+			return p.X >= r.X &&
+				   p.X <= r.X + r.Width &&
+				   p.Y <= r.Y + r.Height &&
+				   p.Y >= r.Y;
 		}
 		
 		public void Unselect(int index)
@@ -151,9 +152,8 @@ namespace MeeGen
 			this.svgHandle = new Handle(filename);
 			this.svgHandle.AddNotification(handle);
 			
-			this.size = new Size();
-			this.size.Width = this.svgHandle.Dimensions.Width;
-			this.size.Height = this.svgHandle.Dimensions.Height;
+			this.size = new Size(this.svgHandle.Dimensions.Width,
+			                     this.svgHandle.Dimensions.Height);
 			
 			this.zoom = 1d;
 			this.rotation = 0d;
@@ -194,6 +194,7 @@ namespace MeeGen
 		public Size Size
 		{
 			get{return this.size;}
+			set{this.size = value;}
 		}
 		
 		public double Rotation
@@ -213,18 +214,28 @@ namespace MeeGen
 			this.rotation = this.DegToRad(degree);
 		}
 		
+		public void ScaleWidth(int val)
+		{
+			this.size.Width += val;
+		}
+		
+		public void ScaleHeight(int val)
+		{
+			this.size.Height += val;
+		}
+		
 		public void ZoomIn(double val)
 		{
 			this.zoom += val;
-			this.size.Width *= zoom;
-			this.size.Height *= zoom;
+			this.size.Width += val;
+			this.size.Height += val;
 		}
 		
 		public void ZoomOut(double val)
 		{
 			this.zoom -= val;
-			this.size.Width *= zoom;
-			this.size.Height *= zoom;
+			this.size.Width -= val;
+			this.size.Height -= val;
 		}
 		
 		public void Colorify(Gdk.Color color)
@@ -262,13 +273,18 @@ namespace MeeGen
 			//cx.LineTo((double)this.Position.X, (double)this.Position.Y);
 			//cx.Stroke();
 			//cx.Restore();
-			
 			cx.Save();
 			
 			cx.Translate(this.Position.X, this.Position.Y);
-			cx.Scale(zoom, zoom);
+			
+		//	this.size.Width = 200;
+			
+			cx.Scale(this.Size.Width / this.svgHandle.Dimensions.Width,
+			         this.Size.Height / this.svgHandle.Dimensions.Height);
+			
+			
 			cx.Rotate(this.Rotation);
-			cx.Translate(-this.size.Width/2, -this.size.Height/2);
+			cx.Translate(-this.SvgHandle.Dimensions.Width/2, -this.SvgHandle.Dimensions.Height/2);
 			this.svgHandle.RenderCairo(cx);
 			
 			if(this.Selected)
@@ -279,9 +295,9 @@ namespace MeeGen
 				cx.LineWidth = 1;
 				
 				cx.Rectangle(4, 4, 7, 7); //upper right
-				cx.Rectangle(this.Size.Width-10, 4, 7, 7); // upper left
-				cx.Rectangle(4, this.Size.Height-10, 7, 7);
-				cx.Rectangle(this.Size.Width-10, this.Size.Height-10, 7, 7);
+				cx.Rectangle(this.SvgHandle.Dimensions.Width-10, 4, 7, 7); // upper left
+				cx.Rectangle(4, this.SvgHandle.Dimensions.Height-10, 7, 7);
+				cx.Rectangle(this.SvgHandle.Dimensions.Width-10, this.SvgHandle.Dimensions.Height-10, 7, 7);
 				
 //				DrawRoundedRectangle(cx, this.Size.Width-9, 3, 7, 7, 1); // upper right
 //				DrawRoundedRectangle(cx, 3, 3, 7, 7, 1); // upper left
@@ -290,7 +306,9 @@ namespace MeeGen
 				cx.Fill();
 				cx.Restore();
 				
-				DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
+				//DrawRoundedRectangle(cx, 0, 0, this.size.Width, this.size.Height, 5);
+				DrawRoundedRectangle(cx, -3, -3, this.svgHandle.Dimensions.Width+6, this.svgHandle.Dimensions.Height+6, 5);
+
 				cx.SetDash(new double[]{7, 4}, 0);
 				cx.LineWidth = 1.2;
 				cx.Stroke();
@@ -337,26 +355,16 @@ namespace MeeGen
 			c.ClosePath();
 			c.Restore();
 		}
-		
-		static void DrawSquare(Cairo.Context c, double x, double y, double width)
-		{
-			c.Save();
-			c.MoveTo(x, y);
-			c.LineTo(x, y+width);
-			c.MoveTo(x, y+width);
-			c.LineTo(x+width, y+width);
-			c.MoveTo(x+width, y+width);
-			c.LineTo(x+width, y);
-			c.MoveTo(x+width, y);
-			c.LineTo(x, y);
-			c.ClosePath();
-			c.Restore();
-		}
-
 	}
 	
 	public struct Size
 	{
+		public Size(double Width, double Height)
+		{
+			this.Width = Width;
+			this.Height = Height;
+		}
+		
 		public double Width;
 		public double Height;
 	}

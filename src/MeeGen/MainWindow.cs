@@ -18,6 +18,8 @@ namespace MeeGen
 		
 		LayerManager layerManager;
 		
+		//Point last;
+		
 		public MainWindow(string databaseFile) : base(Gtk.WindowType.Toplevel)
 		{
 			Build();
@@ -300,14 +302,13 @@ namespace MeeGen
 		
 		protected virtual void ZoomInButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.ZoomIn(0.1);
+			this.layerManager.Selected.ZoomIn(1);
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void ZoomOutButtonClicked (object sender, System.EventArgs e)
 		{
-
-			this.layerManager.Selected.ZoomOut(0.1);
+			this.layerManager.Selected.ZoomOut(1);
 			this.drawingarea.QueueDraw();
 		}
 		
@@ -355,12 +356,27 @@ namespace MeeGen
 			this.drawingarea.QueueDraw();
 		}
 		
-		protected virtual void DrawingAreaMotionNorify (object o, Gtk.MotionNotifyEventArgs args)
+//		Point last = new Point(0,0);
+		
+		protected virtual void DrawingAreaMotionNotify (object o, Gtk.MotionNotifyEventArgs args)
 		{
 			if((args.Event.State & Gdk.ModifierType.Button1Mask) == Gdk.ModifierType.Button1Mask)
 			{
+//				if(this.last.X == 0)
+//					this.last = new Point((int)args.Event.X, (int)args.Event.Y);
+//				
+//				
+//				
+//				Size s = new Size();
+//				s.Width = this.layerManager.Selected.Size.Width + args.Event.X - this.last.X;
+//				s.Height = this.layerManager.Selected.Size.Height + args.Event.Y - this.last.Y;
+//				
+//				this.layerManager.Selected.Size = s;
+
+				
 				this.layerManager.Selected.Move((int)args.Event.X, (int)args.Event.Y);
 				this.drawingarea.QueueDraw();
+
 			}
 		}
 		
