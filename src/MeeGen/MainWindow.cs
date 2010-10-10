@@ -355,28 +355,15 @@ namespace MeeGen
 			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
 			this.drawingarea.QueueDraw();
 		}
-		
-//		Point last = new Point(0,0);
-		
+				
 		protected virtual void DrawingAreaMotionNotify (object o, Gtk.MotionNotifyEventArgs args)
 		{
 			if((args.Event.State & Gdk.ModifierType.Button1Mask) == Gdk.ModifierType.Button1Mask)
 			{
-//				if(this.last.X == 0)
-//					this.last = new Point((int)args.Event.X, (int)args.Event.Y);
-//				
-//				
-//				
-//				Size s = new Size();
-//				s.Width = this.layerManager.Selected.Size.Width + args.Event.X - this.last.X;
-//				s.Height = this.layerManager.Selected.Size.Height + args.Event.Y - this.last.Y;
-//				
-//				this.layerManager.Selected.Size = s;
-
-				
-				this.layerManager.Selected.Move((int)args.Event.X, (int)args.Event.Y);
+				this.layerManager.Selected.Drag(DragLocation.Inside,
+				                                (int)args.Event.X,
+				                                (int)args.Event.Y);
 				this.drawingarea.QueueDraw();
-
 			}
 		}
 		

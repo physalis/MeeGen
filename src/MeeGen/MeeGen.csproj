@@ -94,6 +94,7 @@
     <Compile Include="gtk-gui\MeeGen.InfoDialog.cs" />
     <Compile Include="SettingsDialog.cs" />
     <Compile Include="gtk-gui\MeeGen.SettingsDialog.cs" />
+    <Compile Include="Layer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
