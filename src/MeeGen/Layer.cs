@@ -68,7 +68,7 @@ namespace MeeGen
 			set{this.rotation = value;}
 		}
 		
-		public void Select(bool selected, Point offset)
+		public void Select(Point offset)
 		{
 			this.offset = offset;
 			this.Selected = true;
@@ -115,9 +115,8 @@ namespace MeeGen
 			// and reset svghandle Handle(byte[] data) from stream. (bytestream, memorystream);
 			
 			// Because images like Pets consist of several layers themselves, colorifying them
-			// is difficult. A solution might be to add a Colorable bool-member to every layer, and check there
-			// and if adequate do some notifications (stylish boxes popping up, 
-			// informing the user about his mistake and then fade away...
+			// is difficult. A solution might be to add a Colorable bool-member to every Layer, if
+			// it consists of several layers itself (pet & item category) do not colorify it.
 		}
 		
 		public void Move(int dx, int dy)
@@ -140,7 +139,9 @@ namespace MeeGen
 					this.Move(dx, dy);
 					break;
 				case DragLocation.BottomLeft:
-					this.size.Width += dx;
+					this.size.Width += dx - this.offset.X;
+					this.size.Height += dy - this.offset.Y;
+					this.offset = new Point(dx, dy);
 					break;
 				default:
 					break;
@@ -208,7 +209,7 @@ namespace MeeGen
 		
 		private double DegToRad(double degree)
 		{
-			return (degree/360) * (2 * Math.PI);
+			return (degree/180) * Math.PI;
 		}
 		
 		static void DrawRoundedRectangle (Cairo.Context gr, double x, double y, double width, double height, double radius)

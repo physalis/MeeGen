@@ -66,7 +66,7 @@ namespace MeeGen
 				}
 			}
 			if(selected != null)
-				selected.Select(true, new Point(x, y));
+				selected.Select(new Point(x, y));
 		}
 		
 		// not yet working for polygons, also error prone when rotated
