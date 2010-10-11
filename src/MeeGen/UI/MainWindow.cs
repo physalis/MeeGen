@@ -282,7 +282,7 @@ namespace MeeGen
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
 			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
-			this.layerManager.Export("/home/gulch/Desktop/fooo.svg", Format.ARGB32);
+			this.layerManager.Export("./fooo.svg", Format.ARGB32);
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)

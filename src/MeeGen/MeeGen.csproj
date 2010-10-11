@@ -97,6 +97,7 @@
     <Compile Include="UI\MessageBox.cs" />
     <Compile Include="UI\MainWindow.cs" />
     <Compile Include="UI\InfoDialog.cs" />
+    <Compile Include="UI\ExportWizard.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
