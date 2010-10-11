@@ -81,20 +81,26 @@
     <EmbeddedResource Include="Resources\color-chooser.png" />
     <EmbeddedResource Include="Resources\logo.svg" />
     <EmbeddedResource Include="Resources\edit-preferences.png" />
+    <EmbeddedResource Include="Resources\go-up.png" />
+    <EmbeddedResource Include="Resources\go-down.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="MessageBox.cs" />
     <Compile Include="gtk-gui\MeeGen.MainWindow.cs" />
-    <Compile Include="LayerManager.cs" />
-    <Compile Include="InfoDialog.cs" />
     <Compile Include="gtk-gui\MeeGen.InfoDialog.cs" />
-    <Compile Include="SettingsDialog.cs" />
     <Compile Include="gtk-gui\MeeGen.SettingsDialog.cs" />
-    <Compile Include="Layer.cs" />
+    <Compile Include="Layers\Layer.cs" />
+    <Compile Include="Layers\LayerManager.cs" />
+    <Compile Include="UI\SettingsDialog.cs" />
+    <Compile Include="UI\MessageBox.cs" />
+    <Compile Include="UI\MainWindow.cs" />
+    <Compile Include="UI\InfoDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Layers\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
 </Project>

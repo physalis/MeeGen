@@ -4,10 +4,6 @@ namespace MeeGen
 {
 	public partial class MainWindow
 	{
-		private global::Gtk.UIManager UIManager;
-
-		private global::Gtk.Action closeAction;
-
 		private global::Gtk.VBox vbox1;
 
 		private global::Gtk.VBox vbox2;
@@ -60,6 +56,10 @@ namespace MeeGen
 
 		private global::Gtk.Button BtnRotateRight;
 
+		private global::Gtk.Button BtnLayerUp;
+
+		private global::Gtk.Button BtnLayerDown;
+
 		private global::Gtk.Button BtnFlip;
 
 		private global::Gtk.Button BtnColorSelection;
@@ -80,12 +80,6 @@ namespace MeeGen
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget MeeGen.MainWindow
-			this.UIManager = new global::Gtk.UIManager ();
-			global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
-			this.closeAction = new global::Gtk.Action ("closeAction", null, null, "gtk-close");
-			w1.Add (this.closeAction, null);
-			this.UIManager.InsertActionGroup (w1, 0);
-			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.Name = "MeeGen.MainWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString ("MeeGen#");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.logo.svg");
@@ -121,9 +115,9 @@ namespace MeeGen
 			this.BtnHeads.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnHeads.Label = global::Mono.Unix.Catalog.GetString ("Heads");
 			this.vbuttonbox1.Add (this.BtnHeads);
-			global::Gtk.ButtonBox.ButtonBoxChild w2 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnHeads]));
-			w2.Expand = false;
-			w2.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w1 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnHeads]));
+			w1.Expand = false;
+			w1.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnHair = new global::Gtk.Button ();
 			this.BtnHair.CanFocus = true;
@@ -132,10 +126,10 @@ namespace MeeGen
 			this.BtnHair.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnHair.Label = global::Mono.Unix.Catalog.GetString ("Hair");
 			this.vbuttonbox1.Add (this.BtnHair);
-			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnHair]));
-			w3.Position = 1;
-			w3.Expand = false;
-			w3.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w2 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnHair]));
+			w2.Position = 1;
+			w2.Expand = false;
+			w2.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnArms = new global::Gtk.Button ();
 			this.BtnArms.CanFocus = true;
@@ -144,10 +138,10 @@ namespace MeeGen
 			this.BtnArms.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnArms.Label = global::Mono.Unix.Catalog.GetString ("Arms");
 			this.vbuttonbox1.Add (this.BtnArms);
-			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnArms]));
-			w4.Position = 2;
-			w4.Expand = false;
-			w4.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnArms]));
+			w3.Position = 2;
+			w3.Expand = false;
+			w3.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnBodies = new global::Gtk.Button ();
 			this.BtnBodies.CanFocus = true;
@@ -156,10 +150,10 @@ namespace MeeGen
 			this.BtnBodies.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnBodies.Label = global::Mono.Unix.Catalog.GetString ("Bodies");
 			this.vbuttonbox1.Add (this.BtnBodies);
-			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnBodies]));
-			w5.Position = 3;
-			w5.Expand = false;
-			w5.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnBodies]));
+			w4.Position = 3;
+			w4.Expand = false;
+			w4.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnLegs = new global::Gtk.Button ();
 			this.BtnLegs.CanFocus = true;
@@ -168,10 +162,10 @@ namespace MeeGen
 			this.BtnLegs.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnLegs.Label = global::Mono.Unix.Catalog.GetString ("Legs");
 			this.vbuttonbox1.Add (this.BtnLegs);
-			global::Gtk.ButtonBox.ButtonBoxChild w6 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnLegs]));
-			w6.Position = 4;
-			w6.Expand = false;
-			w6.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnLegs]));
+			w5.Position = 4;
+			w5.Expand = false;
+			w5.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnPets = new global::Gtk.Button ();
 			this.BtnPets.CanFocus = true;
@@ -180,10 +174,10 @@ namespace MeeGen
 			this.BtnPets.Relief = ((global::Gtk.ReliefStyle)(2));
 			this.BtnPets.Label = global::Mono.Unix.Catalog.GetString ("Pets");
 			this.vbuttonbox1.Add (this.BtnPets);
-			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnPets]));
-			w7.Position = 5;
-			w7.Expand = false;
-			w7.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w6 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnPets]));
+			w6.Position = 5;
+			w6.Expand = false;
+			w6.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnMore = new global::Gtk.Button ();
 			this.BtnMore.CanFocus = true;
@@ -206,29 +200,29 @@ namespace MeeGen
 			this.label1.WidthChars = 8;
 			this.label1.SingleLineMode = true;
 			this.hbox2.Add (this.label1);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label1]));
-			w8.Position = 0;
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label1]));
+			w7.Position = 0;
+			w7.Expand = false;
+			w7.Fill = false;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.image8 = new global::Gtk.Image ();
 			this.image8.Name = "image8";
 			this.image8.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.small-arrow-right.png");
 			this.hbox2.Add (this.image8);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.image8]));
-			w9.Position = 1;
-			w9.Expand = false;
-			w9.Fill = false;
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.image8]));
+			w8.Position = 1;
+			w8.Expand = false;
+			w8.Fill = false;
 			this.BtnMore.Add (this.hbox2);
 			this.BtnMore.Label = null;
 			this.vbuttonbox1.Add (this.BtnMore);
-			global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnMore]));
-			w11.Position = 6;
-			w11.Expand = false;
-			w11.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.BtnMore]));
+			w10.Position = 6;
+			w10.Expand = false;
+			w10.Fill = false;
 			this.vbox3.Add (this.vbuttonbox1);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.vbuttonbox1]));
-			w12.Position = 0;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.vbuttonbox1]));
+			w11.Position = 0;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.table1 = new global::Gtk.Table (((uint)(2)), ((uint)(2)), true);
 			this.table1.Name = "table1";
@@ -244,27 +238,27 @@ namespace MeeGen
 			this.BtnAbout.FocusOnClick = false;
 			this.BtnAbout.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnAbout.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w13 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w12 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w14 = new global::Gtk.HBox ();
-			w14.Spacing = 2;
+			global::Gtk.HBox w13 = new global::Gtk.HBox ();
+			w13.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w15 = new global::Gtk.Image ();
-			w15.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.dialog-information.png");
-			w14.Add (w15);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w17 = new global::Gtk.Label ();
-			w14.Add (w17);
+			global::Gtk.Image w14 = new global::Gtk.Image ();
+			w14.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.dialog-information.png");
 			w13.Add (w14);
-			this.BtnAbout.Add (w13);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w16 = new global::Gtk.Label ();
+			w13.Add (w16);
+			w12.Add (w13);
+			this.BtnAbout.Add (w12);
 			this.table1.Add (this.BtnAbout);
-			global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnAbout]));
-			w21.TopAttach = ((uint)(1));
-			w21.BottomAttach = ((uint)(2));
-			w21.LeftAttach = ((uint)(1));
-			w21.RightAttach = ((uint)(2));
-			w21.XOptions = ((global::Gtk.AttachOptions)(4));
-			w21.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnAbout]));
+			w20.TopAttach = ((uint)(1));
+			w20.BottomAttach = ((uint)(2));
+			w20.LeftAttach = ((uint)(1));
+			w20.RightAttach = ((uint)(2));
+			w20.XOptions = ((global::Gtk.AttachOptions)(4));
+			w20.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.BtnReset = new global::Gtk.Button ();
 			this.BtnReset.TooltipMarkup = "Reset";
@@ -274,25 +268,25 @@ namespace MeeGen
 			this.BtnReset.FocusOnClick = false;
 			this.BtnReset.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnReset.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w22 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w21 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w23 = new global::Gtk.HBox ();
-			w23.Spacing = 2;
+			global::Gtk.HBox w22 = new global::Gtk.HBox ();
+			w22.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w24 = new global::Gtk.Image ();
-			w24.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.user-trash.png");
-			w23.Add (w24);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w26 = new global::Gtk.Label ();
-			w23.Add (w26);
+			global::Gtk.Image w23 = new global::Gtk.Image ();
+			w23.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.user-trash.png");
 			w22.Add (w23);
-			this.BtnReset.Add (w22);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w25 = new global::Gtk.Label ();
+			w22.Add (w25);
+			w21.Add (w22);
+			this.BtnReset.Add (w21);
 			this.table1.Add (this.BtnReset);
-			global::Gtk.Table.TableChild w30 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnReset]));
-			w30.TopAttach = ((uint)(1));
-			w30.BottomAttach = ((uint)(2));
-			w30.XOptions = ((global::Gtk.AttachOptions)(4));
-			w30.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w29 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnReset]));
+			w29.TopAttach = ((uint)(1));
+			w29.BottomAttach = ((uint)(2));
+			w29.XOptions = ((global::Gtk.AttachOptions)(4));
+			w29.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.BtnSettings = new global::Gtk.Button ();
 			this.BtnSettings.TooltipMarkup = "Sync";
@@ -302,25 +296,25 @@ namespace MeeGen
 			this.BtnSettings.FocusOnClick = false;
 			this.BtnSettings.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnSettings.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w31 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w30 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w32 = new global::Gtk.HBox ();
-			w32.Spacing = 2;
+			global::Gtk.HBox w31 = new global::Gtk.HBox ();
+			w31.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w33 = new global::Gtk.Image ();
-			w33.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.edit-preferences.png");
-			w32.Add (w33);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w35 = new global::Gtk.Label ();
-			w32.Add (w35);
+			global::Gtk.Image w32 = new global::Gtk.Image ();
+			w32.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.edit-preferences.png");
 			w31.Add (w32);
-			this.BtnSettings.Add (w31);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w34 = new global::Gtk.Label ();
+			w31.Add (w34);
+			w30.Add (w31);
+			this.BtnSettings.Add (w30);
 			this.table1.Add (this.BtnSettings);
-			global::Gtk.Table.TableChild w39 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnSettings]));
-			w39.LeftAttach = ((uint)(1));
-			w39.RightAttach = ((uint)(2));
-			w39.XOptions = ((global::Gtk.AttachOptions)(4));
-			w39.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w38 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnSettings]));
+			w38.LeftAttach = ((uint)(1));
+			w38.RightAttach = ((uint)(2));
+			w38.XOptions = ((global::Gtk.AttachOptions)(4));
+			w38.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.button14 = new global::Gtk.Button ();
 			this.button14.TooltipMarkup = "Export";
@@ -330,33 +324,33 @@ namespace MeeGen
 			this.button14.FocusOnClick = false;
 			this.button14.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child button14.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w40 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w39 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w41 = new global::Gtk.HBox ();
-			w41.Spacing = 2;
+			global::Gtk.HBox w40 = new global::Gtk.HBox ();
+			w40.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w42 = new global::Gtk.Image ();
-			w42.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.document-save.png");
-			w41.Add (w42);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w44 = new global::Gtk.Label ();
-			w41.Add (w44);
+			global::Gtk.Image w41 = new global::Gtk.Image ();
+			w41.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.document-save.png");
 			w40.Add (w41);
-			this.button14.Add (w40);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w43 = new global::Gtk.Label ();
+			w40.Add (w43);
+			w39.Add (w40);
+			this.button14.Add (w39);
 			this.table1.Add (this.button14);
-			global::Gtk.Table.TableChild w48 = ((global::Gtk.Table.TableChild)(this.table1[this.button14]));
-			w48.XOptions = ((global::Gtk.AttachOptions)(4));
-			w48.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w47 = ((global::Gtk.Table.TableChild)(this.table1[this.button14]));
+			w47.XOptions = ((global::Gtk.AttachOptions)(4));
+			w47.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox3.Add (this.table1);
-			global::Gtk.Box.BoxChild w49 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.table1]));
-			w49.Position = 1;
+			global::Gtk.Box.BoxChild w48 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.table1]));
+			w48.Position = 1;
+			w48.Expand = false;
+			w48.Fill = false;
+			this.hbox1.Add (this.vbox3);
+			global::Gtk.Box.BoxChild w49 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
+			w49.Position = 0;
 			w49.Expand = false;
 			w49.Fill = false;
-			this.hbox1.Add (this.vbox3);
-			global::Gtk.Box.BoxChild w50 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbox3]));
-			w50.Position = 0;
-			w50.Expand = false;
-			w50.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbox6 = new global::Gtk.VBox ();
 			this.vbox6.Name = "vbox6";
@@ -372,23 +366,23 @@ namespace MeeGen
 			this.BtnZoomIn.FocusOnClick = false;
 			this.BtnZoomIn.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnZoomIn.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w51 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w50 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w52 = new global::Gtk.HBox ();
-			w52.Spacing = 2;
+			global::Gtk.HBox w51 = new global::Gtk.HBox ();
+			w51.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w53 = new global::Gtk.Image ();
-			w53.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.zoom-in.png");
-			w52.Add (w53);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w55 = new global::Gtk.Label ();
-			w52.Add (w55);
+			global::Gtk.Image w52 = new global::Gtk.Image ();
+			w52.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.zoom-in.png");
 			w51.Add (w52);
-			this.BtnZoomIn.Add (w51);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w54 = new global::Gtk.Label ();
+			w51.Add (w54);
+			w50.Add (w51);
+			this.BtnZoomIn.Add (w50);
 			this.hbuttonbox15.Add (this.BtnZoomIn);
-			global::Gtk.ButtonBox.ButtonBoxChild w59 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnZoomIn]));
-			w59.Expand = false;
-			w59.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w58 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnZoomIn]));
+			w58.Expand = false;
+			w58.Fill = false;
 			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnZoomOut = new global::Gtk.Button ();
 			this.BtnZoomOut.CanFocus = true;
@@ -397,24 +391,24 @@ namespace MeeGen
 			this.BtnZoomOut.FocusOnClick = false;
 			this.BtnZoomOut.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnZoomOut.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w60 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w59 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w61 = new global::Gtk.HBox ();
-			w61.Spacing = 2;
+			global::Gtk.HBox w60 = new global::Gtk.HBox ();
+			w60.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w62 = new global::Gtk.Image ();
-			w62.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.zoom-out.png");
-			w61.Add (w62);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w64 = new global::Gtk.Label ();
-			w61.Add (w64);
+			global::Gtk.Image w61 = new global::Gtk.Image ();
+			w61.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.zoom-out.png");
 			w60.Add (w61);
-			this.BtnZoomOut.Add (w60);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w63 = new global::Gtk.Label ();
+			w60.Add (w63);
+			w59.Add (w60);
+			this.BtnZoomOut.Add (w59);
 			this.hbuttonbox15.Add (this.BtnZoomOut);
-			global::Gtk.ButtonBox.ButtonBoxChild w68 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnZoomOut]));
-			w68.Position = 1;
-			w68.Expand = false;
-			w68.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w67 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnZoomOut]));
+			w67.Position = 1;
+			w67.Expand = false;
+			w67.Fill = false;
 			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnRotateLeft = new global::Gtk.Button ();
 			this.BtnRotateLeft.CanFocus = true;
@@ -423,24 +417,24 @@ namespace MeeGen
 			this.BtnRotateLeft.FocusOnClick = false;
 			this.BtnRotateLeft.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnRotateLeft.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w69 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w68 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w70 = new global::Gtk.HBox ();
-			w70.Spacing = 2;
+			global::Gtk.HBox w69 = new global::Gtk.HBox ();
+			w69.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w71 = new global::Gtk.Image ();
-			w71.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-rotate-left.png");
-			w70.Add (w71);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w73 = new global::Gtk.Label ();
-			w70.Add (w73);
+			global::Gtk.Image w70 = new global::Gtk.Image ();
+			w70.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-rotate-left.png");
 			w69.Add (w70);
-			this.BtnRotateLeft.Add (w69);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w72 = new global::Gtk.Label ();
+			w69.Add (w72);
+			w68.Add (w69);
+			this.BtnRotateLeft.Add (w68);
 			this.hbuttonbox15.Add (this.BtnRotateLeft);
-			global::Gtk.ButtonBox.ButtonBoxChild w77 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnRotateLeft]));
-			w77.Position = 2;
-			w77.Expand = false;
-			w77.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w76 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnRotateLeft]));
+			w76.Position = 2;
+			w76.Expand = false;
+			w76.Fill = false;
 			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnRotateRight = new global::Gtk.Button ();
 			this.BtnRotateRight.CanFocus = true;
@@ -449,24 +443,76 @@ namespace MeeGen
 			this.BtnRotateRight.FocusOnClick = false;
 			this.BtnRotateRight.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnRotateRight.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w78 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w77 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w79 = new global::Gtk.HBox ();
-			w79.Spacing = 2;
+			global::Gtk.HBox w78 = new global::Gtk.HBox ();
+			w78.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w80 = new global::Gtk.Image ();
-			w80.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-rotate-right.png");
-			w79.Add (w80);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w82 = new global::Gtk.Label ();
-			w79.Add (w82);
+			global::Gtk.Image w79 = new global::Gtk.Image ();
+			w79.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-rotate-right.png");
 			w78.Add (w79);
-			this.BtnRotateRight.Add (w78);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w81 = new global::Gtk.Label ();
+			w78.Add (w81);
+			w77.Add (w78);
+			this.BtnRotateRight.Add (w77);
 			this.hbuttonbox15.Add (this.BtnRotateRight);
-			global::Gtk.ButtonBox.ButtonBoxChild w86 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnRotateRight]));
-			w86.Position = 3;
-			w86.Expand = false;
-			w86.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w85 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnRotateRight]));
+			w85.Position = 3;
+			w85.Expand = false;
+			w85.Fill = false;
+			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
+			this.BtnLayerUp = new global::Gtk.Button ();
+			this.BtnLayerUp.CanFocus = true;
+			this.BtnLayerUp.Name = "BtnLayerUp";
+			this.BtnLayerUp.UseUnderline = true;
+			this.BtnLayerUp.FocusOnClick = false;
+			this.BtnLayerUp.Relief = ((global::Gtk.ReliefStyle)(2));
+			// Container child BtnLayerUp.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w86 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w87 = new global::Gtk.HBox ();
+			w87.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w88 = new global::Gtk.Image ();
+			w88.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.go-up.png");
+			w87.Add (w88);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w90 = new global::Gtk.Label ();
+			w87.Add (w90);
+			w86.Add (w87);
+			this.BtnLayerUp.Add (w86);
+			this.hbuttonbox15.Add (this.BtnLayerUp);
+			global::Gtk.ButtonBox.ButtonBoxChild w94 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnLayerUp]));
+			w94.Position = 4;
+			w94.Expand = false;
+			w94.Fill = false;
+			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
+			this.BtnLayerDown = new global::Gtk.Button ();
+			this.BtnLayerDown.CanFocus = true;
+			this.BtnLayerDown.Name = "BtnLayerDown";
+			this.BtnLayerDown.UseUnderline = true;
+			this.BtnLayerDown.FocusOnClick = false;
+			this.BtnLayerDown.Relief = ((global::Gtk.ReliefStyle)(2));
+			// Container child BtnLayerDown.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w95 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w96 = new global::Gtk.HBox ();
+			w96.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w97 = new global::Gtk.Image ();
+			w97.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.go-down.png");
+			w96.Add (w97);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w99 = new global::Gtk.Label ();
+			w96.Add (w99);
+			w95.Add (w96);
+			this.BtnLayerDown.Add (w95);
+			this.hbuttonbox15.Add (this.BtnLayerDown);
+			global::Gtk.ButtonBox.ButtonBoxChild w103 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnLayerDown]));
+			w103.Position = 5;
+			w103.Expand = false;
+			w103.Fill = false;
 			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnFlip = new global::Gtk.Button ();
 			this.BtnFlip.CanFocus = true;
@@ -475,24 +521,24 @@ namespace MeeGen
 			this.BtnFlip.FocusOnClick = false;
 			this.BtnFlip.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnFlip.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w87 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w104 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w88 = new global::Gtk.HBox ();
-			w88.Spacing = 2;
+			global::Gtk.HBox w105 = new global::Gtk.HBox ();
+			w105.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w89 = new global::Gtk.Image ();
-			w89.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-flip-horizontal.png");
-			w88.Add (w89);
+			global::Gtk.Image w106 = new global::Gtk.Image ();
+			w106.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.object-flip-horizontal.png");
+			w105.Add (w106);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w91 = new global::Gtk.Label ();
-			w88.Add (w91);
-			w87.Add (w88);
-			this.BtnFlip.Add (w87);
+			global::Gtk.Label w108 = new global::Gtk.Label ();
+			w105.Add (w108);
+			w104.Add (w105);
+			this.BtnFlip.Add (w104);
 			this.hbuttonbox15.Add (this.BtnFlip);
-			global::Gtk.ButtonBox.ButtonBoxChild w95 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnFlip]));
-			w95.Position = 4;
-			w95.Expand = false;
-			w95.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w112 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnFlip]));
+			w112.Position = 6;
+			w112.Expand = false;
+			w112.Fill = false;
 			// Container child hbuttonbox15.Gtk.ButtonBox+ButtonBoxChild
 			this.BtnColorSelection = new global::Gtk.Button ();
 			this.BtnColorSelection.CanFocus = true;
@@ -501,36 +547,36 @@ namespace MeeGen
 			this.BtnColorSelection.FocusOnClick = false;
 			this.BtnColorSelection.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnColorSelection.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w96 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w113 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w97 = new global::Gtk.HBox ();
-			w97.Spacing = 2;
+			global::Gtk.HBox w114 = new global::Gtk.HBox ();
+			w114.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w98 = new global::Gtk.Image ();
-			w98.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.color-chooser.png");
-			w97.Add (w98);
+			global::Gtk.Image w115 = new global::Gtk.Image ();
+			w115.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.color-chooser.png");
+			w114.Add (w115);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w100 = new global::Gtk.Label ();
-			w97.Add (w100);
-			w96.Add (w97);
-			this.BtnColorSelection.Add (w96);
+			global::Gtk.Label w117 = new global::Gtk.Label ();
+			w114.Add (w117);
+			w113.Add (w114);
+			this.BtnColorSelection.Add (w113);
 			this.hbuttonbox15.Add (this.BtnColorSelection);
-			global::Gtk.ButtonBox.ButtonBoxChild w104 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnColorSelection]));
-			w104.Position = 5;
-			w104.Expand = false;
-			w104.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w121 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox15[this.BtnColorSelection]));
+			w121.Position = 7;
+			w121.Expand = false;
+			w121.Fill = false;
 			this.vbox6.Add (this.hbuttonbox15);
-			global::Gtk.Box.BoxChild w105 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.hbuttonbox15]));
-			w105.Position = 0;
-			w105.Expand = false;
-			w105.Fill = false;
+			global::Gtk.Box.BoxChild w122 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.hbuttonbox15]));
+			w122.Position = 0;
+			w122.Expand = false;
+			w122.Fill = false;
 			// Container child vbox6.Gtk.Box+BoxChild
 			this.drawingarea = new global::Gtk.DrawingArea ();
 			this.drawingarea.Events = ((global::Gdk.EventMask)(804));
 			this.drawingarea.Name = "drawingarea";
 			this.vbox6.Add (this.drawingarea);
-			global::Gtk.Box.BoxChild w106 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.drawingarea]));
-			w106.Position = 1;
+			global::Gtk.Box.BoxChild w123 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.drawingarea]));
+			w123.Position = 1;
 			// Container child vbox6.Gtk.Box+BoxChild
 			this.hbox4 = new global::Gtk.HBox ();
 			this.hbox4.Name = "hbox4";
@@ -543,24 +589,24 @@ namespace MeeGen
 			this.BtnScrollLeft.FocusOnClick = false;
 			this.BtnScrollLeft.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnScrollLeft.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w107 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w124 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w108 = new global::Gtk.HBox ();
-			w108.Spacing = 2;
+			global::Gtk.HBox w125 = new global::Gtk.HBox ();
+			w125.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w109 = new global::Gtk.Image ();
-			w109.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.arrow-left.png");
-			w108.Add (w109);
+			global::Gtk.Image w126 = new global::Gtk.Image ();
+			w126.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.arrow-left.png");
+			w125.Add (w126);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w111 = new global::Gtk.Label ();
-			w108.Add (w111);
-			w107.Add (w108);
-			this.BtnScrollLeft.Add (w107);
+			global::Gtk.Label w128 = new global::Gtk.Label ();
+			w125.Add (w128);
+			w124.Add (w125);
+			this.BtnScrollLeft.Add (w124);
 			this.hbox4.Add (this.BtnScrollLeft);
-			global::Gtk.Box.BoxChild w115 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.BtnScrollLeft]));
-			w115.Position = 0;
-			w115.Expand = false;
-			w115.Fill = false;
+			global::Gtk.Box.BoxChild w132 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.BtnScrollLeft]));
+			w132.Position = 0;
+			w132.Expand = false;
+			w132.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -571,8 +617,8 @@ namespace MeeGen
 			this.iconview.Name = "iconview";
 			this.GtkScrolledWindow.Add (this.iconview);
 			this.hbox4.Add (this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w117 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.GtkScrolledWindow]));
-			w117.Position = 1;
+			global::Gtk.Box.BoxChild w134 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.GtkScrolledWindow]));
+			w134.Position = 1;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.BtnScrollRight = new global::Gtk.Button ();
 			this.BtnScrollRight.CanFocus = true;
@@ -581,43 +627,43 @@ namespace MeeGen
 			this.BtnScrollRight.FocusOnClick = false;
 			this.BtnScrollRight.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnScrollRight.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w118 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			global::Gtk.Alignment w135 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w119 = new global::Gtk.HBox ();
-			w119.Spacing = 2;
+			global::Gtk.HBox w136 = new global::Gtk.HBox ();
+			w136.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w120 = new global::Gtk.Image ();
-			w120.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.arrow-right.png");
-			w119.Add (w120);
+			global::Gtk.Image w137 = new global::Gtk.Image ();
+			w137.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.arrow-right.png");
+			w136.Add (w137);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w122 = new global::Gtk.Label ();
-			w119.Add (w122);
-			w118.Add (w119);
-			this.BtnScrollRight.Add (w118);
+			global::Gtk.Label w139 = new global::Gtk.Label ();
+			w136.Add (w139);
+			w135.Add (w136);
+			this.BtnScrollRight.Add (w135);
 			this.hbox4.Add (this.BtnScrollRight);
-			global::Gtk.Box.BoxChild w126 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.BtnScrollRight]));
-			w126.Position = 2;
-			w126.Expand = false;
-			w126.Fill = false;
+			global::Gtk.Box.BoxChild w143 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.BtnScrollRight]));
+			w143.Position = 2;
+			w143.Expand = false;
+			w143.Fill = false;
 			this.vbox6.Add (this.hbox4);
-			global::Gtk.Box.BoxChild w127 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.hbox4]));
-			w127.Position = 2;
-			w127.Expand = false;
-			w127.Fill = false;
+			global::Gtk.Box.BoxChild w144 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.hbox4]));
+			w144.Position = 2;
+			w144.Expand = false;
+			w144.Fill = false;
 			this.hbox1.Add (this.vbox6);
-			global::Gtk.Box.BoxChild w128 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbox6]));
-			w128.Position = 1;
+			global::Gtk.Box.BoxChild w145 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbox6]));
+			w145.Position = 1;
 			this.vbox2.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w129 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
-			w129.Position = 0;
+			global::Gtk.Box.BoxChild w146 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
+			w146.Position = 0;
 			this.vbox1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w130 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.vbox2]));
-			w130.Position = 0;
+			global::Gtk.Box.BoxChild w147 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.vbox2]));
+			w147.Position = 0;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 797;
+			this.DefaultWidth = 818;
 			this.DefaultHeight = 562;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
@@ -636,6 +682,8 @@ namespace MeeGen
 			this.BtnZoomOut.Clicked += new global::System.EventHandler (this.ZoomOutButtonClicked);
 			this.BtnRotateLeft.Clicked += new global::System.EventHandler (this.RotateLeftButtonClicked);
 			this.BtnRotateRight.Clicked += new global::System.EventHandler (this.RotateRightButtonClicked);
+			this.BtnLayerUp.Clicked += new global::System.EventHandler (this.LayerUpButtonClicked);
+			this.BtnLayerDown.Clicked += new global::System.EventHandler (this.LayerDownButtonClicked);
 			this.BtnFlip.Clicked += new global::System.EventHandler (this.FlipButtonClicked);
 			this.BtnColorSelection.Clicked += new global::System.EventHandler (this.ColorSelectionButtonClicked);
 			this.drawingarea.ExposeEvent += new global::Gtk.ExposeEventHandler (this.DrawingAreaExpose);

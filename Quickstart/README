@@ -1,3 +1,9 @@
+
+Move a layer with your left mouse button pressed.
+Scale a layer with your right mouse button down 
+(not the final solution, because it is not properly working on touchscreens)
+
+
 Besides a recent mono version you'll also need (debian names):
 
 gtk-sharp2

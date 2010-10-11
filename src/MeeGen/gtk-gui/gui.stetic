@@ -7,14 +7,7 @@
   <import>
     <widget-library name="../bin/Release/MeeGen.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="797 562">
-    <action-group name="Default">
-      <action id="closeAction">
-        <property name="Type">Action</property>
-        <property name="Label" translatable="yes" />
-        <property name="StockId">gtk-close</property>
-      </action>
-    </action-group>
+  <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="818 562">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MeeGen#</property>
     <property name="Icon">resource:MeeGen.Resources.logo.svg</property>
@@ -336,7 +329,7 @@
                     <child>
                       <widget class="Gtk.HButtonBox" id="hbuttonbox15">
                         <property name="MemberName" />
-                        <property name="Size">6</property>
+                        <property name="Size">8</property>
                         <property name="LayoutStyle">Edge</property>
                         <child>
                           <widget class="Gtk.Button" id="BtnZoomIn">
@@ -410,6 +403,42 @@
                           </packing>
                         </child>
                         <child>
+                          <widget class="Gtk.Button" id="BtnLayerUp">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Type">TextAndIcon</property>
+                            <property name="Icon">resource:MeeGen.Resources.go-up.png</property>
+                            <property name="Label" translatable="yes" />
+                            <property name="UseUnderline">True</property>
+                            <property name="FocusOnClick">False</property>
+                            <property name="Relief">None</property>
+                            <signal name="Clicked" handler="LayerUpButtonClicked" />
+                          </widget>
+                          <packing>
+                            <property name="Position">4</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.Button" id="BtnLayerDown">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Type">TextAndIcon</property>
+                            <property name="Icon">resource:MeeGen.Resources.go-down.png</property>
+                            <property name="Label" translatable="yes" />
+                            <property name="UseUnderline">True</property>
+                            <property name="FocusOnClick">False</property>
+                            <property name="Relief">None</property>
+                            <signal name="Clicked" handler="LayerDownButtonClicked" />
+                          </widget>
+                          <packing>
+                            <property name="Position">5</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
                           <widget class="Gtk.Button" id="BtnFlip">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
@@ -422,7 +451,7 @@
                             <signal name="Clicked" handler="FlipButtonClicked" />
                           </widget>
                           <packing>
-                            <property name="Position">4</property>
+                            <property name="Position">6</property>
                             <property name="Expand">False</property>
                             <property name="Fill">False</property>
                           </packing>
@@ -440,7 +469,7 @@
                             <signal name="Clicked" handler="ColorSelectionButtonClicked" />
                           </widget>
                           <packing>
-                            <property name="Position">5</property>
+                            <property name="Position">7</property>
                             <property name="Expand">False</property>
                             <property name="Fill">False</property>
                           </packing>
