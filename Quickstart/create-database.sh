@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 tar xvf ./extracted.tar.gz
-mono MeeGen.exe --create-db ./extracted/
+exec /usr/bin/mono ./MeeGen.exe --create-db ./extracted/
 
 
 

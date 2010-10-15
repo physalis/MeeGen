@@ -54,6 +54,7 @@ namespace MeeGen
 		public Point Position
 		{
 			get {return this.position;}
+			set {this.position = value;}
 		}
 		
 		public Size Size
@@ -173,11 +174,12 @@ namespace MeeGen
 				cx.Color = new Color(0, 0, 0);
 				cx.LineWidth = 1;
 				
+				/*
 				cx.Rectangle(4, 4, 7, 7); //upper right
 				cx.Rectangle(this.SvgHandle.Dimensions.Width-10, 4, 7, 7); // upper left
 				cx.Rectangle(4, this.SvgHandle.Dimensions.Height-10, 7, 7);
 				cx.Rectangle(this.SvgHandle.Dimensions.Width-10, this.SvgHandle.Dimensions.Height-10, 7, 7);
-			
+				*/
 				cx.Fill();
 				cx.Restore();
 				
@@ -233,14 +235,14 @@ namespace MeeGen
 	
 	public struct Size
 	{
+		public double Width;
+		public double Height;
+		
 		public Size(double Width, double Height)
 		{
 			this.Width = Width;
 			this.Height = Height;
 		}
-		
-		public double Width;
-		public double Height;
 	}
 	
 	public enum DragLocation

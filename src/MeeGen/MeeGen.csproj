@@ -97,11 +97,14 @@
     <Compile Include="UI\MessageBox.cs" />
     <Compile Include="UI\MainWindow.cs" />
     <Compile Include="UI\InfoDialog.cs" />
-    <Compile Include="UI\ExportWizard.cs" />
+    <Compile Include="UI\ExportWizard\ExportWizard.cs" />
+    <Compile Include="UI\ExportWizard\Page.cs" />
+    <Compile Include="UI\MoreMenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Layers\" />
     <Folder Include="UI\" />
+    <Folder Include="UI\ExportWizard\" />
   </ItemGroup>
 </Project>

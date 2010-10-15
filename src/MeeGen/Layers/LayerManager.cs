@@ -7,6 +7,14 @@ using Rsvg;
 
 namespace MeeGen
 {
+	public enum ExportFormat
+	{
+		PNG,
+		SVG,
+		JPG,
+		PDF
+	}
+	
 	public class LayerManager : IEnumerable
 	{
 		List<Layer> layers;
@@ -114,7 +122,6 @@ namespace MeeGen
 		{
 			foreach(Layer l in this)
 				l.Selected = false;
-			
 		}
 		
 		public void Clear()
@@ -122,16 +129,82 @@ namespace MeeGen
 			this.layers.Clear();
 		}
 		
-		public void Export(string filename, Format format)
+		public Surface Export(string filename, Size size, ExportFormat format)
 		{
-			this.UnselectAll(); // else there may still be the selection rectangles
+			this.UnselectAll();
 			
-			SvgSurface surface = new SvgSurface(filename, 1000, 1000);
-			//PdfSurface surface = new PdfSurface(filename, 1000, 1000);
+			/*double leftMost   = double.MaxValue, 
+				   rightMost  = 0,
+				   topMost 	  = 0,
+				   bottomMost = 0;
 			
+			Layer leftLayer   = new Layer(),
+				  rightLayer  = new Layer(),
+				  topLayer    = new Layer(),
+			      bottomLayer = new Layer();
+			
+			// 0. determine the dimensions of the final image
+			// TODO: need to work with copies
+			foreach(Layer l in this)
+			{
+				if(l.Position.X + l.Size.Width/2 > rightMost)
+				{
+					rightMost =  l.Position.X + l.Size.Width;
+					rightLayer = l;
+				}
+				if(l.Position.X - l.Size.Width/2 < leftMost)
+				{
+					leftMost = l.Position.X - l.Size.Width/2;
+					leftLayer = l;
+				}
+				if(l.Position.Y + l.Size.Height > topMost)
+				{
+					topMost = l.Position.Y + l.Size.Height;
+					topLayer = l;
+				}
+				if(l.Position.Y - l.Size.Height > bottomMost)
+				{
+					bottomMost = l.Position.Y - l.Size.Height;
+					bottomLayer = l;
+				}
+			}
+			
+			leftLayer.Position = new Point((int)(leftLayer.Size.Width/2), (int)(leftLayer.Size.Height/2));
+			rightLayer.Position = new Point((int)(rightLayer.Position.X+rightLayer.Size.Width/2),rightLayer.Position.Y);
+			
+			Console.WriteLine ("top: "+topMost);
+			Console.WriteLine ("bottom: "+bottomMost);
+			Console.WriteLine ("right: "+rightMost);
+			Console.WriteLine ("left: "+leftMost);
+			SvgSurface surface = new SvgSurface(filename, (rightMost), topMost);
+			*/
+			Surface surface;
+			
+			switch(format)
+			{
+			case ExportFormat.SVG:
+				surface = new SvgSurface(filename, size.Width, size.Height);
+				break;
+			case ExportFormat.PDF:
+				surface = new PdfSurface(filename, size.Width, size.Height);
+				break;
+			case ExportFormat.PNG:
+				surface = new ImageSurface(Format.ARGB32, (int)size.Width, (int)size.Height);
+				break;
+			default:
+				surface = new SvgSurface(filename, size.Width, size.Height);
+				break;
+			}
+			
+		
 			Cairo.Context c = new Context(surface);
+			c.Translate(0, 0);
 			this.Draw(c);
 			surface.Finish();
+			c.Target.Dispose();
+			((IDisposable) c).Dispose ();
+			
+			return surface;			
 		}
 		
 		public void Draw(Cairo.Context context)

@@ -181,6 +181,10 @@ namespace MeeGen
 				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
 				w.ModifyFont(font);
 			}
+			im.Activated += delegate(object o, EventArgs ea) {
+				FillIconView("items");
+				Console.WriteLine(im.Name);
+			};
 			m.Append(im);
 			
 			im = new MenuItem("Basic shapes");
@@ -282,7 +286,12 @@ namespace MeeGen
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
 			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
-			this.layerManager.Export("./fooo.svg", Format.ARGB32);
+			int width, height;
+			
+			this.drawingarea.GdkWindow.GetSize(out width, out height);
+			this.layerManager.Export("/home/gulch/Desktop/fooo.svg", new Size(width, height), ExportFormat.PNG);
+			MeeGen.SampleAssistant a = new MeeGen.SampleAssistant();
+			a.ShowAll();	
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)
