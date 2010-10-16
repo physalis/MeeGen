@@ -4,11 +4,13 @@ Scale a layer with your right mouse button down
 (not the final solution, because it is not properly working on touchscreens)
 
 
-Besides a recent mono version you'll also need (debian names):
+Besides a recent mono version you'll also need:
 
 gtk-sharp2
-librsvg2-2.18-cil (available as local .dll in this folder)
 librsvg2-2
+
+On MeeGo, you don't have to install additional packages, just make
+sure that MeeGo is up-to-date.
 
 INSTALLATION:
 =============
