@@ -10,11 +10,11 @@ gtk-sharp2
 librsvg2-2
 
 On MeeGo, you don't have to install additional packages, just make
-sure that MeeGo is up-to-date.
+sure that your system is updated.
 
 INSTALLATION:
 =============
 
 chmod +x create-database.sh
-./create-database.sh // extract image files and create ComponentDB.xml
-mono MeeGen.exe // you should start the app from the terminal to see exception & crash output.
+./create-database.sh 
+mono MeeGen.exe
