@@ -8,7 +8,7 @@
     <Packages>
       <Packages>
         <Package name="Linux Binaries">
-          <Builder targetFile="MeeGen-linux.tar.gz" platform="Linux" configuration="Debug|x86" ctype="BinariesZipPackageBuilder">
+          <Builder targetFile="MeeGen-linux.tar.gz" platform="Windows" configuration="Release|x86" ctype="BinariesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="MeeGen\MeeGen.csproj" />
             </ChildEntries>
@@ -16,7 +16,15 @@
           </Builder>
         </Package>
         <Package name="Tarball">
-          <Builder TargetDirectory="MeeGen" DefaultConfiguration="Debug|x86" ctype="TarballDeployTarget">
+          <Builder TargetDirectory="MeeGen" DefaultConfiguration="Release|x86" ctype="TarballDeployTarget">
+            <ChildEntries>
+              <SolutionItemReference path="MeeGen\MeeGen.csproj" />
+            </ChildEntries>
+            <RootEntry path="MeeGen.sln" id=":root:" />
+          </Builder>
+        </Package>
+        <Package name="MonoDevelop 1.0 Sources">
+          <Builder targetFile="MeeGen.tar.gz" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
             <ChildEntries>
               <SolutionItemReference path="MeeGen\MeeGen.csproj" />
             </ChildEntries>
