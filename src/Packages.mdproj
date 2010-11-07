@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D936FE71-C9C9-49E7-8EA4-48EF60A354B1}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package name="Linux Binaries">
+          <Builder targetFile="MeeGen-linux.tar.gz" platform="Linux" configuration="Debug|x86" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="MeeGen\MeeGen.csproj" />
+            </ChildEntries>
+            <RootEntry path="MeeGen.sln" id=":root:" />
+          </Builder>
+        </Package>
+        <Package name="Tarball">
+          <Builder TargetDirectory="MeeGen" DefaultConfiguration="Debug|x86" ctype="TarballDeployTarget">
+            <ChildEntries>
+              <SolutionItemReference path="MeeGen\MeeGen.csproj" />
+            </ChildEntries>
+            <RootEntry path="MeeGen.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E5715D05-554D-4CA7-B55F-387C1738D6BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MeeGen</RootNamespace>
+    <AssemblyName>MeeGen</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="rsvg2-sharp, Version=2.18.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>rsvg2-sharp-2.0</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gtk-gui\gui.stetic">
+      <LogicalName>gui.stetic</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\arrow-right.png" />
+    <EmbeddedResource Include="Resources\arrow-left.png" />
+    <EmbeddedResource Include="Resources\arrow-up.png" />
+    <EmbeddedResource Include="Resources\folder-remote.png" />
+    <EmbeddedResource Include="Resources\user-trash.png" />
+    <EmbeddedResource Include="Resources\dialog-question.png" />
+    <EmbeddedResource Include="Resources\document-save.png" />
+    <EmbeddedResource Include="Resources\small-arrow-right.png" />
+    <EmbeddedResource Include="Resources\dialog-information.png" />
+    <EmbeddedResource Include="Resources\zoom-in.png" />
+    <EmbeddedResource Include="Resources\zoom-out.png" />
+    <EmbeddedResource Include="Resources\object-rotate-left.png" />
+    <EmbeddedResource Include="Resources\object-rotate-right.png" />
+    <EmbeddedResource Include="Resources\object-flip-horizontal.png" />
+    <EmbeddedResource Include="Resources\color-chooser.png" />
+    <EmbeddedResource Include="Resources\logo.svg" />
+    <EmbeddedResource Include="Resources\edit-preferences.png" />
+    <EmbeddedResource Include="Resources\go-up.png" />
+    <EmbeddedResource Include="Resources\go-down.png" />
+    <EmbeddedResource Include="Resources\network.png" />
+    <EmbeddedResource Include="Resources\object-flip-vertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="gtk-gui\MeeGen.MainWindow.cs" />
+    <Compile Include="gtk-gui\MeeGen.InfoDialog.cs" />
+    <Compile Include="Layers\Layer.cs" />
+    <Compile Include="Layers\LayerManager.cs" />
+    <Compile Include="UI\MessageBox.cs" />
+    <Compile Include="UI\MainWindow.cs" />
+    <Compile Include="UI\InfoDialog.cs" />
+    <Compile Include="UI\ExportWizard\ExportWizard.cs" />
+    <Compile Include="UI\ExportWizard\Page.cs" />
+    <Compile Include="UI\MoreMenu.cs" />
+    <Compile Include="UI\PreferencesDialog.cs" />
+    <Compile Include="UI\WidgetHelper.cs" />
+    <Compile Include="gtk-gui\MeeGen.PreferencesDialog.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Layers\" />
+    <Folder Include="UI\" />
+    <Folder Include="UI\ExportWizard\" />
+  </ItemGroup>
+</Project>

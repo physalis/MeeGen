@@ -1,0 +1,8 @@
+
+*.userprefs
+
+*.exe
+*.exe.mdb
+*.dll
+
+ComponentDB.xml
