@@ -106,4 +106,7 @@
     <Folder Include="UI\" />
     <Folder Include="UI\ExportWizard\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TODO" />
+  </ItemGroup>
 </Project>

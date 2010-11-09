@@ -50,6 +50,10 @@ namespace MeeGen
 		protected double rotation; // in rad
 		protected bool selected;
 		
+		string svgContent;
+		
+		//TODO add string for actual XML-content, and use it for color-manipulation
+		
 		protected Point offset; // the point where the user has clicked to select this shape
 		
 		protected FlipMode flipMode;
@@ -94,6 +98,10 @@ namespace MeeGen
 			this.selected = false;
 			
 			this.flipMode = FlipMode.None;
+			
+			StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
+			svgContent = reader.ReadToEnd();
+			reader.Close();
 		}
 		
 		internal Layer()
@@ -107,6 +115,7 @@ namespace MeeGen
 			this.rotation = 0;
 			this.selected = false;
 			this.flipMode = FlipMode.None;
+			this.svgContent = null;
 		}
 		
 		public FlipMode FlipMode
@@ -246,34 +255,33 @@ namespace MeeGen
 		/// </param>
 		public void Colorify(Gdk.Color color)
 		{		
-			if(svgHandle.BaseUri == null)
+			if(svgContent == null)
 				return;
-											// make sure the color-value stays between 0-255
+											// make sure the color-values stay between 0-255
 			string hexcolor = String.Format("#{0:x2}{1:x2}{2:x2}",
 			                                color.Red / 255 > 255 ? 255 : color.Red / 255,
 			                                color.Green / 255 > 255 ? 255 : color.Green / 255,
 			                                color.Blue / 255 > 255 ? 255 : color.Blue / 255);
 			
-			// this is the worst possible way to enable colorifying, in my opinion ;)
-			// I should load the images in a MemoryStream and work with them there,
-			// and then maybe use Rsvg.Handle(byte[] ) to load them again.
-			
-			string tmpName = "/tmp/" + UniqueFileName(svgHandle.BaseUri.Substring(7));
-			
-			File.Copy(svgHandle.BaseUri.Substring(7), tmpName);
-		
+			//TODO: maybe add using(..) for perfomance
+									
 			XmlDocument doc = new XmlDocument();	
 			doc.PreserveWhitespace = true;
-			doc.Load(tmpName);
+			doc.LoadXml(svgContent);	
+
+			//Console.WriteLine(doc.DocumentType.ToString());
 			
-			// TODO: add metadata tags to the images, that specify which path(s) to use.
+			// TODO: add metadata tags to the images, that specify which paths color to change
+			// 		 if none available, change the 0. (or none?).
 			
 			// this will set the first occurance of path-element to hexcolor.
-			doc.GetElementsByTagName("path")[0].Attributes["style"].Value = "fill:"+hexcolor+";fill-opacity:1;fill-rule:nonzero;stroke:none";
-				
-			doc.Save(tmpName);
+			// TODO: regex fill:... replace
+			doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
+			"fill:"+hexcolor+";fill-opacity:1;fill-rule:nonzero;stroke:none";
 			
-			this.svgHandle = new Handle(tmpName);
+			this.svgContent = doc.OuterXml;
+
+			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
 			
 			//File.Delete(tmpName);		
 		}
