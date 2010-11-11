@@ -50,9 +50,9 @@ namespace MeeGen
 		protected double rotation; // in rad
 		protected bool selected;
 		
-		string svgContent;
+		protected string svgContent;
 		
-		//TODO add string for actual XML-content, and use it for color-manipulation
+		protected Gdk.Color color;
 		
 		protected Point offset; // the point where the user has clicked to select this shape
 		
@@ -282,8 +282,6 @@ namespace MeeGen
 			this.svgContent = doc.OuterXml;
 
 			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
-			
-			//File.Delete(tmpName);		
 		}
 		
 		private string UniqueFileName(string source)

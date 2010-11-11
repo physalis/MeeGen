@@ -379,7 +379,9 @@ namespace MeeGen
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)
 		{
 			ColorSelectionDialog colordialog = new ColorSelectionDialog("Select a color");
-			
+			colordialog.ColorSelection.HasOpacityControl = true;
+			colordialog.Decorated = false;
+			colordialog.ColorSelection.HasPalette = true;
 			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
 			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
 			
@@ -388,7 +390,7 @@ namespace MeeGen
 			
 			if(res == (int)ResponseType.Ok)
 				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor);
-			
+			//Console.WriteLine(((double)(colordialog.ColorSelection.CurrentAlpha)/255)/255);
 			colordialog.Destroy();
 			
 			this.drawingarea.QueueDraw();
@@ -448,6 +450,17 @@ namespace MeeGen
 		{
 			this.layerManager.Selected.FlipHorizontally();
 			this.drawingarea.QueueDraw();
+		}
+		
+		protected virtual void OnKeyReleaseEvent (object o, Gtk.KeyReleaseEventArgs args)
+		{
+			switch(args.Event.Key)
+			{
+				case Gdk.Key.Delete:
+					this.layerManager.Remove(this.layerManager.Selected);
+					this.drawingarea.QueueDraw();
+				break;
+			}
 		}
 		
 #endregion	

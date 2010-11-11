@@ -84,7 +84,7 @@ namespace MeeGen
 			// Widget MeeGen.MainWindow
 			this.Name = "MeeGen.MainWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString ("MeeGen#");
-			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.logo.svg");
+			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.ico-meegen.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			this.AllowShrink = true;
 			// Container child MeeGen.MainWindow.Gtk.Container+ContainerChild
@@ -695,6 +695,7 @@ namespace MeeGen
 			this.DefaultHeight = 562;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+			this.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnKeyReleaseEvent);
 			this.BtnHeads.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnHair.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnArms.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);

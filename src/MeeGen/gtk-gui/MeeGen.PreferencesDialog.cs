@@ -152,8 +152,8 @@ namespace MeeGen
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 311;
-			this.DefaultHeight = 280;
+			this.DefaultWidth = 364;
+			this.DefaultHeight = 229;
 			this.Show ();
 		}
 	}

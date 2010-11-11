@@ -75,12 +75,12 @@
     <EmbeddedResource Include="Resources\object-rotate-right.png" />
     <EmbeddedResource Include="Resources\object-flip-horizontal.png" />
     <EmbeddedResource Include="Resources\color-chooser.png" />
-    <EmbeddedResource Include="Resources\logo.svg" />
     <EmbeddedResource Include="Resources\edit-preferences.png" />
     <EmbeddedResource Include="Resources\go-up.png" />
     <EmbeddedResource Include="Resources\go-down.png" />
     <EmbeddedResource Include="Resources\network.png" />
     <EmbeddedResource Include="Resources\object-flip-vertical.png" />
+    <EmbeddedResource Include="Resources\ico-meegen.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

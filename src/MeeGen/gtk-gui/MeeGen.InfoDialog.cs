@@ -21,7 +21,7 @@ namespace MeeGen
 			this.Events = ((global::Gdk.EventMask)(784));
 			this.Name = "MeeGen.InfoDialog";
 			this.Title = global::Mono.Unix.Catalog.GetString ("Info");
-			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.logo.svg");
+			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.ico-meegen.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Resizable = false;
 			this.AllowGrow = false;
@@ -48,7 +48,7 @@ namespace MeeGen
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.image7 = new global::Gtk.Image ();
 			this.image7.Name = "image7";
-			this.image7.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.logo.svg");
+			this.image7.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.ico-meegen.png");
 			this.vbox2.Add (this.image7);
 			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.image7]));
 			w3.Position = 1;
