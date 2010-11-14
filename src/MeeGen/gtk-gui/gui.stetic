@@ -7,7 +7,7 @@
   <import>
     <widget-library name="../bin/Release/MeeGen.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="895 562">
+  <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="899 562">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MeeGen#</property>
     <property name="Icon">resource:MeeGen.Resources.ico-meegen.png</property>
@@ -612,6 +612,7 @@
     <property name="Title" translatable="yes">Info</property>
     <property name="Icon">resource:MeeGen.Resources.ico-meegen.png</property>
     <property name="WindowPosition">CenterOnParent</property>
+    <property name="Modal">True</property>
     <property name="Resizable">False</property>
     <property name="AllowGrow">False</property>
     <property name="Decorated">False</property>

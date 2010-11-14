@@ -23,6 +23,7 @@ namespace MeeGen
 			this.Title = global::Mono.Unix.Catalog.GetString ("Info");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.ico-meegen.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.Modal = true;
 			this.Resizable = false;
 			this.AllowGrow = false;
 			this.Decorated = false;

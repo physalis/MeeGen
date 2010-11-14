@@ -135,9 +135,9 @@ namespace MeeGen
 				   bottomMost = 0;
 			
 			Layer leftLayer   = new Layer();
-				  /*rightLayer  = new Layer(),
-				  topLayer    = new Layer(),
-			      bottomLayer = new Layer();*/
+				  ///*rightLayer  = new Layer(),
+			Layer topLayer    = new Layer();
+			     // bottomLayer = new Layer();*/
 			
 			// 0. determine the dimensions of the final image
 			// 1. Translate according to the max positions of the images
@@ -153,10 +153,10 @@ namespace MeeGen
 					leftMost = l.Position.X - l.Boundaries.Width/2;
 					leftLayer = l;
 				}
-				if(l.Position.Y > topMost)
+				if((l.Position.Y - l.Boundaries.Height/2) < topMost)
 				{
-					topMost = l.Position.Y + l.Boundaries.Height;
-					//topLayer = l;
+					topMost = l.Position.Y - l.Boundaries.Height/2;
+					topLayer = l;
 				}
 				if(l.Position.Y < bottomMost)
 				{
@@ -190,18 +190,18 @@ namespace MeeGen
 			}
 			
 			Cairo.Context c = new Context(surface);
-			//c.Translate(-this[0].Position.X+this[0].Size.Width/2,
-			//            -this[0].Position.Y+this[0].Size.Height/2+10);
-			c.Translate(-leftLayer.Position.X+leftLayer.Boundaries.Width/2,
-			            0);
+
+			c.Translate(-leftLayer.Position.X + leftLayer.Boundaries.Width / 2,
+			            -(topLayer.Position.Y - topLayer.Boundaries.Height / 2));
+			Console.WriteLine((topLayer.Position.Y-topLayer.Boundaries.Height / 2));
 			this.Draw(c);
-			//Console.WriteLine(topLayer.Position.Y);
-			//this.Remove(rightLayer);
-			//surface.Finish();
-			
+			//this.Remove(topLayer);
+			//this.Remove(leftLayer);
+
 			if(format == ExportFormat.PNG)
 				surface.WriteToPng(filename);
 			surface.Finish();
+			
 			c.Target.Dispose();
 			((IDisposable) c).Dispose ();
 			

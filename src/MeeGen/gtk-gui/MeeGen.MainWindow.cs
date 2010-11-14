@@ -691,7 +691,7 @@ namespace MeeGen
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 895;
+			this.DefaultWidth = 899;
 			this.DefaultHeight = 562;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

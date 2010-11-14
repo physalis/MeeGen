@@ -55,7 +55,7 @@ namespace MeeGen
 			w2.Add (w3);
 			
 			w5 = new Gtk.Label ();
-			w5.LabelProp = "Export to webservice";
+			w5.LabelProp = "Export to a webservice";
 			w5.UseUnderline = true;
 			w2.Add (w5);
 			w1.Add (w2);
@@ -110,7 +110,8 @@ namespace MeeGen
 			// choose filetype & size & location
 			// the actual saving takes places in the 
 			// ExportWizard.AssistantClose()-method
-			
+			// button to select an export-background-color
+
 			FileChooserDialog dia = new FileChooserDialog("Save (Format depends on file extension (*.svg, *.pdf or *.png))",
 			                                              wiz,
 			                                              FileChooserAction.Save,

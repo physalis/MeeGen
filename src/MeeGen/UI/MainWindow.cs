@@ -298,13 +298,12 @@ namespace MeeGen
 
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
-			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
 			int width = 0, height = 0;
 			this.drawingarea.GdkWindow.GetSize(out width, out height);
-			//this.layerManager.Export("/home/gulch/Desktop/foo.svg", new Size(width, height), ExportFormat.SVG);
 			ExportWizard w = new ExportWizard(this.layerManager);
 			w.Modal = true;
 			w.ShowAll();
+			//this.layerManager.Export("/home/gulch/Desktop/foo.svg", new Size(width, height), ExportFormat.SVG);
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)
@@ -378,6 +377,7 @@ namespace MeeGen
 		
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)
 		{
+			//TODO: custom color selection dialog with meego palette
 			ColorSelectionDialog colordialog = new ColorSelectionDialog("Select a color");
 			colordialog.ColorSelection.HasOpacityControl = true;
 			colordialog.Decorated = false;
