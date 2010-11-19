@@ -83,7 +83,7 @@ namespace MeeGen
 			global::Stetic.Gui.Initialize (this);
 			// Widget MeeGen.MainWindow
 			this.Name = "MeeGen.MainWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("MeeGen#");
+			this.Title = global::Mono.Unix.Catalog.GetString ("MeeGen");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.ico-meegen.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			this.AllowShrink = true;

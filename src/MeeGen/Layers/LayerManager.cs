@@ -81,6 +81,7 @@ namespace MeeGen
 		
 		public void Select(int x, int y)
 		{
+			//TODO: PERF
 			Layer selected = null;
 			
 			foreach(Layer l in this)
@@ -125,7 +126,7 @@ namespace MeeGen
 			this.layers.Clear();
 		}
 		
-		public Surface Export(string filename, Size size, ExportFormat format)
+		public void Export(string filename, ExportFormat format)
 		{
 			this.UnselectAll();
 			
@@ -134,45 +135,46 @@ namespace MeeGen
 				   topMost 	  = double.MaxValue,
 				   bottomMost = 0;
 			
-			Layer leftLayer   = new Layer();
-				  ///*rightLayer  = new Layer(),
-			Layer topLayer    = new Layer();
-			     // bottomLayer = new Layer();*/
+			Layer leftLayer   = new Layer(),
+				  rightLayer  = new Layer(),
+				  topLayer    = new Layer(),
+			      bottomLayer = new Layer();
 			
-			// 0. determine the dimensions of the final image
-			// 1. Translate according to the max positions of the images
 			foreach(Layer l in this)
 			{
-				if(l.Position.X + l.Boundaries.Width/2 > rightMost)
+				if(l.Position.X + l.Boundaries.Width / 2 > rightMost)
 				{
-					rightMost =  l.Position.X + l.Boundaries.Width/2;
-					//rightLayer = l;
+					rightMost =  l.Position.X + l.Boundaries.Width / 2;
+					rightLayer = l;
 				}
-				if(l.Position.X - l.Boundaries.Width/2 < leftMost)
+				if(l.Position.X - l.Boundaries.Width / 2 < leftMost)
 				{
-					leftMost = l.Position.X - l.Boundaries.Width/2;
+					leftMost = l.Position.X - l.Boundaries.Width / 2;
 					leftLayer = l;
 				}
-				if((l.Position.Y - l.Boundaries.Height/2) < topMost)
+				if((l.Position.Y - l.Boundaries.Height / 2) < topMost)
 				{
-					topMost = l.Position.Y - l.Boundaries.Height/2;
+					topMost = l.Position.Y - l.Boundaries.Height / 2;
 					topLayer = l;
 				}
-				if(l.Position.Y < bottomMost)
+				if(l.Position.Y + l.Boundaries.Height > bottomMost)
 				{
-					bottomMost = l.Position.Y - l.Boundaries.Height;
-					//bottomLayer = l;
+					bottomMost = l.Position.Y + l.Boundaries.Height;
+					bottomLayer = l;
 				}
 			}
-//			
-//			leftLayer.Position = new Point((int)(leftLayer.Size.Width/2), (int)(leftLayer.Size.Height/2));
-//			rightLayer.Position = new Point((int)(rightLayer.Position.X+rightLayer.Size.Width/2),rightLayer.Position.Y);
 
-			Surface surface;
+			Size size;
 			
-//			size.Width = 9;//rightLayer.Position.X+rightLayer.Size.Width - leftLayer.Position.X;
-//			size.Height = topLayer.Position.Y + bottomLayer.Position.Y+bottomLayer.Size.Width;
-				
+			//TODO: to keep or not to keep the 1px border, that is the question.
+			size.Width = (rightLayer.Position.X + rightLayer.Boundaries.Width / 2) -
+						 (leftLayer.Position.X - leftLayer.Boundaries.Width / 2) + 1;
+			size.Height = (bottomLayer.Position.Y + bottomLayer.Boundaries.Height / 2) -
+						  (topLayer.Position.Y - topLayer.Boundaries.Height / 2) + 1;
+			
+			Surface surface;
+
+			//TODO: each surface is handling the size differently... BUT WHY?
 			switch(format)
 			{
 				case ExportFormat.SVG:
@@ -193,19 +195,16 @@ namespace MeeGen
 
 			c.Translate(-leftLayer.Position.X + leftLayer.Boundaries.Width / 2,
 			            -(topLayer.Position.Y - topLayer.Boundaries.Height / 2));
-			Console.WriteLine((topLayer.Position.Y-topLayer.Boundaries.Height / 2));
-			this.Draw(c);
-			//this.Remove(topLayer);
-			//this.Remove(leftLayer);
 
+			this.Draw(c);
+		
 			if(format == ExportFormat.PNG)
 				surface.WriteToPng(filename);
 			surface.Finish();
 			
 			c.Target.Dispose();
-			((IDisposable) c).Dispose ();
-			
-			return surface;			
+	
+			((IDisposable) c).Dispose ();		
 		}
 		
 		public void Draw(Cairo.Context context)
@@ -214,6 +213,7 @@ namespace MeeGen
 			{
 				l.Draw(context);
 				
+				//TODO: PERF Layer.Changed
 				// it shouldn't be called for each item 
 				// whenever the drawingarea is invalidated, instead
 				// I should keep track on changed items (pos/zoom/...)

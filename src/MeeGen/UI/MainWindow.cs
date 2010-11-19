@@ -258,7 +258,8 @@ namespace MeeGen
 			
 			if(this.iconview.SelectedItems.Length <= 0)
 			{
-				// 'notify' the user about the fact that he is dragging an invalid object
+				// 'notify' the user about the fact that he is dragging an invalid object by setting
+				// setting the dragged image to the DialogError icon.
 				Gtk.Drag.SetIconStock(args.Context, Stock.DialogError, 0, 0);
 			}
 			else
@@ -298,12 +299,10 @@ namespace MeeGen
 
 		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
 		{
-			int width = 0, height = 0;
-			this.drawingarea.GdkWindow.GetSize(out width, out height);
 			ExportWizard w = new ExportWizard(this.layerManager);
 			w.Modal = true;
 			w.ShowAll();
-			//this.layerManager.Export("/home/gulch/Desktop/foo.svg", new Size(width, height), ExportFormat.SVG);
+			//this.layerManager.Export("/home/gulch/Desktop/foo.svg", ExportFormat.SVG);
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)
@@ -381,7 +380,7 @@ namespace MeeGen
 			ColorSelectionDialog colordialog = new ColorSelectionDialog("Select a color");
 			colordialog.ColorSelection.HasOpacityControl = true;
 			colordialog.Decorated = false;
-			colordialog.ColorSelection.HasPalette = true;
+			//colordialog.ColorSelection.HasPalette = true;
 			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
 			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
 			

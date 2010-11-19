@@ -9,7 +9,7 @@
   </import>
   <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="899 562">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MeeGen#</property>
+    <property name="Title" translatable="yes">MeeGen</property>
     <property name="Icon">resource:MeeGen.Resources.ico-meegen.png</property>
     <property name="WindowPosition">Center</property>
     <property name="AllowShrink">True</property>

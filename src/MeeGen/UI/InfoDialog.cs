@@ -33,7 +33,7 @@ namespace MeeGen
 									"<b>License</b>\n"+
 									"\tReleased under the GNU General Public License.\n"+
 									"<b>Copyright</b>\n"+
-									"\tCopyright © Christian Gulden 2010\n\n"+
+									"\tCopyright © 2010\n\n"+
 									"The default components are from the MeeGo Project\n" +
 								    "\t\t<big><u>http://meego.com</u></big> ";
 

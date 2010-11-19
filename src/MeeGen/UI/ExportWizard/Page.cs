@@ -156,8 +156,16 @@ namespace MeeGen
 				if(dia.Filename.ToLower().EndsWith(".png"))
 				    format = ExportFormat.PNG;
 
-				wiz.LayerManager.Export(dia.Filename, new Size(500, 500), format);
-								
+				wiz.LayerManager.Export(dia.Filename, format);
+				
+				//TODO: Add metadata to PNG and PDF as well
+				if(format == ExportFormat.SVG)
+				{
+					System.IO.StreamWriter writer = new System.IO.StreamWriter(dia.Filename, true);
+					writer.Write("<!-- created with the MeeGen# avatar-generator (http://meego.com) -->");
+					writer.Close();
+				}
+				
 				wiz.Destroy();
 				dia.Destroy();
 				
