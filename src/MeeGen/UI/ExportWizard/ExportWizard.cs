@@ -18,6 +18,8 @@ namespace MeeGen
 
 		public ExportWizard(LayerManager manager) : base()
 		{
+			this.SkipTaskbarHint = true;
+			
 			SetSizeRequest(450, 300);
 			Title = "ExportWizard";
 			
@@ -71,7 +73,7 @@ namespace MeeGen
 			SetPageComplete (lbl, true);
   			*/
 			Cancel += new EventHandler (AssistantCancel);
-			Close += new EventHandler (AssistantClose);
+			//Close += new EventHandler (AssistantClose); 
 			
 			WidgetHelper.SetButtonRelief(this, ReliefStyle.None);
 			//this.ShowAll();
@@ -88,27 +90,7 @@ namespace MeeGen
 			Application.Quit ();
 			return true;
 		}
-
-		// If there is text in the GtkEntry, set the page as complete.
-		void EntryChanged (object o, EventArgs args)
-		{
-			string text = (o as Gtk.Entry).Text;
-			SetPageComplete (GetNthPage (CurrentPage), text.Length > 0);
-		}
-
-		// If check button is checked, set the page as complete.
-		void ButtonToggled (object o, EventArgs args)
-		{
-			bool active = (o as ToggleButton).Active;
-			SetPageComplete (o as Widget, active);
-		}
-
-		// Progress 10% per second after button clicked.
-		void ButtonClicked (object o, EventArgs args)
-		{
-			(o as Widget).Sensitive = false;
-		}
-
+		
 		void AssistantCancel (object o, EventArgs args)
 		{
 			//Console.WriteLine ("Assistant cancelled.");
@@ -118,8 +100,8 @@ namespace MeeGen
 
 		void AssistantClose (object o, EventArgs args)
 		{
-		//	Console.WriteLine ("Assistant ran to completion.");
-			Destroy ();
+			//Console.WriteLine ("Assistant ran to completion.");
+			//Destroy (); //Destroy after the exporting has happened in SaveLocalPage and ExportWebPage
 			//Application.Quit ();
 		}
 	}

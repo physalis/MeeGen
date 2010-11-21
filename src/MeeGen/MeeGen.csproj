@@ -81,6 +81,8 @@
     <EmbeddedResource Include="Resources\network.png" />
     <EmbeddedResource Include="Resources\object-flip-vertical.png" />
     <EmbeddedResource Include="Resources\ico-meegen.png" />
+    <EmbeddedResource Include="Resources\ratio-preserve.png" />
+    <EmbeddedResource Include="Resources\ratio-custom.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

@@ -24,6 +24,7 @@ namespace MeeGen
 		{
 			Build();
 			
+			//this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(0xbf, 0xbf, 0xbf));
 			this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(105, 89, 205));
 			//this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
 			this.drawingarea.DoubleBuffered = true;

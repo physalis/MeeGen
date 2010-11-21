@@ -207,6 +207,11 @@ namespace MeeGen
 			((IDisposable) c).Dispose ();		
 		}
 		
+		public void Export(string filename, ExportFormat format, Size size)
+		{
+			throw new NotImplementedException();
+		}
+		
 		public void Draw(Cairo.Context context)
 		{
 			foreach(Layer l in this)
