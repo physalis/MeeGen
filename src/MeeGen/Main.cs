@@ -9,6 +9,7 @@ namespace MeeGen
 	{
 		public static void Main (string[] args)
 		{
+			//TODO: Make neater
 			if(args.Length >= 1)
 			{
 				if(args[0] == "--create-db" || args[0] == "-c")
@@ -18,8 +19,17 @@ namespace MeeGen
 					else
 						Usage();
 				}
-				else if(args[0] == "--help" || args[0] == "-h")
+				else if(args[0] == "--benchmark" || args[0] == "-b")
+				{
+					if(args.Length > 1)
+						Benchmark(Convert.ToInt32(args[1]));
+					else
 						Usage();
+				}
+				else if(args[0] == "--help" || args[0] == "-h")
+				{
+						Usage();
+				}
 				else
 				{
 					Application.Init ();
@@ -94,6 +104,26 @@ namespace MeeGen
 			}
 		}
 		
+		private static void Benchmark(int count)
+		{
+			Application.Init();
+			MainWindow win = new MainWindow("./ComponentDB.xml");
+			
+			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+			watch.Reset();
+			
+			for(int i = 0; i < count; i++)
+			{
+				watch.Start();
+				win.Benchmark();
+				watch.Stop();
+				Console.WriteLine("{0}\t{1}", i, watch.ElapsedTicks);
+				watch.Reset();
+			}
+			
+			System.Diagnostics.Process.GetCurrentProcess().Kill();  
+		}
+		
 		private static void Usage()
 		{
 			string filename = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -102,7 +132,9 @@ namespace MeeGen
 							  "or\n" +
 							  "\t./"+filename+" [OPTION] [FOLDER] | [FILE]\n\n" +
 							  "-h, --help \t\t\t display this message\n" +
-							  "-c, --create-db [FOLDER] \t creates a ComponentDB.xml file from [FOLDER]\n\n" +
+							  "-c, --create-db [FOLDER] \t creates a ComponentDB.xml file from [FOLDER]\n" +
+							  "-b, --benchmark [COUNT] \t\t\t test the performance of this application and write" +
+							  "the results to stdout.\n\n" +
 							  "When run with only [FILE] specified, "+filename+" handles [FILE] as\n" +
 							  "a ComponentDB.xml.\nWhen run with no arguments, it uses ./ComponentDB.xml.");
 		}

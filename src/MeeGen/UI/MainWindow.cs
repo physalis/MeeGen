@@ -10,15 +10,12 @@ namespace MeeGen
 {
 	public partial class MainWindow : Gtk.Window
 	{
-		// I really don't know if I need both... 
-		// Also Pixbuf may not be the right choice for SVG's
+		//TODO: PERF Do I need both? 
 		Dictionary<string, ListStore> iconDict; // scaled images
 		Dictionary<string, string[]> imageDict; // contains image location,
 												// might be better if I directly load Rsvg.Handles
 		
 		LayerManager layerManager;
-		
-		//Point last;
 		
 		public MainWindow(string databaseFile) : base(Gtk.WindowType.Toplevel)
 		{
@@ -52,12 +49,6 @@ namespace MeeGen
 			
 			this.layerManager = new LayerManager();
 			
-			// scroll to the beginning of the iconview list 
-			// required for the buttons, because on MeeGo they don't work
-			// unless the scrollbar is on the very beginning.
-			// It causes a Gtk-CRITICAL but it works...
-			//this.iconview.ScrollToPath(new TreePath("0"));
-			
 			this.iconview.PixbufColumn = 0;
 			
 			try
@@ -76,7 +67,7 @@ namespace MeeGen
 			Gtk.TargetEntry[] dd_table = new Gtk.TargetEntry[]{new Gtk.TargetEntry("text/plain", 0, 0)};
 			
 			// Set up the drawingarea as a drop destination
-			Gtk.Drag.DestSet(drawingarea, DestDefaults.All, dd_table,Gdk.DragAction.Copy);
+			Gtk.Drag.DestSet(drawingarea, DestDefaults.All, dd_table, Gdk.DragAction.Copy);
 			
 			// Set up the iconview as the drag source
 			Gtk.Drag.SourceSet(iconview, Gdk.ModifierType.Button1Mask, dd_table, Gdk.DragAction.Copy);
@@ -125,8 +116,10 @@ namespace MeeGen
 					StringBuilder builder = new StringBuilder(parentDirectory);
 					builder.Append(category); // parentDirectory has a trailing "/"
 					builder.Append("/" + image);
-				
-					store.AppendValues(new Gdk.Pixbuf(builder.ToString(), 80, 80));
+					
+					Gdk.Pixbuf pic = new Gdk.Pixbuf(builder.ToString(), 80, 80);
+					//store.AppendValues(pic.ScaleSimple(80, 80, Gdk.InterpType.Tiles));
+					store.AppendValues(pic);
 					list.Add(builder.ToString());
 					
 					reader.Read(); // moves to next entry
@@ -154,6 +147,44 @@ namespace MeeGen
 			this.iconview.ScrollToPath(new TreePath("0"));
 			this.Category = category;
 		}
+		
+		/// <summary>
+		/// Used for testing the performance of this application.
+		/// </summary>
+		public void Benchmark()
+		{
+			// Start by filling the IconView several times
+			FillIconView("arms");
+			FillIconView("legs");
+			FillIconView("bodies");
+			
+			Random rnd = new Random();
+			int max = this.imageDict["heads"].Length;
+			
+			// Now add some layers to the LayerManager
+			for(int i = 0; i < 20; i++)
+			{
+				this.layerManager.Add(new Layer(this.imageDict["heads"][rnd.Next(0, max)],
+				                                new Point(rnd.Next(0, 100),
+				                                          rnd.Next(0, 100))
+				                                )
+				                      );
+			}
+			
+			// end with some transformations
+			for(int i = 0; i < 50; i++)
+			{
+				foreach(Layer l in this.layerManager)
+				{
+					l.Rotate(10);
+					l.ScaleHeight(10);
+					l.FlipHorizontally();
+				}
+			}
+			
+			this.layerManager.Clear();
+		}
+		
 #endregion
 		
 #region 8< ------------ Widget Events ---------------- 
@@ -230,11 +261,10 @@ namespace MeeGen
 			Widget w = o as Widget;
 			
 		    Cairo.Context g = Gdk.CairoHelper.Create(w.GdkWindow);
-		    g.Antialias = Antialias.Subpixel; 
+		    g.Antialias = Antialias.Default; 
 			
 			this.layerManager.Draw(g);
-			
-			
+
 			((IDisposable) g.Target).Dispose ();                                      
 		    ((IDisposable) g).Dispose ();
 		}
@@ -259,7 +289,7 @@ namespace MeeGen
 			
 			if(this.iconview.SelectedItems.Length <= 0)
 			{
-				// 'notify' the user about the fact that he is dragging an invalid object by setting
+				// 'notify' the user about the fact that he is dragging an invalid object by 
 				// setting the dragged image to the DialogError icon.
 				Gtk.Drag.SetIconStock(args.Context, Stock.DialogError, 0, 0);
 			}
@@ -389,7 +419,7 @@ namespace MeeGen
 			
 			
 			if(res == (int)ResponseType.Ok)
-				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor);
+				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor, 1);
 			//Console.WriteLine(((double)(colordialog.ColorSelection.CurrentAlpha)/255)/255);
 			colordialog.Destroy();
 			

@@ -101,6 +101,8 @@
     <Compile Include="UI\PreferencesDialog.cs" />
     <Compile Include="UI\WidgetHelper.cs" />
     <Compile Include="gtk-gui\MeeGen.PreferencesDialog.cs" />
+    <Compile Include="UI\ColorSelectButton.cs" />
+    <Compile Include="gtk-gui\MeeGen.ColorSelectButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

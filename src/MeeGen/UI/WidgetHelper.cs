@@ -1,5 +1,6 @@
 using System;
 using Gtk;
+using Gdk;
 
 namespace MeeGen
 {
@@ -31,6 +32,28 @@ namespace MeeGen
 				if((w as Container) != null)
 					SetButtonRelief((Container)w, style);
 			}
+		}
+	}
+	
+	public class Colors
+	{
+		private static Color black;
+		private static Color white;
+		
+		static Colors()
+		{
+			Colors.black = new Color(0x0, 0x0, 0x0);	
+			Colors.white = new Color(0xff, 0xff, 0xff);
+		}
+		
+		public static Color Black
+		{
+			get{return black;}
+		}
+		
+		public static Color White
+		{
+			get{return white;}
 		}
 	}
 }

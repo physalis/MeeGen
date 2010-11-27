@@ -7,7 +7,6 @@ using Cairo;
 
 namespace MeeGen
 {
-	// could use flags-attribute here...
 	[FlagsAttribute]
 	public enum FlipMode
 	{
@@ -214,7 +213,7 @@ namespace MeeGen
 			// If it gets negative, the algorithm that checks,
 			// whether the user has clicked inside a layer won't work anymore
 			this.size.Width = this.size.Width + val <= 5 ?
-							   this.size.Width : this.size.Width + val;
+							  this.size.Width : this.size.Width + val;
 		}
 		
 		/// <summary>
@@ -253,29 +252,29 @@ namespace MeeGen
 		/// <param name="color">
 		/// A <see cref="Gdk.Color"/>
 		/// </param>
-		public void Colorify(Gdk.Color color)
+		public void Colorify(Gdk.Color color, double opacity)
 		{		
 			if(svgContent == null)
 				return;
-											// make sure the color-values stay between 0-255
+											// make sure the color-values stay <= 255
 			string hexcolor = String.Format("#{0:x2}{1:x2}{2:x2}",
 			                                color.Red / 255 > 255 ? 255 : color.Red / 255,
 			                                color.Green / 255 > 255 ? 255 : color.Green / 255,
 			                                color.Blue / 255 > 255 ? 255 : color.Blue / 255);
 			
-			//TODO: maybe add using(..) for perfomance
+			//TODO: PERF maybe use using(..)
 									
 			XmlDocument doc = new XmlDocument();	
 			doc.PreserveWhitespace = true;
 			doc.LoadXml(svgContent);	
-
+		
 			//Console.WriteLine(doc.DocumentType.ToString());
 			
 			// TODO: add metadata tags to the images, that specify which paths color to change
 			// 		 if none available, change the 0. (or none?).
 			
 			// this will set the first occurance of path-element to hexcolor.
-			// TODO: regex fill:... replace
+			// TODO: use regular expressions to replace the fill-color and the fill-opacity 
 			doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
 			"fill:"+hexcolor+";fill-opacity:1;fill-rule:nonzero;stroke:none";
 			
@@ -284,20 +283,8 @@ namespace MeeGen
 			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
 		}
 		
-		private string UniqueFileName(string source)
-		{
-			string[] splitted = source.Split('/');
-			source = splitted[splitted.Length-1];
-			
-			return source + "." + DateTime.Now.ToBinary();
-			//return "";
-		}
-		
-		
 		public void Move(int dx, int dy)
 		{
-			//Console.WriteLine((dx - this.offset.X) + "  " + (dy - this.offset.Y));
-			
 			this.position.X += dx - this.offset.X;
 			this.position.Y += dy - this.offset.Y;
 			
@@ -314,8 +301,6 @@ namespace MeeGen
 					this.Move(dx, dy);
 					break;
 				case DragLocation.Resize:
-					//this.size.Width += dx - this.offset.X;
-					//this.size.Height -= dy - this.offset.Y;
 					this.ScaleWidth(dx - this.offset.X);
 					this.ScaleHeight(dy - this.offset.Y);
 					this.offset = new Point(dx, dy);
@@ -349,11 +334,7 @@ namespace MeeGen
 		/// A <see cref="Cairo.Context"/>
 		/// </param>
 		public void Draw(Cairo.Context cx)
-		{		
-			/*Console.WriteLine(this.Position.X + "  " + this.Position.Y);
-			Console.WriteLine(this.Rotation);
-			Console.WriteLine(this.Boundaries.X + " " + this.Boundaries.Y);*/
-			
+		{			
 			// start by drawing the unrotated selection-rectangle
 			if(this.Selected)
 			{			
@@ -368,7 +349,7 @@ namespace MeeGen
 			             -this.svgHandle.Dimensions.Height / 2);*/
 		
 				// leave a small offset of 3 on every side of the rectangle
-				// looks just neater 
+				// simply looks neater 
 				DrawRoundedRectangle(cx, 
 				                     this.Boundaries.X - 3,
 				                     this.Boundaries.Y - 3,
@@ -376,7 +357,7 @@ namespace MeeGen
 				                     this.Boundaries.Height + 6,
 				                     7);
 				             
-				// b5 b7 b4 - light grey (meego palette)
+				// #b5b7b4 - light grey (meego palette)
 				cx.Color = new Color(0.7, 0.71, 0.7, 0.3);		
 				cx.Fill();
 
@@ -408,11 +389,12 @@ namespace MeeGen
 					break;
 			}
 			
-			//TODO: maybe make the rotation depend on the FlipMode
+			//TODO: MAYBE make the rotation depend on the FlipMode
 			cx.Rotate(this.Rotation);
 			cx.Translate(-this.svgHandle.Dimensions.Width / 2,
 			             -this.svgHandle.Dimensions.Height / 2);
 			
+			// for debugging purposes
 			/*cx.Rectangle(0, 0, this.svgHandle.Dimensions.Width, this.svgHandle.Dimensions.Height);
 			cx.Color = new Color(200, 100, 100, 100);
 			cx.Fill();*/

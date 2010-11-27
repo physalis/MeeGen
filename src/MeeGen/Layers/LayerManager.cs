@@ -18,6 +18,12 @@ namespace MeeGen
 		{
 			get {return this.layers[index];}
 		}
+
+		public IEnumerator GetEnumerator()
+		{
+			foreach(Layer layer in this.layers)
+				yield return layer;
+		}
 		
 		public int Count
 		{
@@ -169,6 +175,7 @@ namespace MeeGen
 			//TODO: to keep or not to keep the 1px border, that is the question.
 			size.Width = (rightLayer.Position.X + rightLayer.Boundaries.Width / 2) -
 						 (leftLayer.Position.X - leftLayer.Boundaries.Width / 2) + 1;
+			
 			size.Height = (bottomLayer.Position.Y + bottomLayer.Boundaries.Height / 2) -
 						  (topLayer.Position.Y - topLayer.Boundaries.Height / 2) + 1;
 			
@@ -184,7 +191,9 @@ namespace MeeGen
 					surface = new PdfSurface(filename, size.Width, size.Height);
 					break;
 				case ExportFormat.PNG:
-					surface = new ImageSurface(Format.ARGB32, (int)size.Width, (int)size.Height);
+					surface = new ImageSurface(Format.ARGB32,
+				                           	   (int)size.Width,
+				                               (int)size.Height);
 					break;
 				default:
 					surface = new SvgSurface(filename, size.Width, size.Height);
@@ -239,13 +248,6 @@ namespace MeeGen
 			// the returned Layer is null
 			return new Layer();
 			//return null
-		}
-		
-		
-		public IEnumerator GetEnumerator()
-		{
-			foreach(Layer layer in this.layers)
-				yield return layer;
 		}
 	}
 }

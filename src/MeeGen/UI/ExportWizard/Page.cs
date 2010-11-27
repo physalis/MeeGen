@@ -106,82 +106,13 @@ namespace MeeGen
 		
 		public SaveLocalPage(ExportWizard wiz) : base()
 		{
-			this.wiz = wiz;			
-			//wiz.SetPageComplete(this, true);
-			
-			// choose filetype & size & location
-			// the actual saving takes places in the 
-			// ExportWizard.AssistantClose()-method
-			// button to select an export-background-color
-
-			/*FileChooserDialog dia = new FileChooserDialog("Save (Format depends on file extension (*.svg, *.pdf or *.png))",
-			                                              wiz,
-			                                              FileChooserAction.Save,
-			                                              "Cancel", ResponseType.Cancel,
-			    										  "Save", ResponseType.Accept);
-			
-			
-			dia.ModifyFg(StateType.Normal, new Gdk.Color(255, 255, 255));
-			dia.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
-			
-			dia.Icon = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.document-save.png");
-			dia.DoOverwriteConfirmation = true;
-			dia.CurrentName = "Untitled.svg";
-			
-			FileFilter f = new FileFilter();
-			f.Name = "SVG";
-			f.AddMimeType("image/svg+xml");
-			dia.AddFilter(f);
-			
-			f = new FileFilter();
-			f.Name = "PNG";
-			f.AddMimeType("image/png");
-			dia.AddFilter(f);
-			
-			f = new FileFilter();
-			f.Name = "PDF";
-			f.AddMimeType("application/pdf");
-			dia.AddFilter(f);
-						
-			WidgetHelper.SetButtonRelief(dia, ReliefStyle.None);
-			
-			int response = dia.Run();
-			
-			if(response == (int)ResponseType.Accept)
-			{
-				ExportFormat format = ExportFormat.SVG; // SVG is the default saving format
-				
-				//if(dia.Filename.ToLower().EndsWith(".svg"))
-				//	format = ExportFormat.SVG;
-				if(dia.Filename.ToLower().EndsWith(".pdf"))
-					format = ExportFormat.PDF;
-				if(dia.Filename.ToLower().EndsWith(".png"))
-				    format = ExportFormat.PNG;
-
-				wiz.LayerManager.Export(dia.Filename, format);
-				
-				//TODO: Add credits to PNG and PDF as well
-				if(format == ExportFormat.SVG)
-				{
-					System.IO.StreamWriter writer = new System.IO.StreamWriter(dia.Filename, true);
-					writer.Write("<!-- created with the MeeGen avatar-generator (http://meego.com) -->");
-					writer.Close();
-				}
-				
-				wiz.Destroy();
-				dia.Destroy();
-				
-			}else
-			{
-				wiz.Destroy();
-				dia.Destroy();
-			}	*/
+			this.wiz = wiz;	
 			
 			Build();
 			
 			wiz.Close += delegate(object sender, EventArgs e) 
 			{
-				ExportFormat format = ExportFormat.SVG; // SVG is the default saving format
+				ExportFormat format = ExportFormat.SVG; 
 				
 				string filename = this.entry1.Text;
 				
@@ -245,7 +176,11 @@ namespace MeeGen
 	
 		private global::Gtk.Label label6;
 	
-		private global::Gtk.ColorButton colorbutton1;
+		private MeeGen.ColorSelectButton colorbutton1;
+		
+		private global::Gtk.HBox hbox1;
+		
+		private global::Gtk.CheckButton checkbutton2;
 		
 		
 		//TODO: make neater
@@ -427,6 +362,7 @@ namespace MeeGen
 			w13.Position = 0;
 			w13.Expand = false;
 			w13.Fill = false;
+			
 			// Container child hbox9.Gtk.Box+BoxChild
 			this.checkbutton1 = new global::Gtk.CheckButton ();
 			this.checkbutton1.CanFocus = true;
@@ -469,21 +405,53 @@ namespace MeeGen
 			w19.Position = 0;
 			w19.Expand = false;
 			w19.Fill = false;
-			// Container child hbox7.Gtk.Box+BoxChild
-			this.colorbutton1 = new global::Gtk.ColorButton ();
+			
+			this.hbox1 = new global::Gtk.HBox ();
+			this.hbox1.Name = "hbox1";
+			this.hbox1.Spacing = 6;
+			
+			
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.colorbutton1 = new MeeGen.ColorSelectButton();
 			this.colorbutton1.CanFocus = true;
 			this.colorbutton1.Events = ((global::Gdk.EventMask)(784));
 			this.colorbutton1.Name = "colorbutton1";
-			this.colorbutton1.Relief = ReliefStyle.None;
-			this.hbox7.Add (this.colorbutton1);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.colorbutton1]));
-			w20.Position = 1;
+			//this.colorbutton1.Relief = ReliefStyle.None;
+			
+			this.hbox1.Add (this.colorbutton1);
+			
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.colorbutton1]));
+			w20.Position = 0;
+			w20.Expand = true;
+			w20.Fill = true;
+			
+			
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.checkbutton2 = new global::Gtk.CheckButton ();
+			this.checkbutton2.CanFocus = true;
+			this.checkbutton2.Name = "checkbutton2";
+			this.checkbutton2.Label = global::Mono.Unix.Catalog.GetString ("Transparent");
+			this.checkbutton2.Active = true;
+			this.checkbutton2.DrawIndicator = true;
+			this.checkbutton2.UseUnderline = true;
+			
+			this.colorbutton1.Sensitive = false;
+			
+			this.checkbutton2.Toggled += delegate(object sender, EventArgs e) 
+			{
+				this.colorbutton1.Sensitive = !this.checkbutton2.Active;
+			};
+			
+			this.hbox1.Add (this.checkbutton2);
+			
+			this.hbox7.Add(this.hbox1);
+			
 			this.vbox1.Add (this.hbox7);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox7]));
-			w21.PackType = ((global::Gtk.PackType)(1));
-			w21.Position = 3;
-			w21.Expand = false;
-			w21.Fill = false;
+			
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox7]));
+			w22.PackType = ((global::Gtk.PackType)(1));
+			w22.Position = 3;
+			w22.Fill = true;
 				
 			this.vbox1.BorderWidth = 3;
 			
@@ -557,22 +525,8 @@ namespace MeeGen
 		
 		private void ToggleSizeSettings(bool hide)
 		{
-			if(hide)
-			{
-				//this.vbox3.HideAll();
-				this.togglebutton4.Sensitive = false;
-				this.vbox3.Sensitive = false;
-				//this.vbox3.Visible = false;
-				//this.togglebutton4.Visible = false;
-			}else
-			{
-				this.togglebutton4.Sensitive = true;
-				this.vbox3.Sensitive = true;
-				//this.vbox3.ShowAll();
-				//this.togglebutton4.Show();
-				//this.vbox3.Visible = true;
-				//this.togglebutton4.Visible = true;
-			}
+			this.togglebutton4.Sensitive = !hide;
+			this.vbox3.Sensitive = !hide;
 		}
 	}
 }

@@ -870,4 +870,24 @@ to see the text that is actually being displayed.</property>
       </widget>
     </child>
   </widget>
+  <widget class="Gtk.Bin" id="MeeGen.ColorSelectButton" design-size="130 77">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Button" id="Button">
+        <property name="MemberName" />
+        <property name="CanFocus">True</property>
+        <property name="Type">Custom</property>
+        <property name="FocusOnClick">False</property>
+        <property name="Relief">None</property>
+        <signal name="Clicked" handler="OnButtonClicked" />
+        <child>
+          <widget class="Gtk.DrawingArea" id="Drawingarea">
+            <property name="MemberName" />
+            <signal name="ExposeEvent" handler="OnDrawingareaExposeEvent" />
+          </widget>
+        </child>
+      </widget>
+    </child>
+  </widget>
 </stetic-interface>
