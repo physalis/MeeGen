@@ -39,7 +39,7 @@ namespace MeeGen
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.label3 = new global::Gtk.Label ();
 			this.label3.Name = "label3";
-			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("MeeGen#");
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("MeeGen");
 			this.label3.Angle = 360;
 			this.vbox2.Add (this.label3);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.label3]));

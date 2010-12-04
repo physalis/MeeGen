@@ -51,7 +51,7 @@ namespace MeeGen
 		
 		protected string svgContent;
 		
-		protected Gdk.Color color;
+		protected Cairo.Color color;
 		
 		protected Point offset; // the point where the user has clicked to select this shape
 		
@@ -69,7 +69,7 @@ namespace MeeGen
 		public Layer(string filename, Point pos) 
 					: this(new Handle(filename), pos)
 		{
-			
+
 		}
 		
 		/// <summary>
@@ -98,6 +98,8 @@ namespace MeeGen
 			
 			this.flipMode = FlipMode.None;
 			
+			this.color = new Color(1, 1, 1, 1);
+			
 			StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
 			svgContent = reader.ReadToEnd();
 			reader.Close();
@@ -115,6 +117,11 @@ namespace MeeGen
 			this.selected = false;
 			this.flipMode = FlipMode.None;
 			this.svgContent = null;
+		}
+		
+		public Color Color
+		{
+			get {return this.color;}
 		}
 		
 		public FlipMode FlipMode
@@ -261,6 +268,14 @@ namespace MeeGen
 			                                color.Red / 255 > 255 ? 255 : color.Red / 255,
 			                                color.Green / 255 > 255 ? 255 : color.Green / 255,
 			                                color.Blue / 255 > 255 ? 255 : color.Blue / 255);
+
+			opacity = Math.Round(opacity, 1);
+			
+			this.color.R = color.Red/255;
+			this.color.G = color.Green/255;
+			this.color.B = color.Blue/255;
+			this.color.A = opacity;
+
 			
 			//TODO: PERF maybe use using(..)
 									
@@ -275,12 +290,24 @@ namespace MeeGen
 			
 			// this will set the first occurance of path-element to hexcolor.
 			// TODO: use regular expressions to replace the fill-color and the fill-opacity 
-			doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
-			"fill:"+hexcolor+";fill-opacity:1;fill-rule:nonzero;stroke:none";
+			
+			Console.WriteLine();
+			
+			if(doc.GetElementsByTagName("path").Count > 0)
+			{
+				doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
+				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";
+			}else if(doc.GetElementsByTagName("rect") != null)
+			{
+				doc.GetElementsByTagName("rect")[0].Attributes["style"].Value = 
+				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";
+			}else
+				return;
 			
 			this.svgContent = doc.OuterXml;
 
 			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
+			
 		}
 		
 		public void Move(int dx, int dy)
@@ -405,7 +432,7 @@ namespace MeeGen
 		}
 		
 		// TODO: this method is being called quite often,
-		//		 performance... -> adding an IsChanged-property gets more likely
+		//		 performance... -> adding a Changed-property gets more likely
 		private Rectangle GetBounds()
 		{
 			Rectangle b = new Rectangle(-this.size.Width/2,
@@ -426,17 +453,20 @@ namespace MeeGen
 			
 			// TODO: if rotation > Math.PI ...
 			// also it isn't very precise.
+			//Console.WriteLine (rotation);
+
+			double rot = this.rotation < 0 ? -this.rotation : this.rotation;
+				   rot = rot > Math.PI/2 ? Math.PI/2 - rot : -rot;
 			
-			//double rotation = this.rotation > Math.PI ? 0 : this.rotation;
-			double rotation = this.rotation > 0 ? -this.rotation : this.rotation;
+			//double rotation = this.rotation > 0 ? -this.rotation : this.rotation;
 
 			for(int i = 0; i < 4; i++)
 			{
-				double x = (x0 + (untransformed[i].X - x0) * Math.Cos(rotation)
-				            + (untransformed[i].Y - y0) * Math.Sin(rotation));
+				double x = (x0 + (untransformed[i].X - x0) * Math.Cos(rot)
+				            + (untransformed[i].Y - y0) * Math.Sin(rot));
 			
-				double y = (y0 - (untransformed[i].X - x0) * Math.Sin(rotation)
-				            + (untransformed[i].Y - y0) * Math.Cos(rotation));
+				double y = (y0 - (untransformed[i].X - x0) * Math.Sin(rot)
+				            + (untransformed[i].Y - y0) * Math.Cos(rot));
 				
 				transformed[i] = new PointD(x, y);
 			}

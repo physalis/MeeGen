@@ -83,6 +83,11 @@
     <EmbeddedResource Include="Resources\ico-meegen.png" />
     <EmbeddedResource Include="Resources\ratio-preserve.png" />
     <EmbeddedResource Include="Resources\ratio-custom.png" />
+    <EmbeddedResource Include="Resources\Wizard\cafepress-logo.png" />
+    <EmbeddedResource Include="Resources\Wizard\gravatar-logo.png" />
+    <EmbeddedResource Include="..\MeeGen.sln" />
+    <EmbeddedResource Include="Resources\Wizard\meego-forum-logo.png" />
+    <EmbeddedResource Include="Resources\Wizard\zazzle-logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -103,14 +108,14 @@
     <Compile Include="gtk-gui\MeeGen.PreferencesDialog.cs" />
     <Compile Include="UI\ColorSelectButton.cs" />
     <Compile Include="gtk-gui\MeeGen.ColorSelectButton.cs" />
+    <Compile Include="UI\ExportWizard\Upload\MeeGoForumUpload.cs" />
+    <Compile Include="UI\ExportWizard\Upload\IUploader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Layers\" />
     <Folder Include="UI\" />
     <Folder Include="UI\ExportWizard\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TODO" />
+    <Folder Include="UI\ExportWizard\Upload\" />
   </ItemGroup>
 </Project>

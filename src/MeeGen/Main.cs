@@ -68,7 +68,6 @@ namespace MeeGen
 				writer.WriteStartElement("component-database"); // root element
 				writer.WriteAttributeString("directory", parent.FullName);
 
-			
 				foreach(DirectoryInfo dir in parent.GetDirectories())
 				{	
 					writer.WriteStartElement("category"); 
@@ -76,7 +75,6 @@ namespace MeeGen
 					writer.WriteAttributeString("name", dir.Name);
 				
 					CrawlDirectories(dir, writer);
-				
 					writer.WriteEndElement(); // closes category
 				}	
 			

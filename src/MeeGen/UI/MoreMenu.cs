@@ -3,9 +3,11 @@ using Gtk;
 
 namespace MeeGen
 {
+	public delegate void FillIconViewDelegate(string arg);
+	
 	public class MoreMenu : Gtk.Menu
 	{
-		public MoreMenu ()
+		public MoreMenu (FillIconViewDelegate fillIconView)
 		{
 			// Move all this to a new class, derived from Gtk.Menu
 			
@@ -22,35 +24,35 @@ namespace MeeGen
 				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
 				w.ModifyFont(font);
 			}
+			im.Activated += delegate(object sender, EventArgs e) 
+			{
+				fillIconView("items");
+			};
 			this.Append(im);
-			
+					
 			im = new MenuItem("Basic shapes");
 			foreach(Widget w in im.AllChildren)
 			{
 				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
 				w.ModifyFont(font);
-
 			}
+			im.Activated += delegate(object sender, EventArgs e) 
+			{
+				fillIconView("basic-shapes");
+			};
 			this.Append(im);
-					
-			im = new MenuItem("Eyes");
+			
+			im = new MenuItem("Custom");
 			foreach(Widget w in im.AllChildren)
 			{
 				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
 				w.ModifyFont(font);
 			}
-			this.Append(im);
-			
-			im = new MenuItem("Other");
-			foreach(Widget w in im.AllChildren)
+			im.Activated += delegate(object sender, EventArgs e) 
 			{
-				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
-				w.ModifyFont(font);
-			}
+				fillIconView("custom");
+			};
 			this.Append(im);
-			
-			this.ShowAll();
-			this.Popup();
 		}
 	}
 }

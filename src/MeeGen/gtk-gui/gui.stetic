@@ -5,7 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Release/MeeGen.exe" internal="true" />
+    <widget-library name="../bin/Debug/MeeGen.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="899 562">
     <property name="MemberName" />
@@ -36,7 +36,7 @@
                         <property name="MemberName" />
                         <property name="Homogeneous">True</property>
                         <property name="Spacing">2</property>
-                        <property name="Size">7</property>
+                        <property name="Size">8</property>
                         <property name="LayoutStyle">Spread</property>
                         <child>
                           <widget class="Gtk.Button" id="BtnHeads">
@@ -118,6 +118,22 @@
                           </packing>
                         </child>
                         <child>
+                          <widget class="Gtk.Button" id="BtnEyes">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Type">TextOnly</property>
+                            <property name="Label" translatable="yes">Eyes</property>
+                            <property name="UseUnderline">True</property>
+                            <property name="Relief">None</property>
+                            <signal name="Clicked" handler="CategoryButtonClicked" />
+                          </widget>
+                          <packing>
+                            <property name="Position">5</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
                           <widget class="Gtk.Button" id="BtnPets">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
@@ -128,7 +144,7 @@
                             <signal name="Clicked" handler="CategoryButtonClicked" />
                           </widget>
                           <packing>
-                            <property name="Position">5</property>
+                            <property name="Position">6</property>
                             <property name="Expand">False</property>
                             <property name="Fill">False</property>
                           </packing>
@@ -180,7 +196,7 @@
                             </child>
                           </widget>
                           <packing>
-                            <property name="Position">6</property>
+                            <property name="Position">7</property>
                             <property name="Expand">False</property>
                             <property name="Fill">False</property>
                           </packing>
@@ -633,7 +649,7 @@
             <child>
               <widget class="Gtk.Label" id="label3">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">MeeGen#</property>
+                <property name="LabelProp" translatable="yes">MeeGen</property>
                 <property name="Angle">360</property>
               </widget>
               <packing>
@@ -736,11 +752,9 @@ to see the text that is actually being displayed.</property>
                         <property name="Yalign">0</property>
                         <property name="LeftPadding">12</property>
                         <child>
-                          <widget class="Gtk.ColorButton" id="colorbutton3">
+                          <widget class="MeeGen.ColorSelectButton" id="colorselectbutton2">
                             <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Events">ButtonMotionMask, ButtonPressMask, ButtonReleaseMask</property>
-                            <property name="Alpha">-1</property>
+                            <property name="Events">ButtonPressMask</property>
                           </widget>
                         </child>
                       </widget>
@@ -771,11 +785,9 @@ to see the text that is actually being displayed.</property>
                         <property name="Yalign">0</property>
                         <property name="LeftPadding">12</property>
                         <child>
-                          <widget class="Gtk.ColorButton" id="colorbutton4">
+                          <widget class="MeeGen.ColorSelectButton" id="colorselectbutton1">
                             <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Events">ButtonMotionMask, ButtonPressMask, ButtonReleaseMask</property>
-                            <property name="Alpha">-1</property>
+                            <property name="Events">ButtonPressMask</property>
                           </widget>
                         </child>
                       </widget>

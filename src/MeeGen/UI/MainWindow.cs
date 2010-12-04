@@ -14,8 +14,9 @@ namespace MeeGen
 		Dictionary<string, ListStore> iconDict; // scaled images
 		Dictionary<string, string[]> imageDict; // contains image location,
 												// might be better if I directly load Rsvg.Handles
-		
 		LayerManager layerManager;
+		
+		MoreMenu moreMenu;
 		
 		public MainWindow(string databaseFile) : base(Gtk.WindowType.Toplevel)
 		{
@@ -54,8 +55,7 @@ namespace MeeGen
 			try
 			{
 				LoadImages(databaseFile);
-				this.iconview.Model = iconDict["heads"];
-				this.Category = "heads";
+				FillIconView("heads");
 			}catch(Exception e)
 			{
 				MessageBox.ShowError(e.Message);
@@ -63,7 +63,7 @@ namespace MeeGen
 				System.Diagnostics.Process.GetCurrentProcess().Kill();  
 			}
 			
-			// the drag and drop table, that contains destination and source targets
+			// the drag and drop table that contains destination and source targets
 			Gtk.TargetEntry[] dd_table = new Gtk.TargetEntry[]{new Gtk.TargetEntry("text/plain", 0, 0)};
 			
 			// Set up the drawingarea as a drop destination
@@ -71,6 +71,9 @@ namespace MeeGen
 			
 			// Set up the iconview as the drag source
 			Gtk.Drag.SourceSet(iconview, Gdk.ModifierType.Button1Mask, dd_table, Gdk.DragAction.Copy);
+		
+			this.moreMenu = new MoreMenu(FillIconView);
+			this.moreMenu.ShowAll();
 		}
 		
 #region 8< ------------ Properties ---------------- 
@@ -166,9 +169,7 @@ namespace MeeGen
 			{
 				this.layerManager.Add(new Layer(this.imageDict["heads"][rnd.Next(0, max)],
 				                                new Point(rnd.Next(0, 100),
-				                                          rnd.Next(0, 100))
-				                                )
-				                      );
+				                                          rnd.Next(0, 100))));
 			}
 			
 			// end with some transformations
@@ -195,10 +196,8 @@ namespace MeeGen
 		}
 		
 		protected virtual void MoreButtonClicked (object sender, System.EventArgs e)
-		{
-			// TODO: Move all this to a new class, derived from Gtk.Menu
-			
-			Menu m = new Menu();
+		{			
+			/*Menu m = new Menu();
 			m.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
 			
 			
@@ -231,18 +230,6 @@ namespace MeeGen
 			};
 			m.Append(im);
 					
-			im = new MenuItem("Eyes");
-			foreach(Widget w in im.AllChildren)
-			{
-				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
-				w.ModifyFont(font);
-			}
-			im.Activated += delegate(object o, EventArgs ea) 
-			{
-				FillIconView("eyes");
-			};
-			m.Append(im);
-			
 			im = new MenuItem("Custom");
 
 			foreach(Widget w in im.AllChildren)
@@ -253,7 +240,8 @@ namespace MeeGen
 			m.Append(im);
 			
 			m.ShowAll();
-			m.Popup();
+			m.Popup();*/
+			moreMenu.Popup();
 		}
 		
 		protected virtual void DrawingAreaExpose (object o, Gtk.ExposeEventArgs args)
@@ -311,7 +299,6 @@ namespace MeeGen
 		{			
 			Layer l = new Layer(args.SelectionData.Text, new Point(args.X, args.Y));
 			
-			//TODO: select newly added layer in LayerManager.Add(...), not here
 			this.layerManager.Add(l);
 			this.layerManager.UnselectAll();
 			this.layerManager.Select(l);
@@ -360,7 +347,7 @@ namespace MeeGen
 			int next = Convert.ToInt32(start.ToString()) - 1;
 			
 			// it won't crash if it's a negative value but it results in a Gtk-WARNING 
-			// and a Gtk-CRITICAL message on stdout.
+			// and a Gtk-CRITICAL message on the console.
 			next = next < 0 ? 0 : next; 
 				
 			this.iconview.ScrollToPath(new TreePath(next.ToString()));
@@ -368,15 +355,13 @@ namespace MeeGen
 		
 		protected virtual void ZoomInButtonClicked (object sender, System.EventArgs e)
 		{
-			foreach(Layer l in layerManager)
-				l.Zoom(2);
+			this.layerManager.Selected.Zoom(2);
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void ZoomOutButtonClicked (object sender, System.EventArgs e)
 		{
-			foreach(Layer l in layerManager)
-				l.Zoom(-2);
+			this.layerManager.Selected.Zoom(-2);
 			this.drawingarea.QueueDraw();
 		}
 		
@@ -394,7 +379,6 @@ namespace MeeGen
 		
 		protected virtual void SettingsButtonClicked (object sender, System.EventArgs e)
 		{
-			//MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet.");
 			PreferencesDialog dia  = new PreferencesDialog();
 			
 			int result = dia.Run();
@@ -411,16 +395,23 @@ namespace MeeGen
 			ColorSelectionDialog colordialog = new ColorSelectionDialog("Select a color");
 			colordialog.ColorSelection.HasOpacityControl = true;
 			colordialog.Decorated = false;
+			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
+			
 			//colordialog.ColorSelection.HasPalette = true;
 			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
-			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
+			
+			/*Gdk.Color selectedColor = new Gdk.Color((byte)(this.layerManager.Selected.Color.R * 255), 
+			                                        (byte)(this.layerManager.Selected.Color.G * 255),
+			                                        (byte)(this.layerManager.Selected.Color.B * 255));
+			
+			colordialog.ColorSelection.CurrentColor = selectedColor;
+			colordialog.ColorSelection.CurrentAlpha = (ushort)this.layerManager.Selected.Color.A;*/
 			
 			int res = colordialog.Run();
 			
-			
 			if(res == (int)ResponseType.Ok)
-				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor, 1);
-			//Console.WriteLine(((double)(colordialog.ColorSelection.CurrentAlpha)/255)/255);
+				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
+			
 			colordialog.Destroy();
 			
 			this.drawingarea.QueueDraw();
@@ -493,12 +484,11 @@ namespace MeeGen
 			}
 		}
 		
-#endregion	
-		
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 		{
 			Application.Quit ();
 			a.RetVal = true;
-		}				
+		}			
+#endregion	
 	}
 }
