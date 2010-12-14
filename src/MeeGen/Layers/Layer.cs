@@ -293,6 +293,7 @@ namespace MeeGen
 			
 			Console.WriteLine();
 			
+			// circle, ellipse, rect, line, polyline, polygon, text(?)
 			if(doc.GetElementsByTagName("path").Count > 0)
 			{
 				doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
@@ -385,7 +386,8 @@ namespace MeeGen
 				                     7);
 				             
 				// #b5b7b4 - light grey (meego palette)
-				cx.Color = new Color(0.7, 0.71, 0.7, 0.3);		
+				//cx.Color = new Color(0.7, 0.71, 0.7, 0.3);	
+				cx.Color = new Color(0.7, 0.71, 0.7, 0.5);	
 				cx.Fill();
 
 				cx.Restore();

@@ -119,13 +119,14 @@ namespace MeeGen
 			
 			Build();
 			
+			//TODO: remove this delegate in the dispose/destructor
 			wiz.Close += delegate(object sender, EventArgs e) 
 			{
 				ExportFormat format = ExportFormat.SVG; 
 				
 				string filename = this.entry1.Text;
 				
-				format = (ExportFormat)Enum.Parse(typeof(ExportFormat), combobox1.ActiveText);
+				format = (ExportFormat)Enum.Parse(typeof(ExportFormat), combobox1.ActiveText.Substring(0,3));
 
 				wiz.LayerManager.Export(this.entry1.Text, format);
 				
@@ -201,9 +202,10 @@ namespace MeeGen
 			this.vbox1.Homogeneous = true;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.combobox1 = global::Gtk.ComboBox.NewText ();
-			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("SVG"));
-			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("PNG"));
-			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("PDF"));
+			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("SVG - Scalable Vector Graphic"));
+			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("PNG - Portable Network Graphic"));
+			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("PDF - Portable Document File"));
+			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("MIF - MeeGen Image File"));
 			this.combobox1.Name = "combobox1";
 			this.combobox1.Active = 0;
 			this.vbox1.Add (this.combobox1);
@@ -484,7 +486,7 @@ namespace MeeGen
 				dia.Icon = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.document-save.png");
 				dia.DoOverwriteConfirmation = true;
 				
-				dia.CurrentName = "Untitled." + this.combobox1.ActiveText.ToLower();
+				dia.CurrentName = "Untitled." + this.combobox1.ActiveText.Substring(0,3).ToLower();
 				
 				FileFilter f = new FileFilter();
 				f.Name = "SVG";

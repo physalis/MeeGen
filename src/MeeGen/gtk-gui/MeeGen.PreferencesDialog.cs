@@ -12,7 +12,7 @@ namespace MeeGen
 
 		private global::Gtk.Alignment GtkAlignment2;
 
-		private global::MeeGen.ColorSelectButton colorselectbutton2;
+		private global::MeeGen.ColorSelectButton DAColorSelectButton;
 
 		private global::Gtk.Label GtkLabel;
 
@@ -20,7 +20,7 @@ namespace MeeGen
 
 		private global::Gtk.Alignment GtkAlignment3;
 
-		private global::MeeGen.ColorSelectButton colorselectbutton1;
+		private global::MeeGen.ColorSelectButton TAColorSelectButton;
 
 		private global::Gtk.Label GtkLabel3;
 
@@ -63,10 +63,10 @@ namespace MeeGen
 			this.GtkAlignment2.Name = "GtkAlignment2";
 			this.GtkAlignment2.LeftPadding = ((uint)(12));
 			// Container child GtkAlignment2.Gtk.Container+ContainerChild
-			this.colorselectbutton2 = new global::MeeGen.ColorSelectButton ();
-			this.colorselectbutton2.Events = ((global::Gdk.EventMask)(256));
-			this.colorselectbutton2.Name = "colorselectbutton2";
-			this.GtkAlignment2.Add (this.colorselectbutton2);
+			this.DAColorSelectButton = new global::MeeGen.ColorSelectButton ();
+			this.DAColorSelectButton.Events = ((global::Gdk.EventMask)(256));
+			this.DAColorSelectButton.Name = "DAColorSelectButton";
+			this.GtkAlignment2.Add (this.DAColorSelectButton);
 			this.frame1.Add (this.GtkAlignment2);
 			this.GtkLabel = new global::Gtk.Label ();
 			this.GtkLabel.Name = "GtkLabel";
@@ -84,10 +84,10 @@ namespace MeeGen
 			this.GtkAlignment3.Name = "GtkAlignment3";
 			this.GtkAlignment3.LeftPadding = ((uint)(12));
 			// Container child GtkAlignment3.Gtk.Container+ContainerChild
-			this.colorselectbutton1 = new global::MeeGen.ColorSelectButton ();
-			this.colorselectbutton1.Events = ((global::Gdk.EventMask)(256));
-			this.colorselectbutton1.Name = "colorselectbutton1";
-			this.GtkAlignment3.Add (this.colorselectbutton1);
+			this.TAColorSelectButton = new global::MeeGen.ColorSelectButton ();
+			this.TAColorSelectButton.Events = ((global::Gdk.EventMask)(256));
+			this.TAColorSelectButton.Name = "TAColorSelectButton";
+			this.GtkAlignment3.Add (this.TAColorSelectButton);
 			this.frame2.Add (this.GtkAlignment3);
 			this.GtkLabel3 = new global::Gtk.Label ();
 			this.GtkLabel3.Name = "GtkLabel3";

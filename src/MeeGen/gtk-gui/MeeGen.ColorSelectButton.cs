@@ -6,7 +6,7 @@ namespace MeeGen
 	{
 		private global::Gtk.Button Button;
 
-		private global::Gtk.DrawingArea Drawingarea;
+		private global::Gtk.DrawingArea DrawingArea;
 
 		protected virtual void Build ()
 		{
@@ -21,9 +21,9 @@ namespace MeeGen
 			this.Button.FocusOnClick = false;
 			this.Button.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child Button.Gtk.Container+ContainerChild
-			this.Drawingarea = new global::Gtk.DrawingArea ();
-			this.Drawingarea.Name = "Drawingarea";
-			this.Button.Add (this.Drawingarea);
+			this.DrawingArea = new global::Gtk.DrawingArea ();
+			this.DrawingArea.Name = "DrawingArea";
+			this.Button.Add (this.DrawingArea);
 			this.Button.Label = null;
 			this.Add (this.Button);
 			if ((this.Child != null)) {
@@ -31,7 +31,7 @@ namespace MeeGen
 			}
 			this.Hide ();
 			this.Button.Clicked += new global::System.EventHandler (this.OnButtonClicked);
-			this.Drawingarea.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnDrawingareaExposeEvent);
+			this.DrawingArea.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnDrawingareaExposeEvent);
 		}
 	}
 }

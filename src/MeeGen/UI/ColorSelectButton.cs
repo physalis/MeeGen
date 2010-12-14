@@ -17,10 +17,13 @@ namespace MeeGen
 		
 		public Color Color
 		{
-			get{return this.color;}
+			get
+			{
+				return this.color;
+			}
 			set
 			{
-				this.Drawingarea.ModifyBg(StateType.Normal, value);
+				this.DrawingArea.ModifyBg(StateType.Normal, value);
 				this.color = value;
 			}
 		}
@@ -42,12 +45,12 @@ namespace MeeGen
 		protected virtual void OnDrawingareaExposeEvent (object o, Gtk.ExposeEventArgs args)
 		{
 			int width, height;
-			this.Drawingarea.GdkWindow.GetSize(out width, out height);
+			this.DrawingArea.GdkWindow.GetSize(out width, out height);
 			
-			using(Gdk.GC g = new Gdk.GC(Drawingarea.GdkWindow))
+			using(Gdk.GC g = new Gdk.GC(DrawingArea.GdkWindow))
 			{
 				g.SetLineAttributes(2, LineStyle.Solid, CapStyle.Round, JoinStyle.Miter);
-				Drawingarea.GdkWindow.DrawRectangle(g, false, new Rectangle(0, 0, width, height));
+				DrawingArea.GdkWindow.DrawRectangle(g, false, new Rectangle(0, 0, width, height));
 			}
 		}
 	}

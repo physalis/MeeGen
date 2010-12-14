@@ -5,7 +5,7 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/MeeGen.exe" internal="true" />
+    <widget-library name="../bin/Release/MeeGen.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MeeGen.MainWindow" design-size="899 562">
     <property name="MemberName" />
@@ -752,7 +752,7 @@ to see the text that is actually being displayed.</property>
                         <property name="Yalign">0</property>
                         <property name="LeftPadding">12</property>
                         <child>
-                          <widget class="MeeGen.ColorSelectButton" id="colorselectbutton2">
+                          <widget class="MeeGen.ColorSelectButton" id="DAColorSelectButton">
                             <property name="MemberName" />
                             <property name="Events">ButtonPressMask</property>
                           </widget>
@@ -785,7 +785,7 @@ to see the text that is actually being displayed.</property>
                         <property name="Yalign">0</property>
                         <property name="LeftPadding">12</property>
                         <child>
-                          <widget class="MeeGen.ColorSelectButton" id="colorselectbutton1">
+                          <widget class="MeeGen.ColorSelectButton" id="TAColorSelectButton">
                             <property name="MemberName" />
                             <property name="Events">ButtonPressMask</property>
                           </widget>
@@ -894,7 +894,7 @@ to see the text that is actually being displayed.</property>
         <property name="Relief">None</property>
         <signal name="Clicked" handler="OnButtonClicked" />
         <child>
-          <widget class="Gtk.DrawingArea" id="Drawingarea">
+          <widget class="Gtk.DrawingArea" id="DrawingArea">
             <property name="MemberName" />
             <signal name="ExposeEvent" handler="OnDrawingareaExposeEvent" />
           </widget>

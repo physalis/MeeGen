@@ -248,8 +248,18 @@ namespace MeeGen
 		{			
 			Widget w = o as Widget;
 			
+			int width, height;
+			w.GdkWindow.GetSize(out width, out height);
+			
 		    Cairo.Context g = Gdk.CairoHelper.Create(w.GdkWindow);
-		    g.Antialias = Antialias.Default; 
+		    //g.Antialias = Antialias.Default; 
+			
+			g.Save();
+			g.LineWidth = 2;
+			g.Color = new Color(0, 0, 0);
+			g.Rectangle(0, 0, width, height);
+			g.Stroke();
+			g.Restore();
 			
 			this.layerManager.Draw(g);
 
@@ -382,11 +392,14 @@ namespace MeeGen
 			PreferencesDialog dia  = new PreferencesDialog();
 			
 			int result = dia.Run();
-			if(result == (int)ResponseType.Ok)
-				dia.Destroy();
-			else
-				dia.Destroy();
 			
+			if(result == (int)ResponseType.Ok)
+			{
+				this.drawingarea.ModifyBg(StateType.Normal, dia.DAColor);
+				this.ModifyBg(StateType.Normal, dia.TAColor);
+				this.iconview.ModifyBase(StateType.Normal, dia.TAColor);
+			}
+			dia.Destroy();
 		}
 		
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)

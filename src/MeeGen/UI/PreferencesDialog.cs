@@ -15,6 +15,30 @@ namespace MeeGen
 			
 			WidgetHelper.SetButtonRelief(this, ReliefStyle.None);
 		}
+		
+		public Color DAColor
+		{
+			get{return this.DAColorSelectButton.Color;}
+		}
+		
+		public Color TAColor
+		{
+			get{return this.TAColorSelectButton.Color;}
+		}
+	}
+	
+	public class MeeGenSettings
+	{
+		//TODO: make serializeable, make struct.
+		
+		private Color DrawingAreaColor;
+		private Color ToolAreaColor;
+		
+		public MeeGenSettings(Color daColor, Color taColor)
+		{
+			this.DrawingAreaColor = daColor;
+			this.ToolAreaColor = taColor;
+		}
 	}
 }
 
