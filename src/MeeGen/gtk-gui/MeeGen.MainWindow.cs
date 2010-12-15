@@ -614,6 +614,8 @@ namespace MeeGen
 			w132.Fill = false;
 			// Container child vbox6.Gtk.Box+BoxChild
 			this.drawingarea = new global::Gtk.DrawingArea ();
+			this.drawingarea.CanDefault = true;
+			this.drawingarea.CanFocus = true;
 			this.drawingarea.Events = ((global::Gdk.EventMask)(804));
 			this.drawingarea.Name = "drawingarea";
 			this.vbox6.Add (this.drawingarea);
@@ -655,7 +657,6 @@ namespace MeeGen
 			this.GtkScrolledWindow.HscrollbarPolicy = ((global::Gtk.PolicyType)(2));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 			this.iconview = new global::Gtk.IconView ();
-			this.iconview.CanFocus = true;
 			this.iconview.Name = "iconview";
 			this.GtkScrolledWindow.Add (this.iconview);
 			this.hbox4.Add (this.GtkScrolledWindow);
@@ -707,9 +708,9 @@ namespace MeeGen
 			}
 			this.DefaultWidth = 899;
 			this.DefaultHeight = 562;
+			this.drawingarea.HasDefault = true;
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-			this.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnKeyReleaseEvent);
 			this.BtnHeads.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnHair.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnArms.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
@@ -736,6 +737,7 @@ namespace MeeGen
 			this.drawingarea.ButtonReleaseEvent += new global::Gtk.ButtonReleaseEventHandler (this.DrawingAreaClickReleased);
 			this.drawingarea.ButtonPressEvent += new global::Gtk.ButtonPressEventHandler (this.DrawingAreaPress);
 			this.drawingarea.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler (this.DrawingAreaMotionNotify);
+			this.drawingarea.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnDrawingareaKeyPressEvent);
 			this.BtnScrollLeft.Clicked += new global::System.EventHandler (this.ScrollLeftButtonClicked);
 			this.iconview.DragDataGet += new global::Gtk.DragDataGetHandler (this.DragData_Get);
 			this.iconview.DragBegin += new global::Gtk.DragBeginHandler (this.Drag_Begin);

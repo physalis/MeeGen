@@ -14,7 +14,6 @@
     <property name="WindowPosition">Center</property>
     <property name="AllowShrink">True</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
-    <signal name="KeyReleaseEvent" handler="OnKeyReleaseEvent" />
     <child>
       <widget class="Gtk.VBox" id="vbox1">
         <property name="MemberName" />
@@ -520,12 +519,16 @@
                     <child>
                       <widget class="Gtk.DrawingArea" id="drawingarea">
                         <property name="MemberName" />
+                        <property name="CanDefault">True</property>
+                        <property name="HasDefault">True</property>
+                        <property name="CanFocus">True</property>
                         <property name="Events">PointerMotionMask, Button1MotionMask, ButtonPressMask, ButtonReleaseMask</property>
                         <signal name="ExposeEvent" handler="DrawingAreaExpose" />
                         <signal name="DragDataReceived" handler="DragData_Received" />
                         <signal name="ButtonReleaseEvent" handler="DrawingAreaClickReleased" />
                         <signal name="ButtonPressEvent" handler="DrawingAreaPress" />
                         <signal name="MotionNotifyEvent" handler="DrawingAreaMotionNotify" />
+                        <signal name="KeyPressEvent" handler="OnDrawingareaKeyPressEvent" />
                       </widget>
                       <packing>
                         <property name="Position">1</property>
@@ -562,7 +565,6 @@
                             <child>
                               <widget class="Gtk.IconView" id="iconview">
                                 <property name="MemberName" />
-                                <property name="CanFocus">True</property>
                                 <property name="ShowScrollbars">True</property>
                                 <signal name="DragDataGet" handler="DragData_Get" />
                                 <signal name="DragBegin" handler="Drag_Begin" />

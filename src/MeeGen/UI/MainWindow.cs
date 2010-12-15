@@ -56,6 +56,7 @@ namespace MeeGen
 			{
 				LoadImages(databaseFile);
 				FillIconView("heads");
+				
 			}catch(Exception e)
 			{
 				MessageBox.ShowError(e.Message);
@@ -246,6 +247,7 @@ namespace MeeGen
 		
 		protected virtual void DrawingAreaExpose (object o, Gtk.ExposeEventArgs args)
 		{			
+			this.drawingarea.GrabFocus();
 			Widget w = o as Widget;
 			
 			int width, height;
@@ -442,6 +444,7 @@ namespace MeeGen
 			this.layerManager.UnselectAll();
 			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
 			this.drawingarea.QueueDraw();
+			//this.drawingarea.GrabFocus();
 		}
 				
 		protected virtual void DrawingAreaMotionNotify (object o, Gtk.MotionNotifyEventArgs args)
@@ -486,12 +489,29 @@ namespace MeeGen
 			this.drawingarea.QueueDraw();
 		}
 		
-		protected virtual void OnKeyReleaseEvent (object o, Gtk.KeyReleaseEventArgs args)
+		protected virtual void OnDrawingareaKeyPressEvent (object o, Gtk.KeyPressEventArgs args)
 		{
 			switch(args.Event.Key)
 			{
 				case Gdk.Key.Delete:
 					this.layerManager.Remove(this.layerManager.Selected);
+					this.drawingarea.QueueDraw();
+				break;
+				
+				case Gdk.Key.Up:
+					this.layerManager.Selected.Move(0, -1);	
+					this.drawingarea.QueueDraw();
+				break;
+				case Gdk.Key.Down:
+					this.layerManager.Selected.Move(0, 1);	
+					this.drawingarea.QueueDraw();
+				break;
+				case Gdk.Key.Left:
+					this.layerManager.Selected.Move(-1, 0);	
+					this.drawingarea.QueueDraw();
+				break;
+				case Gdk.Key.Right:
+					this.layerManager.Selected.Move(1, 0);	
 					this.drawingarea.QueueDraw();
 				break;
 			}
@@ -502,6 +522,7 @@ namespace MeeGen
 			Application.Quit ();
 			a.RetVal = true;
 		}			
-#endregion	
+#endregion			
+		
 	}
 }

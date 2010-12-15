@@ -285,11 +285,12 @@ namespace MeeGen
 		
 			//Console.WriteLine(doc.DocumentType.ToString());
 			
-			// TODO: add metadata tags to the images, that specify which paths color to change
-			// 		 if none available, change the 0. (or none?).
+			// TODO: add metadata tags to the images, that specify which path's color to change.
+			// 		 if none are specified, change the 0. (or none?).
 			
 			// this will set the first occurance of path-element to hexcolor.
-			// TODO: use regular expressions to replace the fill-color and the fill-opacity 
+			// TODO: use regular expressions to replace the fill-color and the fill-opacity,
+			//		 or at least use the StringBuilder class
 			
 			Console.WriteLine();
 			
@@ -311,10 +312,18 @@ namespace MeeGen
 			
 		}
 		
-		public void Move(int dx, int dy)
+		private void MoveDrag(int dx, int dy)
 		{
 			this.position.X += dx - this.offset.X;
 			this.position.Y += dy - this.offset.Y;
+			
+			this.offset = new Point(dx, dy);
+		}
+		
+		public void Move(int dx, int dy)
+		{
+			this.position.X += dx;
+			this.position.Y += dy;
 			
 			this.offset = new Point(dx, dy);
 		}
@@ -326,7 +335,7 @@ namespace MeeGen
 				case DragLocation.None:
 					break;
 				case DragLocation.Inside:
-					this.Move(dx, dy);
+					this.MoveDrag(dx, dy);
 					break;
 				case DragLocation.Resize:
 					this.ScaleWidth(dx - this.offset.X);
