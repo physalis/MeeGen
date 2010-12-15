@@ -21,7 +21,7 @@ namespace MeeGen
 			
 			
 			Pango.FontDescription font = new Pango.FontDescription();
-			font.Family = "Arial";
+			font.Family = "DIN";
 			font.AbsoluteSize = 25 * Pango.Scale.PangoScale;
 
 			this.label3.ModifyFont(font);
@@ -29,7 +29,7 @@ namespace MeeGen
 			System.Version ver = Assembly.GetExecutingAssembly().GetName().Version;
 			
 			this.label1.LabelProp = "<b>Version</b>\n"+
-									"\t"+ver.Major.ToString()+"."+ver.Minor.ToString()+"\n"+
+									"\t"+ver.ToString()+"\n"+
 									"<b>License</b>\n"+
 									"\tReleased under the GNU General Public License.\n"+
 									"<b>Copyright</b>\n"+

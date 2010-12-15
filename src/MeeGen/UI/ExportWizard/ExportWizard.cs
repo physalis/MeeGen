@@ -20,7 +20,7 @@ namespace MeeGen
 		{
 			this.SkipTaskbarHint = true;
 			
-			SetSizeRequest(450, 350);
+			SetSizeRequest(450, 360);
 			this.Resizable = false;
 			Title = "ExportWizard";
 			

@@ -103,6 +103,8 @@ namespace MeeGen
 			StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
 			svgContent = reader.ReadToEnd();
 			reader.Close();
+			
+			Console.WriteLine("METADATA: " + this.svgHandle.Metadata);
 		}
 		
 		internal Layer()
@@ -259,15 +261,15 @@ namespace MeeGen
 		/// <param name="color">
 		/// A <see cref="Gdk.Color"/>
 		/// </param>
-		public void Colorify(Gdk.Color color, double opacity)
+		public void Colorize(Gdk.Color color, double opacity)
 		{		
 			if(svgContent == null)
 				return;
 											// make sure the color-values stay <= 255
 			string hexcolor = String.Format("#{0:x2}{1:x2}{2:x2}",
-			                                color.Red / 255 > 255 ? 255 : color.Red / 255,
+			                                color.Red    / 255 > 255 ? 255 : color.Red   / 255,
 			                                color.Green / 255 > 255 ? 255 : color.Green / 255,
-			                                color.Blue / 255 > 255 ? 255 : color.Blue / 255);
+			                                color.Blue / 255 > 255 ? 255 : color.Blue  / 255);
 
 			opacity = Math.Round(opacity, 1);
 			

@@ -423,7 +423,7 @@ namespace MeeGen
 			int res = colordialog.Run();
 			
 			if(res == (int)ResponseType.Ok)
-				this.layerManager.Selected.Colorify(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
+				this.layerManager.Selected.Colorize(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
 			
 			colordialog.Destroy();
 			

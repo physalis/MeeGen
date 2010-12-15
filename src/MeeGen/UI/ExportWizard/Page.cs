@@ -486,7 +486,7 @@ namespace MeeGen
 				dia.Icon = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.document-save.png");
 				dia.DoOverwriteConfirmation = true;
 				
-				dia.CurrentName = "Untitled." + this.combobox1.ActiveText.Substring(0,3).ToLower();
+				dia.CurrentName = "meegon." + this.combobox1.ActiveText.Substring(0,3).ToLower();
 				
 				FileFilter f = new FileFilter();
 				f.Name = "SVG";
@@ -528,6 +528,8 @@ namespace MeeGen
 					w35.Pixbuf = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.ratio-custom.png");
 				}
 			};
+			
+			this.entry1.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "/meegon.svg";
 
 			this.Add (this.vbox1);
 			this.ShowAll();
