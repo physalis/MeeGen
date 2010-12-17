@@ -5,13 +5,16 @@ using Cairo;
 
 namespace MeeGen
 {
+	//TODO: refactor selection stuff
 	public class LayerManager : IEnumerable
 	{
 		List<Layer> layers;
+		Layer selected;
 		
 		public LayerManager ()
 		{
 			layers = new List<Layer>();
+			this.selected = new Layer();
 		}
 		
 		public Layer this[int index]
@@ -32,7 +35,7 @@ namespace MeeGen
 		
 		public Layer Selected
 		{
-			get{return this.GetSelectedLayer();}
+			get{return this.selected;}
 		}
 		
 		// adds a new layer 
@@ -71,13 +74,15 @@ namespace MeeGen
 		{
 			this.layers.Remove(l);
 		}
-		
-		// Move Up/down
-		
+				
 		public void Select(int index)
-		{
+		{			
 			if(index < this.Count && index >= 0)
+			{
+				this.selected.Selected = false;
 				this[index].Selected = true;
+				this.selected = this[index];
+			}
 		}
 		
 		public void Select(Layer l)
@@ -88,22 +93,25 @@ namespace MeeGen
 		public void Select(int x, int y)
 		{
 			//TODO: PERF
-			Layer selected = null;
+			Layer sel = null;
 			
 			foreach(Layer l in this)
 			{
-				//TODO: Check for rotated shapes and test accordingly
 				if(PointInRectangle(new Point(x,y),
 				                    new Rectangle(new Point((int)(l.Position.X-l.Boundaries.Width/2),
 				                                            (int)(l.Position.Y-l.Boundaries.Height/2)),
 				                                 		    l.Boundaries.Width,
 				                                  			l.Boundaries.Height)))
 				{
-					selected = l;
+					sel = l;
 				}
 			}
-			if(selected != null)
-				selected.Select(new Point(x, y));
+			if(sel != null)
+			{
+				this.selected.Selected = false;
+				sel.Select(new Point(x, y));
+				this.selected = sel;
+			}
 		}
 		
 		// not yet working for polygons, also error prone when rotated
@@ -118,11 +126,13 @@ namespace MeeGen
 		
 		public void Unselect(int index)
 		{
+			this.selected = new Layer();
 			this[index].Selected = false;
 		}
 		
 		public void UnselectAll()
 		{
+			this.selected = new Layer();
 			foreach(Layer l in this)
 				l.Selected = false;
 		}
@@ -237,6 +247,7 @@ namespace MeeGen
 			}
 		}
 		
+		[Obsolete]
 		private Layer GetSelectedLayer()
 		{
 			foreach(Layer l in this)
