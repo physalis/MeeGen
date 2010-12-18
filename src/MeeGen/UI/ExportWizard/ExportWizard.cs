@@ -7,7 +7,6 @@ namespace MeeGen
 	{
 		PNG,
 		SVG,
-		JPG,
 		PDF
 	}
 	

@@ -19,13 +19,6 @@ namespace MeeGen
 					else
 						Usage();
 				}
-				else if(args[0] == "--benchmark" || args[0] == "-b")
-				{
-					if(args.Length > 1)
-						Benchmark(Convert.ToInt32(args[1]));
-					else
-						Usage();
-				}
 				else if(args[0] == "--help" || args[0] == "-h")
 				{
 						Usage();
@@ -33,7 +26,7 @@ namespace MeeGen
 				else
 				{
 					Application.Init ();
-					MainWindow win = new MainWindow(args[0]);
+					MainWindow win = new MainWindow(args[0], "./meegen.conf");
 					win.Show ();
 					Application.Run ();
 				}
@@ -41,11 +34,10 @@ namespace MeeGen
 			else
 			{
 				Application.Init ();
-				MainWindow win = new MainWindow("./ComponentDB.xml");
+				MainWindow win = new MainWindow("./ComponentDB.xml", "./meegen.conf");
 				win.Show ();
 				Application.Run ();
 			}
-			
 		}
 		
 		private static void CreateDatabase(string folder)
@@ -102,26 +94,6 @@ namespace MeeGen
 			}
 		}
 		
-		private static void Benchmark(int count)
-		{
-			Application.Init();
-			MainWindow win = new MainWindow("./ComponentDB.xml");
-			
-			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
-			watch.Reset();
-			
-			for(int i = 0; i < count; i++)
-			{
-				watch.Start();
-				win.Benchmark();
-				watch.Stop();
-				Console.WriteLine("{0}\t{1}", i, watch.ElapsedTicks);
-				watch.Reset();
-			}
-			
-			System.Diagnostics.Process.GetCurrentProcess().Kill();  
-		}
-		
 		private static void Usage()
 		{
 			string filename = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -130,9 +102,7 @@ namespace MeeGen
 							  "or\n" +
 							  "\t./"+filename+" [OPTION] [FOLDER] | [FILE]\n\n" +
 							  "-h, --help \t\t\t display this message\n" +
-							  "-c, --create-db [FOLDER] \t creates a ComponentDB.xml file from [FOLDER]\n" +
-							  "-b, --benchmark [COUNT] \t\t\t test the performance of this application and write" +
-							  "the results to stdout.\n\n" +
+							  "-c, --create-db [FOLDER] \t creates a ComponentDB.xml file from [FOLDER]\n\n" +
 							  "When run with only [FILE] specified, "+filename+" handles [FILE] as\n" +
 							  "a ComponentDB.xml.\nWhen run with no arguments, it uses ./ComponentDB.xml.");
 		}

@@ -421,21 +421,22 @@ namespace MeeGen
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
-			
-			
+						
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.colorbutton1 = new MeeGen.ColorSelectButton();
 			this.colorbutton1.CanFocus = true;
 			this.colorbutton1.Events = ((global::Gdk.EventMask)(784));
 			this.colorbutton1.Name = "colorbutton1";
+			this.colorbutton1.SetSizeRequest(80, 10); 
+			
 			//this.colorbutton1.Relief = ReliefStyle.None;
 			
 			this.hbox1.Add (this.colorbutton1);
 			
 			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.colorbutton1]));
 			w20.Position = 0;
-			w20.Expand = true;
-			w20.Fill = true;
+			w20.Expand = false;
+			w20.Fill = false;
 			
 			
 			// Container child hbox1.Gtk.Box+BoxChild

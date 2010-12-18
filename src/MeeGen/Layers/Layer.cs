@@ -51,8 +51,6 @@ namespace MeeGen
 		
 		protected string svgContent;
 		
-		protected Cairo.Color color;
-		
 		protected Point offset; // the point where the user has clicked to select this shape
 		
 		protected FlipMode flipMode;
@@ -98,8 +96,7 @@ namespace MeeGen
 			
 			this.flipMode = FlipMode.None;
 			
-			this.color = new Color(1, 1, 1, 1);
-			
+			// remove ' file:// '
 			StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
 			svgContent = reader.ReadToEnd();
 			reader.Close();
@@ -107,7 +104,7 @@ namespace MeeGen
 		
 		internal Layer()
 		{
-			this.position = new Point(0,0);
+			this.position = new Point(0, 0);
 			this.svgHandle = new Handle();
 			this.size = new Size();
 			this.size.Width = 0;
@@ -119,9 +116,15 @@ namespace MeeGen
 			this.svgContent = null;
 		}
 		
-		public Color Color
+		static Layer()
 		{
-			get {return this.color;}
+			Layer.SelectionColor = new Color(0.7, 0.71, 0.7, 0.5);
+		}
+		
+		public static Color SelectionColor 
+		{
+			get;
+			set;
 		}
 		
 		public FlipMode FlipMode
@@ -271,12 +274,6 @@ namespace MeeGen
 
 			opacity = Math.Round(opacity, 1);
 			
-			this.color.R = color.Red/255;
-			this.color.G = color.Green/255;
-			this.color.B = color.Blue/255;
-			this.color.A = opacity;
-
-			
 			//TODO: PERF maybe use using(..)
 									
 			XmlDocument doc = new XmlDocument();	
@@ -309,7 +306,6 @@ namespace MeeGen
 			this.svgContent = doc.OuterXml;
 
 			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
-			
 		}
 		
 		private void MoveDrag(int dx, int dy)
@@ -396,7 +392,8 @@ namespace MeeGen
 				             
 				// #b5b7b4 - light grey (meego palette)
 				//cx.Color = new Color(0.7, 0.71, 0.7, 0.3);	
-				cx.Color = new Color(0.7, 0.71, 0.7, 0.5);	
+				//cx.Color = new Color(0.7, 0.71, 0.7, 0.5);	
+				cx.Color = Layer.SelectionColor;
 				cx.Fill();
 
 				cx.Restore();

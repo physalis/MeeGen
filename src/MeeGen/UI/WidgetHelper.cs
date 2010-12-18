@@ -55,6 +55,11 @@ namespace MeeGen
 		{
 			get{return white;}
 		}
-	}
+		
+		public static Cairo.Color GdkToCairoColor(Gdk.Color c, double alpha)
+		{
+			return new Cairo.Color((double)c.Red/65025, (double)c.Green/65025, (double)c.Blue/65025, alpha);	
+		}
+	}	
 }
 

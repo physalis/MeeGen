@@ -75,7 +75,6 @@
     <EmbeddedResource Include="Resources\object-rotate-right.png" />
     <EmbeddedResource Include="Resources\object-flip-horizontal.png" />
     <EmbeddedResource Include="Resources\color-chooser.png" />
-    <EmbeddedResource Include="Resources\edit-preferences.png" />
     <EmbeddedResource Include="Resources\go-up.png" />
     <EmbeddedResource Include="Resources\go-down.png" />
     <EmbeddedResource Include="Resources\network.png" />
@@ -88,6 +87,7 @@
     <EmbeddedResource Include="..\MeeGen.sln" />
     <EmbeddedResource Include="Resources\Wizard\meego-forum-logo.png" />
     <EmbeddedResource Include="Resources\Wizard\zazzle-logo.png" />
+    <EmbeddedResource Include="Resources\web.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -103,9 +103,7 @@
     <Compile Include="UI\ExportWizard\ExportWizard.cs" />
     <Compile Include="UI\ExportWizard\Page.cs" />
     <Compile Include="UI\MoreMenu.cs" />
-    <Compile Include="UI\PreferencesDialog.cs" />
     <Compile Include="UI\WidgetHelper.cs" />
-    <Compile Include="gtk-gui\MeeGen.PreferencesDialog.cs" />
     <Compile Include="UI\ColorSelectButton.cs" />
     <Compile Include="gtk-gui\MeeGen.ColorSelectButton.cs" />
     <Compile Include="UI\ExportWizard\Upload\MeeGoForumUpload.cs" />

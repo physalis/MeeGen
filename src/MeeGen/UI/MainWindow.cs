@@ -18,39 +18,26 @@ namespace MeeGen
 		
 		MoreMenu moreMenu;
 		
-		public MainWindow(string databaseFile) : base(Gtk.WindowType.Toplevel)
+		string preferencesFile;
+		
+		public MainWindow(string databaseFile, string preferencesFile) : base(Gtk.WindowType.Toplevel)
 		{
 			Build();
 			
-			//this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(0xbf, 0xbf, 0xbf));
-			this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(105, 89, 205));
-			//this.drawingarea.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
 			this.drawingarea.DoubleBuffered = true;
-			this.ModifyBg(StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-
-			//this.iconview.ModifyBase(StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
+			this.iconview.PixbufColumn = 0;
 			
-			this.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
+			this.moreMenu = new MoreMenu(FillIconView);
+			this.moreMenu.ShowAll();
 			
-			/*
-			this.GtkScrolledWindow.VScrollbar.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			this.GtkScrolledWindow.VScrollbar.ModifyFg(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			this.GtkScrolledWindow.VScrollbar.ModifyBase(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			this.GtkScrolledWindow.ModifyBase(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			this.GtkScrolledWindow.ModifyFg(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			this.GtkScrolledWindow.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(0xb5, 0xb7, 0xb4));
-			*/
-			
-			this.GtkScrolledWindow.VScrollbar.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
-			this.GtkScrolledWindow.VScrollbar.ModifyFg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
-			this.GtkScrolledWindow.VScrollbar.ModifyBase(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
+			//this.GtkScrolledWindow.VScrollbar.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
+			//this.GtkScrolledWindow.VScrollbar.ModifyFg(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
+			//this.GtkScrolledWindow.VScrollbar.ModifyBase(Gtk.StateType.Normal, new Gdk.Color(255, 255, 255));
 					
 			this.iconDict = new Dictionary<string, ListStore>();
 			this.imageDict = new Dictionary<string, string[]>();
 			
 			this.layerManager = new LayerManager();
-			
-			this.iconview.PixbufColumn = 0;
 			
 			try
 			{
@@ -72,9 +59,10 @@ namespace MeeGen
 			
 			// Set up the iconview as the drag source
 			Gtk.Drag.SourceSet(iconview, Gdk.ModifierType.Button1Mask, dd_table, Gdk.DragAction.Copy);
-		
-			this.moreMenu = new MoreMenu(FillIconView);
-			this.moreMenu.ShowAll();
+			
+			this.preferencesFile = preferencesFile;
+			
+			this.LoadPreferences();
 		}
 		
 #region 8< ------------ Properties ---------------- 
@@ -89,7 +77,7 @@ namespace MeeGen
 		
 #region 8< ------------ Methods ---------------- 
 		
-		protected virtual void LoadImages(string xmlFile)
+		private void LoadImages(string xmlFile)
 		{
 			string category = "";
 			string parentDirectory = "";
@@ -145,46 +133,58 @@ namespace MeeGen
 			reader.Close();
 		}
 		
-		protected virtual void FillIconView(string category)
+		private void FillIconView(string category)
 		{
 			this.iconview.Model = this.iconDict[category];
 			this.iconview.ScrollToPath(new TreePath("0"));
 			this.Category = category;
 		}
 		
-		/// <summary>
-		/// Used for testing the performance of this application.
-		/// </summary>
-		public void Benchmark()
+		private void LoadPreferences()
 		{
-			// Start by filling the IconView several times
-			FillIconView("arms");
-			FillIconView("legs");
-			FillIconView("bodies");
+			string daclr = "";
+			string taclr = "";
+			string selclr = "";
 			
-			Random rnd = new Random();
-			int max = this.imageDict["heads"].Length;
-			
-			// Now add some layers to the LayerManager
-			for(int i = 0; i < 20; i++)
+			try
 			{
-				this.layerManager.Add(new Layer(this.imageDict["heads"][rnd.Next(0, max)],
-				                                new Point(rnd.Next(0, 100),
-				                                          rnd.Next(0, 100))));
+				XmlTextReader xmlReader = new XmlTextReader(this.preferencesFile);
+				xmlReader.MoveToContent();
+				xmlReader.MoveToFirstAttribute();
+				
+				xmlReader.Read();
+				xmlReader.Read();
+				
+				daclr = xmlReader.GetAttribute("drawing-area");
+				taclr = xmlReader.GetAttribute("tool-area");
+				selclr = xmlReader.GetAttribute("selection");
+				
+				xmlReader.Close();
+				
+			}catch(IOException ioex)
+			{
+				MessageBox.ShowError("There was an error loading the preferences file.\n" + ioex.Message);
+			}catch(Exception ex)
+			{
+				MessageBox.ShowError("There was an error reading the preferences file.\n" + ex.Message);
 			}
 			
-			// end with some transformations
-			for(int i = 0; i < 50; i++)
-			{
-				foreach(Layer l in this.layerManager)
-				{
-					l.Rotate(10);
-					l.ScaleHeight(10);
-					l.FlipHorizontally();
-				}
-			}
+			// drawing area
+			Gdk.Color c = new Gdk.Color(0, 0, 0);
+			Gdk.Color.Parse(daclr, ref c);
+			this.drawingarea.ModifyBg(StateType.Normal, c);
 			
-			this.layerManager.Clear();
+			// tool area
+			Gdk.Color.Parse(taclr, ref c);
+			this.ModifyBg(StateType.Normal, c);
+			this.iconview.ModifyBase(StateType.Normal, c);
+			
+			// selection rectangle (no effect)
+			Gdk.Color.Parse(selclr, ref c);
+			Layer.SelectionColor = new Cairo.Color((double)c.Red/65025,
+			                                       (double)c.Green/65025,
+			                                       (double)c.Blue/65025,
+			                                       0.5);
 		}
 		
 #endregion
@@ -389,21 +389,6 @@ namespace MeeGen
 			this.drawingarea.QueueDraw();
 		}
 		
-		protected virtual void SettingsButtonClicked (object sender, System.EventArgs e)
-		{
-			PreferencesDialog dia  = new PreferencesDialog();
-			
-			int result = dia.Run();
-			
-			if(result == (int)ResponseType.Ok)
-			{
-				this.drawingarea.ModifyBg(StateType.Normal, dia.DAColor);
-				this.ModifyBg(StateType.Normal, dia.TAColor);
-				this.iconview.ModifyBase(StateType.Normal, dia.TAColor);
-			}
-			dia.Destroy();
-		}
-		
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)
 		{
 			//TODO: custom color selection dialog with meego palette
@@ -411,7 +396,6 @@ namespace MeeGen
 			colordialog.ColorSelection.HasOpacityControl = true;
 			colordialog.Decorated = false;
 			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
-			
 			//colordialog.ColorSelection.HasPalette = true;
 			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
 			
