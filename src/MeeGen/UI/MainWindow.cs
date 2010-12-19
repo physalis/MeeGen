@@ -327,12 +327,18 @@ namespace MeeGen
 			this.drawingarea.QueueDraw(); // ... causing an expose here, nothing will be drawn
 		}
 
-		protected virtual void ExportButtonClicked (object sender, System.EventArgs e)
+		protected virtual void SaveButtonClicked (object sender, System.EventArgs e)
 		{
-			ExportWizard w = new ExportWizard(this.layerManager);
+			LocalExportWizard w = new LocalExportWizard(this.layerManager);
 			w.Modal = true;
 			w.ShowAll();
-			//this.layerManager.Export("/home/gulch/Desktop/foo.svg", ExportFormat.SVG);
+		}
+		
+		protected virtual void WebExportButtonClicked (object sender, System.EventArgs e)
+		{
+			WebExportWizard w = new WebExportWizard(this.layerManager);
+			w.Modal = true;
+			w.ShowAll();
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)
@@ -507,6 +513,5 @@ namespace MeeGen
 			a.RetVal = true;
 		}			
 #endregion			
-		
 	}
 }

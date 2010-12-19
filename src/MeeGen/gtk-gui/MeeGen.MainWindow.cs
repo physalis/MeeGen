@@ -40,11 +40,11 @@ namespace MeeGen
 
 		private global::Gtk.Button BtnAbout;
 
-		private global::Gtk.Button BtnPreferences;
-
 		private global::Gtk.Button BtnReset;
 
-		private global::Gtk.Button button14;
+		private global::Gtk.Button BtnSave;
+
+		private global::Gtk.Button BtnWebExport;
 
 		private global::Gtk.VBox vbox6;
 
@@ -276,34 +276,6 @@ namespace MeeGen
 			w21.XOptions = ((global::Gtk.AttachOptions)(4));
 			w21.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.BtnPreferences = new global::Gtk.Button ();
-			this.BtnPreferences.TooltipMarkup = "Export to a webservice";
-			this.BtnPreferences.CanFocus = true;
-			this.BtnPreferences.Name = "BtnPreferences";
-			this.BtnPreferences.UseUnderline = true;
-			this.BtnPreferences.FocusOnClick = false;
-			this.BtnPreferences.Relief = ((global::Gtk.ReliefStyle)(2));
-			// Container child BtnPreferences.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w22 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
-			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w23 = new global::Gtk.HBox ();
-			w23.Spacing = 2;
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w24 = new global::Gtk.Image ();
-			w24.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.web.png");
-			w23.Add (w24);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w26 = new global::Gtk.Label ();
-			w23.Add (w26);
-			w22.Add (w23);
-			this.BtnPreferences.Add (w22);
-			this.table1.Add (this.BtnPreferences);
-			global::Gtk.Table.TableChild w30 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnPreferences]));
-			w30.LeftAttach = ((uint)(1));
-			w30.RightAttach = ((uint)(2));
-			w30.XOptions = ((global::Gtk.AttachOptions)(4));
-			w30.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.BtnReset = new global::Gtk.Button ();
 			this.BtnReset.TooltipMarkup = "Delete";
 			this.BtnReset.CanFocus = true;
@@ -312,49 +284,77 @@ namespace MeeGen
 			this.BtnReset.FocusOnClick = false;
 			this.BtnReset.Relief = ((global::Gtk.ReliefStyle)(2));
 			// Container child BtnReset.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w22 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w23 = new global::Gtk.HBox ();
+			w23.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w24 = new global::Gtk.Image ();
+			w24.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.user-trash.png");
+			w23.Add (w24);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w26 = new global::Gtk.Label ();
+			w23.Add (w26);
+			w22.Add (w23);
+			this.BtnReset.Add (w22);
+			this.table1.Add (this.BtnReset);
+			global::Gtk.Table.TableChild w30 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnReset]));
+			w30.TopAttach = ((uint)(1));
+			w30.BottomAttach = ((uint)(2));
+			w30.XOptions = ((global::Gtk.AttachOptions)(4));
+			w30.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.BtnSave = new global::Gtk.Button ();
+			this.BtnSave.TooltipMarkup = "Save";
+			this.BtnSave.CanFocus = true;
+			this.BtnSave.Name = "BtnSave";
+			this.BtnSave.UseUnderline = true;
+			this.BtnSave.FocusOnClick = false;
+			this.BtnSave.Relief = ((global::Gtk.ReliefStyle)(2));
+			// Container child BtnSave.Gtk.Container+ContainerChild
 			global::Gtk.Alignment w31 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
 			global::Gtk.HBox w32 = new global::Gtk.HBox ();
 			w32.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w33 = new global::Gtk.Image ();
-			w33.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.user-trash.png");
+			w33.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.document-save.png");
 			w32.Add (w33);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w35 = new global::Gtk.Label ();
 			w32.Add (w35);
 			w31.Add (w32);
-			this.BtnReset.Add (w31);
-			this.table1.Add (this.BtnReset);
-			global::Gtk.Table.TableChild w39 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnReset]));
-			w39.TopAttach = ((uint)(1));
-			w39.BottomAttach = ((uint)(2));
+			this.BtnSave.Add (w31);
+			this.table1.Add (this.BtnSave);
+			global::Gtk.Table.TableChild w39 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnSave]));
 			w39.XOptions = ((global::Gtk.AttachOptions)(4));
 			w39.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.button14 = new global::Gtk.Button ();
-			this.button14.TooltipMarkup = "Save";
-			this.button14.CanFocus = true;
-			this.button14.Name = "button14";
-			this.button14.UseUnderline = true;
-			this.button14.FocusOnClick = false;
-			this.button14.Relief = ((global::Gtk.ReliefStyle)(2));
-			// Container child button14.Gtk.Container+ContainerChild
+			this.BtnWebExport = new global::Gtk.Button ();
+			this.BtnWebExport.TooltipMarkup = "Export to a webservice";
+			this.BtnWebExport.CanFocus = true;
+			this.BtnWebExport.Name = "BtnWebExport";
+			this.BtnWebExport.UseUnderline = true;
+			this.BtnWebExport.FocusOnClick = false;
+			this.BtnWebExport.Relief = ((global::Gtk.ReliefStyle)(2));
+			// Container child BtnWebExport.Gtk.Container+ContainerChild
 			global::Gtk.Alignment w40 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
 			global::Gtk.HBox w41 = new global::Gtk.HBox ();
 			w41.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w42 = new global::Gtk.Image ();
-			w42.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.document-save.png");
+			w42.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("MeeGen.Resources.web.png");
 			w41.Add (w42);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w44 = new global::Gtk.Label ();
 			w41.Add (w44);
 			w40.Add (w41);
-			this.button14.Add (w40);
-			this.table1.Add (this.button14);
-			global::Gtk.Table.TableChild w48 = ((global::Gtk.Table.TableChild)(this.table1[this.button14]));
+			this.BtnWebExport.Add (w40);
+			this.table1.Add (this.BtnWebExport);
+			global::Gtk.Table.TableChild w48 = ((global::Gtk.Table.TableChild)(this.table1[this.BtnWebExport]));
+			w48.LeftAttach = ((uint)(1));
+			w48.RightAttach = ((uint)(2));
 			w48.XOptions = ((global::Gtk.AttachOptions)(4));
 			w48.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox3.Add (this.table1);
@@ -719,7 +719,8 @@ namespace MeeGen
 			this.BtnEyes.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnPets.Clicked += new global::System.EventHandler (this.CategoryButtonClicked);
 			this.BtnMore.Clicked += new global::System.EventHandler (this.MoreButtonClicked);
-			this.button14.Clicked += new global::System.EventHandler (this.ExportButtonClicked);
+			this.BtnWebExport.Clicked += new global::System.EventHandler (this.WebExportButtonClicked);
+			this.BtnSave.Clicked += new global::System.EventHandler (this.SaveButtonClicked);
 			this.BtnReset.Clicked += new global::System.EventHandler (this.ResetButtonClicked);
 			this.BtnAbout.Clicked += new global::System.EventHandler (this.AboutButtonClicked);
 			this.BtnZoomIn.Clicked += new global::System.EventHandler (this.ZoomInButtonClicked);

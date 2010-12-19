@@ -116,10 +116,8 @@ namespace MeeGen
 		public SaveLocalPage(ExportWizard wiz) : base()
 		{
 			this.wiz = wiz;	
-			
 			Build();
 			
-			//TODO: remove this delegate in the dispose/destructor
 			wiz.Close += delegate(object sender, EventArgs e) 
 			{
 				ExportFormat format = ExportFormat.SVG; 
@@ -134,7 +132,7 @@ namespace MeeGen
 				if(format == ExportFormat.SVG)
 				{
 					System.IO.StreamWriter writer = new System.IO.StreamWriter(filename, true);
-					writer.Write("<!-- created with the MeeGen avatar-generator (http://meego.com) -->");
+					writer.Write("<!-- created with the MeeGen avatar-designer (http://meego.com) -->");
 					writer.Close();
 				}
 			
@@ -199,7 +197,7 @@ namespace MeeGen
 			this.vbox1 = new global::Gtk.VBox ();
 			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 6;
-			this.vbox1.Homogeneous = true;
+			this.vbox1.Homogeneous = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.combobox1 = global::Gtk.ComboBox.NewText ();
 			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("SVG - Scalable Vector Graphic"));
@@ -427,7 +425,7 @@ namespace MeeGen
 			this.colorbutton1.CanFocus = true;
 			this.colorbutton1.Events = ((global::Gdk.EventMask)(784));
 			this.colorbutton1.Name = "colorbutton1";
-			this.colorbutton1.SetSizeRequest(80, 10); 
+			this.colorbutton1.SetSizeRequest(80, 35); 
 			
 			//this.colorbutton1.Relief = ReliefStyle.None;
 			
@@ -436,7 +434,7 @@ namespace MeeGen
 			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.colorbutton1]));
 			w20.Position = 0;
 			w20.Expand = false;
-			w20.Fill = false;
+			w20.Fill = true;
 			
 			
 			// Container child hbox1.Gtk.Box+BoxChild
@@ -468,11 +466,6 @@ namespace MeeGen
 				
 			this.vbox1.BorderWidth = 3;
 			
-			this.entry1.Changed += delegate(object sender, EventArgs e) 
-			{
-				wiz.SetPageComplete(this, true);
-			};
-			
 			this.button1.Clicked += delegate(object sender, EventArgs e)
 			{
 				FileChooserDialog dia = new FileChooserDialog("Select location",
@@ -487,7 +480,7 @@ namespace MeeGen
 				dia.Icon = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.document-save.png");
 				dia.DoOverwriteConfirmation = true;
 				
-				dia.CurrentName = "meegon." + this.combobox1.ActiveText.Substring(0,3).ToLower();
+				dia.CurrentName = "meegon." + this.combobox1.ActiveText.Substring(0, 3).ToLower();
 				
 				FileFilter f = new FileFilter();
 				f.Name = "SVG";
@@ -507,6 +500,8 @@ namespace MeeGen
 				WidgetHelper.SetButtonRelief(dia, ReliefStyle.None);
 				
 				dia.SkipTaskbarHint = true;
+				dia.SetCurrentFolder(this.entry1.Text);
+				
 				if(dia.Run() == (int)ResponseType.Ok)
 				{
 					this.entry1.Text = dia.Filename;
@@ -527,6 +522,22 @@ namespace MeeGen
 				}else
 				{
 					w35.Pixbuf = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.ratio-custom.png");
+				}
+			};
+			
+			this.combobox1.Changed += delegate(object sender, EventArgs e) 
+			{
+				if(combobox1.ActiveText == "MIF - MeeGen Image File")
+				{
+					//TODO implement
+					MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet");
+					this.combobox1.Active = 0;
+				}else
+				{
+					string entry = this.entry1.Text;
+					entry = entry.Substring(0, this.entry1.Text.Length-3) +
+						    this.combobox1.ActiveText.Substring(0, 3).ToLower();
+					this.entry1.Text = entry;
 				}
 			};
 			
@@ -563,7 +574,6 @@ namespace MeeGen
 		{
 			this.wiz = wiz;
 			this.Build();
-			this.ShowAll();
 		}
 		
 		private void Build()
@@ -595,7 +605,7 @@ namespace MeeGen
 			//
 			this.button1.Clicked += delegate(object sender, EventArgs e) 
 			{
-				ExportMeeGoForumPage emfp = new ExportMeeGoForumPage();
+				ExportMeeGoForumPage emfp = new ExportMeeGoForumPage(this.wiz);
 				wiz.AppendPage(emfp);
 				wiz.SetPageType(emfp, AssistantPageType.Confirm);
 				
@@ -753,17 +763,24 @@ namespace MeeGen
 	
 		private global::Gtk.CheckButton checkbutton1;
 		
-		public ExportMeeGoForumPage()
+		public ExportMeeGoForumPage(ExportWizard wiz)
 		{
 			this.Build();
 			this.ShowAll();
+			
+			wiz.Close += delegate(object sender, EventArgs e)
+			{
+				//TODO implement
+				MessageBox.ShowInfo("Sorry, but this feature isn't implemeted yet.");
+				wiz.Destroy();
+			};
 		}
 		
 		private void Build()
 		{
 			this.vbox1 = new global::Gtk.VBox ();
 			this.vbox1.Name = "vbox1";
-			this.vbox1.Spacing = 10;
+			this.vbox1.Spacing = 2;
 			this.vbox1.BorderWidth = 10;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.hbox2 = new global::Gtk.HBox ();

@@ -35,7 +35,7 @@ namespace MeeGen
 									"<b>Copyright</b>\n"+
 									"\tCopyright © 2010\n\n"+
 									"The default components are from the MeeGo Project\n" +
-								    "\t\t<big><u>http://meego.com</u></big> ";
+								    "\t\t\t<big><u>http://meego.com</u></big> ";
 
 		}
 		
