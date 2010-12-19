@@ -734,7 +734,6 @@ namespace MeeGen
 			this.BtnColorSelection.Clicked += new global::System.EventHandler (this.ColorSelectionButtonClicked);
 			this.drawingarea.ExposeEvent += new global::Gtk.ExposeEventHandler (this.DrawingAreaExpose);
 			this.drawingarea.DragDataReceived += new global::Gtk.DragDataReceivedHandler (this.DragData_Received);
-			this.drawingarea.ButtonReleaseEvent += new global::Gtk.ButtonReleaseEventHandler (this.DrawingAreaClickReleased);
 			this.drawingarea.ButtonPressEvent += new global::Gtk.ButtonPressEventHandler (this.DrawingAreaPress);
 			this.drawingarea.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler (this.DrawingAreaMotionNotify);
 			this.drawingarea.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnDrawingareaKeyPressEvent);

@@ -525,7 +525,6 @@
                         <property name="Events">PointerMotionMask, Button1MotionMask, ButtonPressMask, ButtonReleaseMask</property>
                         <signal name="ExposeEvent" handler="DrawingAreaExpose" />
                         <signal name="DragDataReceived" handler="DragData_Received" />
-                        <signal name="ButtonReleaseEvent" handler="DrawingAreaClickReleased" />
                         <signal name="ButtonPressEvent" handler="DrawingAreaPress" />
                         <signal name="MotionNotifyEvent" handler="DrawingAreaMotionNotify" />
                         <signal name="KeyPressEvent" handler="OnDrawingareaKeyPressEvent" />

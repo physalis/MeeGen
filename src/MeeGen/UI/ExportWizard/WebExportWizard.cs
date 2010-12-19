@@ -11,7 +11,7 @@ namespace MeeGen
 			
 			ExportWebServicePage web = new ExportWebServicePage(this);
 			AppendPage(web);
-			SetPageTitle(web, "Export to webservice");
+			SetPageTitle(web, "Export to a webservice");
 			SetPageType(web, AssistantPageType.Intro);
 			SetPageHeaderImage(web, Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.web.png"));
 			SetPageComplete(web, false);

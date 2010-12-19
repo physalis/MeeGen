@@ -70,6 +70,11 @@ namespace MeeGen
 
 		}
 		
+		public Layer(byte[] data, Point pos)
+					: this(new Handle(data), pos)
+		{
+		}
+		
 		/// <summary>
 		/// Creates a new instance of the MeeGen.Layer class
 		/// </summary>
@@ -96,10 +101,12 @@ namespace MeeGen
 			
 			this.flipMode = FlipMode.None;
 			
-			// remove ' file:// '
-			StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
-			svgContent = reader.ReadToEnd();
-			reader.Close();
+			if(handle.BaseUri.Length > 0)
+			{
+				StreamReader reader = new StreamReader(handle.BaseUri.Substring(7));
+				svgContent = reader.ReadToEnd();
+				reader.Close();
+			}
 		}
 		
 		internal Layer()
@@ -153,7 +160,6 @@ namespace MeeGen
 		/// </summary>
 		public Point Position
 		{
-			// TODO: should become the position of the top-left corner
 			get {return this.position;}
 			set {this.position = value;}
 		}
@@ -296,7 +302,7 @@ namespace MeeGen
 			{
 				doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
 				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";
-			}else if(doc.GetElementsByTagName("rect") != null)
+			}else if(doc.GetElementsByTagName("rect").Count > 0)
 			{
 				doc.GetElementsByTagName("rect")[0].Attributes["style"].Value = 
 				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";

@@ -61,7 +61,6 @@ namespace MeeGen
 			Gtk.Drag.SourceSet(iconview, Gdk.ModifierType.Button1Mask, dd_table, Gdk.DragAction.Copy);
 			
 			this.preferencesFile = preferencesFile;
-			
 			this.LoadPreferences();
 		}
 		
@@ -197,51 +196,7 @@ namespace MeeGen
 		}
 		
 		protected virtual void MoreButtonClicked (object sender, System.EventArgs e)
-		{			
-			/*Menu m = new Menu();
-			m.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
-			
-			
-			Pango.FontDescription font = new Pango.FontDescription();
-			//font.Family = "Arial";
-			font.AbsoluteSize = 15 * Pango.Scale.PangoScale;
-			
-			MenuItem im = new MenuItem("Items");
-			foreach(Widget w in im.AllChildren)
-			{
-				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
-				w.ModifyFont(font);
-			}
-			im.Activated += delegate(object o, EventArgs ea) 
-			{
-				FillIconView("items");
-			};
-			m.Append(im);
-			
-			im = new MenuItem("Basic shapes");
-			
-			foreach(Widget w in im.AllChildren)
-			{
-				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
-				w.ModifyFont(font);
-			}
-			im.Activated += delegate(object o, EventArgs ea) 
-			{
-				FillIconView("basic-shapes");
-			};
-			m.Append(im);
-					
-			im = new MenuItem("Custom");
-
-			foreach(Widget w in im.AllChildren)
-			{
-				w.ModifyFg(StateType.Normal, new Gdk.Color(0, 0, 0));
-				w.ModifyFont(font);
-			}
-			m.Append(im);
-			
-			m.ShowAll();
-			m.Popup();*/
+		{
 			moreMenu.Popup();
 		}
 		
@@ -254,7 +209,7 @@ namespace MeeGen
 			w.GdkWindow.GetSize(out width, out height);
 			
 		    Cairo.Context g = Gdk.CairoHelper.Create(w.GdkWindow);
-		    //g.Antialias = Antialias.Default; 
+		    g.Antialias = Antialias.Subpixel;
 			
 			g.Save();
 			g.LineWidth = 2;
@@ -278,7 +233,6 @@ namespace MeeGen
 				args.SelectionData.Set(args.Context.Targets[0],
 				                       8,
 				                       System.Text.Encoding.UTF8.GetBytes(this.imageDict[this.Category][Convert.ToInt32(this.iconview.SelectedItems[0].ToString())]));
-				//args.SelectionData.SetPixbuf(image);
 			}
 		}
 		
@@ -422,19 +376,12 @@ namespace MeeGen
 			this.drawingarea.QueueDraw();
 		}
 		
-		protected virtual void DrawingAreaClickReleased (object o, Gtk.ButtonReleaseEventArgs args)
-		{
-			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Arrow);
-			//Console.WriteLine(args.Event.X + " " + args.Event.Y);
-		}
-		
 		protected virtual void DrawingAreaPress (object o, Gtk.ButtonPressEventArgs args)
 		{
 			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand1);
 			this.layerManager.UnselectAll();
 			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
 			this.drawingarea.QueueDraw();
-			//this.drawingarea.GrabFocus();
 		}
 				
 		protected virtual void DrawingAreaMotionNotify (object o, Gtk.MotionNotifyEventArgs args)
@@ -511,7 +458,8 @@ namespace MeeGen
 		{
 			Application.Quit ();
 			a.RetVal = true;
-		}			
+		}		
+		
 #endregion			
 	}
 }
