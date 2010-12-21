@@ -465,7 +465,7 @@ namespace MeeGen
 			double x0 = (b.X + b.Width/2);
 			double y0 = (b.Y + b.Height/2);
 			
-			// TODO: if rotation > Math.PI ...
+			// TODO: if rotation > Math.PI...
 			// also it isn't very precise.
 			//Console.WriteLine (rotation);
 
