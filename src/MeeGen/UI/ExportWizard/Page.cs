@@ -196,8 +196,8 @@ namespace MeeGen
 		{
 			this.vbox1 = new global::Gtk.VBox ();
 			this.vbox1.Name = "vbox1";
-			this.vbox1.Spacing = 6;
-			this.vbox1.Homogeneous = false;
+			this.vbox1.Spacing = 20;
+			this.vbox1.Homogeneous = true;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.combobox1 = global::Gtk.ComboBox.NewText ();
 			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("SVG - Scalable Vector Graphic"));
@@ -425,7 +425,7 @@ namespace MeeGen
 			this.colorbutton1.CanFocus = true;
 			this.colorbutton1.Events = ((global::Gdk.EventMask)(784));
 			this.colorbutton1.Name = "colorbutton1";
-			this.colorbutton1.SetSizeRequest(80, 35); 
+			this.colorbutton1.SetSizeRequest(80, 15); 
 			
 			//this.colorbutton1.Relief = ReliefStyle.None;
 			

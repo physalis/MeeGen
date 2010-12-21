@@ -469,8 +469,10 @@ namespace MeeGen
 			// also it isn't very precise.
 			//Console.WriteLine (rotation);
 
-			double rot = this.rotation < 0 ? -this.rotation : this.rotation;
-				   rot = rot > Math.PI/2 ? Math.PI/2 - rot : -rot;
+			this.rotation = Math.Abs(this.rotation) > 2*Math.PI ? 0 : this.rotation; 
+			double rot = -this.rotation < 0 ? -this.rotation : this.rotation;
+				   rot = -rot > Math.PI ? -2 * Math.PI - rot : rot;
+			       rot = -rot > Math.PI / 2 ? -Math.PI - rot : rot;
 			
 			//double rotation = this.rotation > 0 ? -this.rotation : this.rotation;
 
