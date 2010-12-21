@@ -23,15 +23,10 @@
             <RootEntry path="MeeGen.sln" id=":root:" />
           </Builder>
         </Package>
-        <Package name="MonoDevelop 1.0 Sources">
-          <Builder targetFile="MeeGen.tar.gz" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
-            <ChildEntries>
-              <SolutionItemReference path="MeeGen\MeeGen.csproj" />
-            </ChildEntries>
-            <RootEntry path="MeeGen.sln" id=":root:" />
-          </Builder>
-        </Package>
       </Packages>
     </Packages>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
 </Project>
