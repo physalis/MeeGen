@@ -1,3 +1,7 @@
 
 
 Check the Quickstart/ folder for recent binaries and instructions.
+
+~~~  WARNING  ~~~
+The makefiles of the src directory do not fully work, keep away from trying to install 
+it on your computer!
