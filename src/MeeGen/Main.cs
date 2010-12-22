@@ -26,7 +26,7 @@ namespace MeeGen
 				else
 				{
 					Application.Init ();
-					MainWindow win = new MainWindow(args[0], "./meegen.conf");
+					MainWindow win = new MainWindow(args[0], "meegen.conf");
 					win.Show ();
 					Application.Run ();
 				}
@@ -34,7 +34,7 @@ namespace MeeGen
 			else
 			{
 				Application.Init ();
-				MainWindow win = new MainWindow("./ComponentDB.xml", "./meegen.conf");
+				MainWindow win = new MainWindow("ComponentDB.xml", "meegen.conf");
 				win.Show ();
 				Application.Run ();
 			}
@@ -52,7 +52,7 @@ namespace MeeGen
 			
 			try
 			{
-		    	Stream stream = new FileStream("./ComponentDB.xml", FileMode.Create);
+		    	Stream stream = new FileStream("ComponentDB.xml", FileMode.Create);
 				writer = XmlWriter.Create(stream, settings);
 			
 				writer.WriteStartDocument();
@@ -80,7 +80,7 @@ namespace MeeGen
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("[ERROR]: " + e.Message);
-				File.Delete("./ComponentDB.xml");
+				File.Delete("ComponentDB.xml");
 			}
 		}
 	

@@ -68,8 +68,6 @@ FILES = \
 	AssemblyInfo.cs \
 	gtk-gui/MeeGen.MainWindow.cs \
 	gtk-gui/MeeGen.InfoDialog.cs \
-	Layers/Layer.cs \
-	Layers/LayerManager.cs \
 	UI/MessageBox.cs \
 	UI/MainWindow.cs \
 	UI/InfoDialog.cs \
@@ -83,7 +81,9 @@ FILES = \
 	UI/ExportWizard/WebExportWizard.cs \
 	UI/ExportWizard/LocalExportWizard.cs \
 	UI/ExportWizard/ExportWizard.cs \
-	UI/ExportWizard/ExportIntroWizard.cs 
+	UI/ExportWizard/ExportIntroWizard.cs \
+	Shapes/Shape.cs \
+	Shapes/ShapeManager.cs 
 
 DATA_FILES = 
 
@@ -120,7 +120,7 @@ RESOURCES = \
 	Resources/Wizard/meegons-intro.png,MeeGen.Resources.Wizard.meegons-intro.png 
 
 EXTRAS = \
-	Layers \
+	Shapes \
 	UI \
 	UI/ExportWizard \
 	UI/ExportWizard/Upload \
