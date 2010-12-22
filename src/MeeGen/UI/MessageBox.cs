@@ -5,7 +5,7 @@ namespace MeeGen
 {
 	public class MessageBox
 	{
-		public MessageBox ()
+		private MessageBox ()
 		{
 			
 		}

@@ -14,7 +14,7 @@ namespace MeeGen
 		Dictionary<string, ListStore> iconDict; // scaled images
 		Dictionary<string, string[]> imageDict; // contains image location,
 												// might be better if I directly load Rsvg.Handles
-		LayerManager layerManager;
+		ShapeManager shapeManager;
 		
 		MoreMenu moreMenu;
 		
@@ -37,7 +37,7 @@ namespace MeeGen
 			this.iconDict = new Dictionary<string, ListStore>();
 			this.imageDict = new Dictionary<string, string[]>();
 			
-			this.layerManager = new LayerManager();
+			this.shapeManager = new ShapeManager();
 			
 			try
 			{
@@ -180,7 +180,7 @@ namespace MeeGen
 			
 			// selection rectangle (no effect)
 			Gdk.Color.Parse(selclr, ref c);
-			Layer.SelectionColor = new Cairo.Color((double)c.Red/65025,
+			Shape.SelectionColor = new Cairo.Color((double)c.Red/65025,
 			                                       (double)c.Green/65025,
 			                                       (double)c.Blue/65025,
 			                                       0.5);
@@ -218,7 +218,7 @@ namespace MeeGen
 			g.Stroke();
 			g.Restore();
 			
-			this.layerManager.Draw(g);
+			this.shapeManager.Draw(g);
 
 			((IDisposable) g.Target).Dispose ();                                      
 		    ((IDisposable) g).Dispose ();
@@ -263,40 +263,33 @@ namespace MeeGen
 		
 		protected virtual void DragData_Received (object o, Gtk.DragDataReceivedArgs args)
 		{			
-			Layer l = new Layer(args.SelectionData.Text, new Point(args.X, args.Y));
+			Shape l = new Shape(args.SelectionData.Text, new Point(args.X, args.Y));
 			
-			this.layerManager.Add(l);
-			this.layerManager.UnselectAll();
-			this.layerManager.Select(l);
+			this.shapeManager.Add(l);
+			this.shapeManager.UnselectAll();
+			this.shapeManager.Select(l);
 			Gtk.Drag.Finish(args.Context, true, false, args.Time);
 		}
 
 		protected virtual void ResetButtonClicked (object sender, System.EventArgs e)
 		{
-			if(this.layerManager.Selected.Size.Width != 0) //TODO: replace with != null
-				this.layerManager.Remove(this.layerManager.Selected);
+			if(this.shapeManager.Selected.Size.Width != 0) //TODO: replace with != null
+				this.shapeManager.Remove(this.shapeManager.Selected);
 			else
-				this.layerManager.Clear(); // clear the list of layers, so when ...
+				this.shapeManager.Clear(); // clear the list of shapes, so when ...
 			
 			this.drawingarea.QueueDraw(); // ... causing an expose here, nothing will be drawn
 		}
 
 		protected virtual void SaveButtonClicked (object sender, System.EventArgs e)
-		{
-			/*LocalExportWizard w = new LocalExportWizard(this.layerManager);
-			w.Modal = true;
-			w.ShowAll();*/
-			
-			ExportIntroWizard w = new ExportIntroWizard(this.layerManager);
+		{			
+			ExportIntroWizard w = new ExportIntroWizard(this.shapeManager);
 			w.Modal = true;
 			w.ShowAll();
 		}
 		
 		protected virtual void OpenButtonClicked (object sender, System.EventArgs e)
 		{
-			/*WebExportWizard w = new WebExportWizard(this.layerManager);
-			w.Modal = true;
-			w.ShowAll();*/
 			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet!");
 		}
 
@@ -332,25 +325,25 @@ namespace MeeGen
 		
 		protected virtual void ZoomInButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.Zoom(2);
+			this.shapeManager.Selected.Zoom(2);
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void ZoomOutButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.Zoom(-2);
+			this.shapeManager.Selected.Zoom(-2);
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void RotateLeftButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.Rotation -= 0.1;
+			this.shapeManager.Selected.Rotation -= 0.1;
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void RotateRightButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.Rotation += 0.1;
+			this.shapeManager.Selected.Rotation += 0.1;
 			this.drawingarea.QueueDraw();
 		}
 		
@@ -364,17 +357,10 @@ namespace MeeGen
 			//colordialog.ColorSelection.HasPalette = true;
 			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
 			
-			/*Gdk.Color selectedColor = new Gdk.Color((byte)(this.layerManager.Selected.Color.R * 255), 
-			                                        (byte)(this.layerManager.Selected.Color.G * 255),
-			                                        (byte)(this.layerManager.Selected.Color.B * 255));
-			
-			colordialog.ColorSelection.CurrentColor = selectedColor;
-			colordialog.ColorSelection.CurrentAlpha = (ushort)this.layerManager.Selected.Color.A;*/
-			
 			int res = colordialog.Run();
 			
 			if(res == (int)ResponseType.Ok)
-				this.layerManager.Selected.Colorize(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
+				this.shapeManager.Selected.Colorize(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
 			
 			colordialog.Destroy();
 			
@@ -384,8 +370,8 @@ namespace MeeGen
 		protected virtual void DrawingAreaPress (object o, Gtk.ButtonPressEventArgs args)
 		{
 			//this.drawingarea.GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Hand1);
-			this.layerManager.UnselectAll();
-			this.layerManager.Select((int)args.Event.X, (int)args.Event.Y);
+			this.shapeManager.UnselectAll();
+			this.shapeManager.Select((int)args.Event.X, (int)args.Event.Y);
 			this.drawingarea.QueueDraw();
 		}
 				
@@ -393,41 +379,41 @@ namespace MeeGen
 		{
 			if((args.Event.State & Gdk.ModifierType.Button1Mask) == Gdk.ModifierType.Button1Mask)
 			{
-				this.layerManager.Selected.Drag(DragLocation.Inside,
+				this.shapeManager.Selected.Drag(DragLocation.Inside,
 				                                (int)args.Event.X,
 				                                (int)args.Event.Y);
 				this.drawingarea.QueueDraw();
 			}
 			if((args.Event.State & Gdk.ModifierType.Button3Mask) == Gdk.ModifierType.Button3Mask)
 			{
-				this.layerManager.Selected.Drag(DragLocation.Resize,
+				this.shapeManager.Selected.Drag(DragLocation.Resize,
 				                                (int)args.Event.X,
 				                                (int)args.Event.Y);
 				this.drawingarea.QueueDraw();
 			}
 		}
 		
-		protected virtual void LayerDownButtonClicked (object sender, System.EventArgs e)
+		protected virtual void DownButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.MoveDown(this.layerManager.Selected);
+			this.shapeManager.MoveDown(this.shapeManager.Selected);
 			this.drawingarea.QueueDraw();
 		}
 		
-		protected virtual void LayerUpButtonClicked (object sender, System.EventArgs e)
+		protected virtual void UpButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.MoveUp(this.layerManager.Selected);
+			this.shapeManager.MoveUp(this.shapeManager.Selected);
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void FlipVButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.FlipVertically();
+			this.shapeManager.Selected.FlipVertically();
 			this.drawingarea.QueueDraw();
 		}
 		
 		protected virtual void FlipHButtonClicked (object sender, System.EventArgs e)
 		{
-			this.layerManager.Selected.FlipHorizontally();
+			this.shapeManager.Selected.FlipHorizontally();
 			this.drawingarea.QueueDraw();
 		}
 		
@@ -436,24 +422,24 @@ namespace MeeGen
 			switch(args.Event.Key)
 			{
 				case Gdk.Key.Delete:
-					this.layerManager.Remove(this.layerManager.Selected);
+					this.shapeManager.Remove(this.shapeManager.Selected);
 					this.drawingarea.QueueDraw();
 				break;
 				
 				case Gdk.Key.Up:
-					this.layerManager.Selected.Move(0, -1);	
+					this.shapeManager.Selected.Move(0, -1);	
 					this.drawingarea.QueueDraw();
 				break;
 				case Gdk.Key.Down:
-					this.layerManager.Selected.Move(0, 1);	
+					this.shapeManager.Selected.Move(0, 1);	
 					this.drawingarea.QueueDraw();
 				break;
 				case Gdk.Key.Left:
-					this.layerManager.Selected.Move(-1, 0);	
+					this.shapeManager.Selected.Move(-1, 0);	
 					this.drawingarea.QueueDraw();
 				break;
 				case Gdk.Key.Right:
-					this.layerManager.Selected.Move(1, 0);	
+					this.shapeManager.Selected.Move(1, 0);	
 					this.drawingarea.QueueDraw();
 				break;
 			}

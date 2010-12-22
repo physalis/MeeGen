@@ -727,8 +727,8 @@ namespace MeeGen
 			this.BtnZoomOut.Clicked += new global::System.EventHandler (this.ZoomOutButtonClicked);
 			this.BtnRotateLeft.Clicked += new global::System.EventHandler (this.RotateLeftButtonClicked);
 			this.BtnRotateRight.Clicked += new global::System.EventHandler (this.RotateRightButtonClicked);
-			this.BtnLayerUp.Clicked += new global::System.EventHandler (this.LayerUpButtonClicked);
-			this.BtnLayerDown.Clicked += new global::System.EventHandler (this.LayerDownButtonClicked);
+			this.BtnLayerUp.Clicked += new global::System.EventHandler (this.UpButtonClicked);
+			this.BtnLayerDown.Clicked += new global::System.EventHandler (this.DownButtonClicked);
 			this.BtnFlipH.Clicked += new global::System.EventHandler (this.FlipHButtonClicked);
 			this.BtnFlipV.Clicked += new global::System.EventHandler (this.FlipVButtonClicked);
 			this.BtnColorSelection.Clicked += new global::System.EventHandler (this.ColorSelectionButtonClicked);

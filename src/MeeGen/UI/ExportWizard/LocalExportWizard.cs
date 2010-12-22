@@ -6,7 +6,7 @@ namespace MeeGen
 	
 	public class LocalExportWizard : ExportWizard
 	{	
-		public LocalExportWizard(LayerManager manager) : base(manager)
+		public LocalExportWizard(ShapeManager manager) : base(manager)
 		{			
 			SetSizeRequest(400, 300);
 			

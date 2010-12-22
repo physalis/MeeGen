@@ -5,7 +5,7 @@ namespace MeeGen
 {	
 	public class WebExportWizard : ExportWizard 
 	{
-		public WebExportWizard(LayerManager manager) : base(manager)
+		public WebExportWizard(ShapeManager manager) : base(manager)
 		{
 			SetSizeRequest(450, 300);
 			

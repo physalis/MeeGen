@@ -428,7 +428,7 @@
                             <property name="UseUnderline">True</property>
                             <property name="FocusOnClick">False</property>
                             <property name="Relief">None</property>
-                            <signal name="Clicked" handler="LayerUpButtonClicked" />
+                            <signal name="Clicked" handler="UpButtonClicked" />
                           </widget>
                           <packing>
                             <property name="Position">4</property>
@@ -446,7 +446,7 @@
                             <property name="UseUnderline">True</property>
                             <property name="FocusOnClick">False</property>
                             <property name="Relief">None</property>
-                            <signal name="Clicked" handler="LayerDownButtonClicked" />
+                            <signal name="Clicked" handler="DownButtonClicked" />
                           </widget>
                           <packing>
                             <property name="Position">5</property>

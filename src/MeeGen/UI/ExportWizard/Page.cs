@@ -75,7 +75,7 @@ namespace MeeGen
 		void ExportLocalClicked (object sender, EventArgs e)
 		{
 			this.a.Destroy();
-			LocalExportWizard local = new LocalExportWizard(this.a.LayerManager);
+			LocalExportWizard local = new LocalExportWizard(this.a.ShapeManager);
 			local.Modal = true;
 			local.ShowAll();
 		}
@@ -83,7 +83,7 @@ namespace MeeGen
 		void ExportWebClicked (object sender, EventArgs e)
 		{
 			this.a.Destroy();
-			WebExportWizard web = new WebExportWizard(this.a.LayerManager);
+			WebExportWizard web = new WebExportWizard(this.a.ShapeManager);
 			web.Modal = true;
 			web.ShowAll();
 		}
@@ -120,7 +120,7 @@ namespace MeeGen
 				
 				format = (ExportFormat)Enum.Parse(typeof(ExportFormat), combobox1.ActiveText.Substring(0,3));
 
-				wiz.LayerManager.Export(this.entry1.Text, format);
+				wiz.ShapeManager.Export(this.entry1.Text, format);
 				
 				//TODO: Add credits to PNG and PDF as well
 				if(format == ExportFormat.SVG)

@@ -5,7 +5,7 @@ namespace MeeGen
 {
 	public class ExportIntroWizard : ExportWizard
 	{
-		public ExportIntroWizard(LayerManager layman) : base(layman)
+		public ExportIntroWizard(ShapeManager layman) : base(layman)
 		{
 			this.SetSizeRequest(400, 300);
 			

@@ -13,9 +13,9 @@ namespace MeeGen
 	
 	public class ExportWizard : Gtk.Assistant
 	{
-		LayerManager manager;
+		ShapeManager manager;
 		
-		public ExportWizard(LayerManager manager) : base()
+		public ExportWizard(ShapeManager manager) : base()
 		{
 			this.SkipTaskbarHint = true;
 			this.Resizable = false;
@@ -33,7 +33,7 @@ namespace MeeGen
 			WidgetHelper.SetButtonRelief(this, ReliefStyle.None);
 		}
 		
-		public LayerManager LayerManager
+		public ShapeManager ShapeManager
 		{
 			get{return this.manager;}
 		}

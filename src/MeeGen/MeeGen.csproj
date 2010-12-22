@@ -112,8 +112,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="gtk-gui\MeeGen.MainWindow.cs" />
     <Compile Include="gtk-gui\MeeGen.InfoDialog.cs" />
-    <Compile Include="Layers\Layer.cs" />
-    <Compile Include="Layers\LayerManager.cs" />
     <Compile Include="UI\MessageBox.cs" />
     <Compile Include="UI\MainWindow.cs" />
     <Compile Include="UI\InfoDialog.cs" />
@@ -128,6 +126,8 @@
     <Compile Include="UI\ExportWizard\LocalExportWizard.cs" />
     <Compile Include="UI\ExportWizard\ExportWizard.cs" />
     <Compile Include="UI\ExportWizard\ExportIntroWizard.cs" />
+    <Compile Include="Layers\Shape.cs" />
+    <Compile Include="Layers\ShapeManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
