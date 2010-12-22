@@ -126,15 +126,15 @@
     <Compile Include="UI\ExportWizard\LocalExportWizard.cs" />
     <Compile Include="UI\ExportWizard\ExportWizard.cs" />
     <Compile Include="UI\ExportWizard\ExportIntroWizard.cs" />
-    <Compile Include="Layers\Shape.cs" />
-    <Compile Include="Layers\ShapeManager.cs" />
+    <Compile Include="Shapes\Shape.cs" />
+    <Compile Include="Shapes\ShapeManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Layers\" />
     <Folder Include="UI\" />
     <Folder Include="UI\ExportWizard\" />
     <Folder Include="UI\ExportWizard\Upload\" />
     <Folder Include="Resources\" />
+    <Folder Include="Shapes\" />
   </ItemGroup>
 </Project>
