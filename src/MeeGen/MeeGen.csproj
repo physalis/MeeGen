@@ -10,6 +10,7 @@
     <RootNamespace>MeeGen</RootNamespace>
     <AssemblyName>MeeGen</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ReleaseVersion>0.4</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,7 +79,6 @@
     <EmbeddedResource Include="Resources\arrow-right.png" />
     <EmbeddedResource Include="Resources\arrow-left.png" />
     <EmbeddedResource Include="Resources\arrow-up.png" />
-    <EmbeddedResource Include="Resources\folder-remote.png" />
     <EmbeddedResource Include="Resources\user-trash.png" />
     <EmbeddedResource Include="Resources\dialog-question.png" />
     <EmbeddedResource Include="Resources\document-save.png" />
@@ -92,7 +92,6 @@
     <EmbeddedResource Include="Resources\color-chooser.png" />
     <EmbeddedResource Include="Resources\go-up.png" />
     <EmbeddedResource Include="Resources\go-down.png" />
-    <EmbeddedResource Include="Resources\network.png" />
     <EmbeddedResource Include="Resources\object-flip-vertical.png" />
     <EmbeddedResource Include="Resources\ico-meegen.png" />
     <EmbeddedResource Include="Resources\ratio-preserve.png" />
@@ -102,7 +101,10 @@
     <EmbeddedResource Include="..\MeeGen.sln" />
     <EmbeddedResource Include="Resources\Wizard\meego-forum-logo.png" />
     <EmbeddedResource Include="Resources\Wizard\zazzle-logo.png" />
-    <EmbeddedResource Include="Resources\web.png" />
+    <EmbeddedResource Include="Resources\document-open.png" />
+    <EmbeddedResource Include="Resources\Wizard\web.png" />
+    <EmbeddedResource Include="Resources\Wizard\save.png" />
+    <EmbeddedResource Include="Resources\Wizard\meegons-intro.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="UI\ExportWizard\WebExportWizard.cs" />
     <Compile Include="UI\ExportWizard\LocalExportWizard.cs" />
     <Compile Include="UI\ExportWizard\ExportWizard.cs" />
+    <Compile Include="UI\ExportWizard\ExportIntroWizard.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -132,20 +135,6 @@
     <Folder Include="UI\" />
     <Folder Include="UI\ExportWizard\" />
     <Folder Include="UI\ExportWizard\Upload\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="Makefile">
-          <BuildFilesVar Name="FILES" />
-          <DeployFilesVar />
-          <ResourcesVar Name="RESOURCES" />
-          <OthersVar />
-          <GacRefVar Name="REFERENCES" />
-          <AsmRefVar Name="REFERENCES" />
-          <ProjectRefVar Name="REFERENCES" />
-        </MonoDevelop.Autotools.MakefileInfo>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

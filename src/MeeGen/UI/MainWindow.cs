@@ -283,16 +283,21 @@ namespace MeeGen
 
 		protected virtual void SaveButtonClicked (object sender, System.EventArgs e)
 		{
-			LocalExportWizard w = new LocalExportWizard(this.layerManager);
+			/*LocalExportWizard w = new LocalExportWizard(this.layerManager);
+			w.Modal = true;
+			w.ShowAll();*/
+			
+			ExportIntroWizard w = new ExportIntroWizard(this.layerManager);
 			w.Modal = true;
 			w.ShowAll();
 		}
 		
-		protected virtual void WebExportButtonClicked (object sender, System.EventArgs e)
+		protected virtual void OpenButtonClicked (object sender, System.EventArgs e)
 		{
-			WebExportWizard w = new WebExportWizard(this.layerManager);
+			/*WebExportWizard w = new WebExportWizard(this.layerManager);
 			w.Modal = true;
-			w.ShowAll();
+			w.ShowAll();*/
+			MessageBox.ShowInfo("Sorry, but this feature isn't implemented yet!");
 		}
 
 		protected virtual void AboutButtonClicked (object sender, System.EventArgs e)

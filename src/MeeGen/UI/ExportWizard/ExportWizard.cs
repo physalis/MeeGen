@@ -14,7 +14,7 @@ namespace MeeGen
 	public class ExportWizard : Gtk.Assistant
 	{
 		LayerManager manager;
-
+		
 		public ExportWizard(LayerManager manager) : base()
 		{
 			this.SkipTaskbarHint = true;

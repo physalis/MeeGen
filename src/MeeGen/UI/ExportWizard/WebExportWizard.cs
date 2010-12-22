@@ -13,7 +13,7 @@ namespace MeeGen
 			AppendPage(web);
 			SetPageTitle(web, "Export to a webservice");
 			SetPageType(web, AssistantPageType.Intro);
-			SetPageHeaderImage(web, Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.web.png"));
+			SetPageHeaderImage(web, Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.Wizard.web.png"));
 			SetPageComplete(web, false);
 		}
 	}

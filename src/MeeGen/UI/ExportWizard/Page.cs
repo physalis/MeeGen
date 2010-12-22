@@ -25,12 +25,12 @@ namespace MeeGen
 			w2.Spacing = 2;
 			
 			Image w3 = new Gtk.Image ();
-			w3.Pixbuf = this.RenderIcon(Stock.File, IconSize.Dialog, "");
+			w3.Pixbuf = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.Wizard.save.png");
 			
 			w2.Add (w3);
 			
 			Gtk.Label w5 = new Gtk.Label ();
-			w5.LabelProp = "Save as local image";
+			w5.LabelProp = "Save as local file";
 			w5.UseUnderline = true;
 			w2.Add (w5);
 			w1.Add (w2);
@@ -50,7 +50,7 @@ namespace MeeGen
 			w2.Spacing = 2;
 			
 			w3 = new Gtk.Image ();
-			w3.Pixbuf = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.network.png");
+			w3.Pixbuf = Gdk.Pixbuf.LoadFromResource("MeeGen.Resources.Wizard.web.png");
 			
 			w2.Add (w3);
 			
@@ -68,30 +68,24 @@ namespace MeeGen
 			
 			this.exportLocal.Clicked += ExportLocalClicked;
 			this.exportWeb.Clicked += ExportWebClicked;
+			
+			WidgetHelper.SetButtonRelief(this, ReliefStyle.None);
 		}
 
 		void ExportLocalClicked (object sender, EventArgs e)
 		{
-			SaveLocalPage slp = new SaveLocalPage(a);
-			a.AppendPage(slp);
-			a.SetPageTitle(slp, "Save locally");
-			a.SetPageType(slp, AssistantPageType.Confirm);
-			a.SetPageComplete(slp, true);
-			
-			a.InsertPage(a.GetNthPage(--a.CurrentPage), a.CurrentPage);
-			a.CurrentPage++;
+			this.a.Destroy();
+			LocalExportWizard local = new LocalExportWizard(this.a.LayerManager);
+			local.Modal = true;
+			local.ShowAll();
 		}
 		
 		void ExportWebClicked (object sender, EventArgs e)
 		{
-			ExportWebServicePage ewsp = new ExportWebServicePage(a);
-			a.AppendPage(ewsp);
-			a.SetPageTitle(ewsp, "Export to a webservice");
-			a.SetPageType(ewsp, AssistantPageType.Content);
-			a.SetPageComplete(ewsp, true);
-
-			a.InsertPage(a.GetNthPage(--a.CurrentPage), a.CurrentPage);
-			a.CurrentPage++;
+			this.a.Destroy();
+			WebExportWizard web = new WebExportWizard(this.a.LayerManager);
+			web.Modal = true;
+			web.ShowAll();
 		}
 		
 //		void walk(Container c, int l)
