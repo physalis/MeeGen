@@ -349,21 +349,15 @@ namespace MeeGen
 		
 		protected virtual void ColorSelectionButtonClicked (object sender, System.EventArgs e)
 		{
-			//TODO: custom color selection dialog with meego palette
-			ColorSelectionDialog colordialog = new ColorSelectionDialog("Select a color");
-			colordialog.ColorSelection.HasOpacityControl = true;
-			colordialog.Decorated = false;
-			colordialog.ModifyBg(StateType.Normal, new Gdk.Color(255, 255, 255));
-			//colordialog.ColorSelection.HasPalette = true;
-			WidgetHelper.SetButtonRelief(colordialog, ReliefStyle.None);
+			ColorSelectDialog colorDialog = new ColorSelectDialog();
 			
-			int res = colordialog.Run();
+			int res = colorDialog.Run();
 			
 			if(res == (int)ResponseType.Ok)
-				this.shapeManager.Selected.Colorize(colordialog.ColorSelection.CurrentColor, ((double)colordialog.ColorSelection.CurrentAlpha)/65025);
+				this.shapeManager.Selected.Colorize(colorDialog.ColorSelection.CurrentColor,
+				                                    ((double)colorDialog.ColorSelection.CurrentAlpha)/65025);
 			
-			colordialog.Destroy();
-			
+			colorDialog.Destroy();
 			this.drawingarea.QueueDraw();
 		}
 		

@@ -128,6 +128,7 @@
     <Compile Include="UI\ExportWizard\ExportIntroWizard.cs" />
     <Compile Include="Shapes\Shape.cs" />
     <Compile Include="Shapes\ShapeManager.cs" />
+    <Compile Include="UI\ColorSelectDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -137,4 +138,19 @@
     <Folder Include="Resources\" />
     <Folder Include="Shapes\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <MonoDevelop.Autotools.MakefileInfo RelativeMakefileName="Makefile">
+          <BuildFilesVar Name="FILES" />
+          <DeployFilesVar Name="FILES" />
+          <ResourcesVar Name="RESOURCES" />
+          <OthersVar />
+          <GacRefVar Name="REFERENCES" />
+          <AsmRefVar Name="REFERENCES" />
+          <ProjectRefVar Name="REFERENCES" />
+        </MonoDevelop.Autotools.MakefileInfo>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

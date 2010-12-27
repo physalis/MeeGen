@@ -105,11 +105,9 @@ namespace MeeGen
 	
 	public class SaveLocalPage : Gtk.VBox
 	{
-		ExportWizard wiz;
-		
+
 		public SaveLocalPage(ExportWizard wiz) : base()
 		{
-			this.wiz = wiz;	
 			Build();
 			
 			wiz.Close += delegate(object sender, EventArgs e) 
@@ -419,7 +417,7 @@ namespace MeeGen
 			this.colorbutton1.CanFocus = true;
 			this.colorbutton1.Events = ((global::Gdk.EventMask)(784));
 			this.colorbutton1.Name = "colorbutton1";
-			this.colorbutton1.SetSizeRequest(80, 15); 
+			//this.colorbutton1.SetSizeRequest(80, 15); 
 			
 			//this.colorbutton1.Relief = ReliefStyle.None;
 			
@@ -427,7 +425,7 @@ namespace MeeGen
 			
 			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.colorbutton1]));
 			w20.Position = 0;
-			w20.Expand = false;
+			w20.Expand = true;
 			w20.Fill = true;
 			
 			

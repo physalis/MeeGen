@@ -7,6 +7,8 @@ namespace MeeGen
 {
 	class MainClass
 	{
+		static string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+		
 		public static void Main (string[] args)
 		{
 			//TODO: Make neater
@@ -26,7 +28,7 @@ namespace MeeGen
 				else
 				{
 					Application.Init ();
-					MainWindow win = new MainWindow(args[0], "meegen.conf");
+					MainWindow win = new MainWindow(args[0], Path.Combine(baseDir,"meegen.conf"));
 					win.Show ();
 					Application.Run ();
 				}
@@ -34,7 +36,8 @@ namespace MeeGen
 			else
 			{
 				Application.Init ();
-				MainWindow win = new MainWindow("ComponentDB.xml", "meegen.conf");
+				MainWindow win = new MainWindow(Path.Combine(baseDir,"ComponentDB.xml"),
+				                                Path.Combine(baseDir,"meegen.conf"));
 				win.Show ();
 				Application.Run ();
 			}
@@ -52,7 +55,7 @@ namespace MeeGen
 			
 			try
 			{
-		    	Stream stream = new FileStream("ComponentDB.xml", FileMode.Create);
+		    	Stream stream = new FileStream(Path.Combine(baseDir,"ComponentDB.xml"), FileMode.Create);
 				writer = XmlWriter.Create(stream, settings);
 			
 				writer.WriteStartDocument();
@@ -104,7 +107,7 @@ namespace MeeGen
 							  "-h, --help \t\t\t display this message\n" +
 							  "-c, --create-db [FOLDER] \t creates a ComponentDB.xml file from [FOLDER]\n\n" +
 							  "When run with only [FILE] specified, "+filename+" handles [FILE] as\n" +
-							  "a ComponentDB.xml.\nWhen run with no arguments, it uses ./ComponentDB.xml.");
+							  "a ComponentDB.xml.");
 		}
 	} 
 }

@@ -1,9 +1,11 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Xml.XPath;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Rsvg;
 using Cairo;
+
 
 namespace MeeGen
 {
@@ -14,6 +16,17 @@ namespace MeeGen
 		Vertical = 0x02,
 		Both = Horizontal | Vertical,
 		None = 0x00
+	}
+	
+	public enum DragLocation
+	{
+		/*UpperLeft,
+		UpperRight,
+		BottomLeft,
+		BottomRight,*/
+		Inside,
+		Resize,
+		None
 	}
 	
 	public struct Size
@@ -28,17 +41,13 @@ namespace MeeGen
 		}
 	}
 	
-	public enum DragLocation
+	public struct ColorizeItem
 	{
-		/*UpperLeft,
-		UpperRight,
-		BottomLeft,
-		BottomRight,*/
-		Inside,
-		Resize,
-		None
+		public int index;
+		public bool fill;
+		public bool stroke;
 	}
-		
+
 	public class Shape
 	{
 		protected Point position;
@@ -46,7 +55,7 @@ namespace MeeGen
 		protected Size size;
 		
 		protected double zoom;
-		protected double rotation; // in rad
+		protected double rotation; // as rad
 		protected bool selected;
 		
 		protected string svgContent;
@@ -54,6 +63,10 @@ namespace MeeGen
 		protected Point offset; // the point where the user has clicked to select this shape
 		
 		protected FlipMode flipMode;
+		
+		protected XmlDocument svgDoc;
+		
+		protected ColorizeItem[] colorizeItems;
 		
 		/// <summary>
 		/// Creates a new instance of the MeeGen.Shape class
@@ -73,6 +86,7 @@ namespace MeeGen
 		public Shape(byte[] data, Point pos)
 					: this(new Handle(data), pos)
 		{
+			this.svgContent = System.Text.Encoding.Default.GetString(data);
 		}
 		
 		/// <summary>
@@ -107,6 +121,11 @@ namespace MeeGen
 				svgContent = reader.ReadToEnd();
 				reader.Close();
 			}
+			
+			this.svgDoc = new XmlDocument();
+			svgDoc.LoadXml(svgContent);
+			
+			this.colorizeItems = this.ParseMetadata();
 		}
 		
 		internal Shape()
@@ -121,6 +140,7 @@ namespace MeeGen
 			this.selected = false;
 			this.flipMode = FlipMode.None;
 			this.svgContent = null;
+			this.svgDoc = new XmlDocument();
 		}
 		
 		static Shape()
@@ -128,6 +148,7 @@ namespace MeeGen
 			Shape.SelectionColor = new Color(0.7, 0.71, 0.7, 0.5);
 		}
 		
+		#region properties
 		public static Color SelectionColor 
 		{
 			get;
@@ -203,6 +224,7 @@ namespace MeeGen
 			get{return this.selected;}
 			set{this.selected = value;}
 		}
+		#endregion
 		
 		/// <summary>
 		/// Rotates the shape by the specified angle
@@ -272,6 +294,9 @@ namespace MeeGen
 		{		
 			if(svgContent == null)
 				return;
+			if(this.colorizeItems == null)
+				return;
+
             // make sure the color-values stay <= 255
 			string hexcolor = String.Format("#{0:x2}{1:x2}{2:x2}",
 			                                color.Red    / 255 > 255 ? 255 : color.Red   / 255,
@@ -280,38 +305,65 @@ namespace MeeGen
 
 			opacity = Math.Round(opacity, 1);
 			
-			//TODO: PERF maybe use using(..)
-									
-			XmlDocument doc = new XmlDocument();	
-			doc.PreserveWhitespace = true;
-			doc.LoadXml(svgContent);	
-		
-			//Console.WriteLine(doc.DocumentType.ToString());
-			
-			// TODO: add metadata tags to the images, that specify which path's color to change.
-			// 		 if none are specified, change the 0. (or none?).
-			
-			// this will set the first occurance of path-element to hexcolor.
-			// TODO: use regular expressions to replace the fill-color and the fill-opacity,
-			//		 or at least use the StringBuilder class
-			
-			Console.WriteLine();
-			
-			// circle, ellipse, rect, line, polyline, polygon, text(?)
-			if(doc.GetElementsByTagName("path").Count > 0)
+			// circle, ellipse, rect, line, polyline, polygon, text(X)
+			foreach(ColorizeItem clrItem in this.colorizeItems)
 			{
-				doc.GetElementsByTagName("path")[0].Attributes["style"].Value = 
-				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";
-			}else if(doc.GetElementsByTagName("rect").Count > 0)
-			{
-				doc.GetElementsByTagName("rect")[0].Attributes["style"].Value = 
-				"fill:"+hexcolor+";fill-opacity:"+opacity+";fill-rule:nonzero;stroke:none";
-			}else
-				return;
-			
-			this.svgContent = doc.OuterXml;
+				XmlNode gNode = this.svgDoc.DocumentElement.GetElementsByTagName("g")[0];
 
-			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(doc.OuterXml));
+				// if the geometric primitives are grouped in a g-tag
+				if(gNode != null)
+				{
+					try
+					{
+						string style = gNode.ChildNodes[clrItem.index].Attributes["style"].Value;
+						
+						if(clrItem.stroke && clrItem.fill)
+						{						
+							// replace the current fill color value
+							style = Regex.Replace(style, "fill:#[0-9a-fA-F]{6}", "fill:" + hexcolor);
+							// replace the fill opacity
+							style = Regex.Replace(style,
+							                      "fill-opacity:[1]|fill-opacity:0.[0-9]+",
+							                      "fill-opacity:" + opacity);
+							// replace the stroke color
+							style = Regex.Replace(style, "stroke:#[0-9a-fA-F]{6}", "stroke:" + hexcolor);
+							// replace the stroke opacity
+							style = Regex.Replace(style,
+							                      "stroke-opacity:[1]|fill-opacity:0.[0-9]+",
+							                      "stroke-opacity:" + opacity);
+							// apply the changes
+							gNode.ChildNodes[clrItem.index].Attributes["style"].Value = style;
+							
+						}else if(clrItem.fill && !clrItem.stroke)
+						{
+							style = Regex.Replace(style, "fill:#[0-9a-fA-F]{6}", "fill:" + hexcolor);
+							style = Regex.Replace(style,
+							                      "fill-opacity:[1]|fill-opacity:0.[0-9]+",
+							                      "fill-opacity:" + opacity);
+							
+							gNode.ChildNodes[clrItem.index].Attributes["style"].Value = style;
+							
+						}else if(!clrItem.fill && clrItem.stroke)
+						{
+							style = Regex.Replace(style, "stroke:#[0-9a-fA-F]{6}", "stroke:" + hexcolor);
+							style = Regex.Replace(style,
+							                      "stroke-opacity:[1]|fill-opacity:0.[0-9]+",
+							                      "stroke-opacity:" + opacity);
+							
+							gNode.ChildNodes[clrItem.index].Attributes["style"].Value = style;
+						}
+					}catch(Exception e)
+					{
+						MessageBox.ShowError("There was an error when trying to change the shape's color:\n"
+						                     + e.Message);
+						break;
+					}
+				}
+			}
+			this.svgContent = this.svgDoc.OuterXml;
+
+			// recreate this Rsvg.Handle with the changed svg data
+			this.svgHandle = new Handle(System.Text.Encoding.UTF8.GetBytes(svgDoc.OuterXml));
 		}
 		
 		private void MoveDrag(int dx, int dy)
@@ -372,7 +424,7 @@ namespace MeeGen
 		/// The context to use for drawing
 		/// A <see cref="Cairo.Context"/>
 		/// </param>
-		public void Draw(Cairo.Context cx)
+		public virtual void Draw(Cairo.Context cx)
 		{			
 			// start by drawing the unrotated selection-rectangle
 			if(this.Selected)
@@ -445,9 +497,62 @@ namespace MeeGen
 			cx.Restore();
 		}
 		
+		private ColorizeItem[] ParseMetadata()
+		{
+			List<ColorizeItem> itemList = new List<ColorizeItem>();
+			
+			// the first occurrance of the metadata tag
+			
+			XmlNode metadata = this.svgDoc.GetElementsByTagName("metadata")[0];
+			
+			//no metadata specified, changing the color of this shape is prohibited
+			if(metadata == null)
+				return null;
+				
+				
+			// foreach 'colorize'-node
+			foreach (XmlNode sub in metadata.ChildNodes)
+			{
+				// only if it is meegen-specific metadata
+				if(sub.Name == "colorize")
+				{
+					// first, define the indices used for this colorize instruction
+					string index = sub.Attributes["index"].Value;
+					index = index.Trim();
+					string[] indices = index.Split(',');
+								
+					// these are the default values
+					bool fill = true;
+					bool stroke = false;
+					
+					// find out if the stroke or fille attribute is present,
+					// and if so, adapt the fill and stroke variable
+					if(sub.Attributes["stroke"] != null)
+					{
+						stroke = bool.Parse(sub.Attributes["stroke"].Value);
+					}
+					if(sub.Attributes["fill"] != null)
+					{
+						fill = bool.Parse(sub.Attributes["fill"].Value);
+					}
+							
+					foreach(string s in indices)
+					{
+						ColorizeItem item;
+						item.index = int.Parse(s);
+						item.stroke = stroke;
+						item.fill = fill;
+						
+						itemList.Add(item);
+					}	
+				}
+			}
+			return itemList.ToArray();
+		}
+		
 		// TODO: this method is being called quite often,
 		//		 performance... -> adding a Changed-property gets more likely
-		private Rectangle GetBounds()
+		protected Rectangle GetBounds()
 		{
 			Rectangle b = new Rectangle(-this.size.Width/2,
 			                            -this.size.Height/2,
@@ -493,12 +598,12 @@ namespace MeeGen
 			                     transformed[2].Y - transformed[0].Y);
 		}
 		
-		private double DegToRad(double degree)
+		protected double DegToRad(double degree)
 		{
 			return (degree/180) * Math.PI;
 		}
 		
-		private void DrawRoundedRectangle(Cairo.Context gr,
+		protected void DrawRoundedRectangle(Cairo.Context gr,
 		                                  double x,
 		                                  double y,
 		                                  double width,
@@ -523,9 +628,22 @@ namespace MeeGen
 	        gr.Restore ();
 		}
 		
-		private void DrawRoundedRectangle(Cairo.Context c, Rectangle r, double rad)
+		protected void DrawRoundedRectangle(Cairo.Context c, Rectangle r, double rad)
 		{
 			DrawRoundedRectangle(c, r.X, r.Y, r.Width, r.Height, rad);
+		}
+	}
+	
+	public class BackgroundShape : Shape
+	{
+		public BackgroundShape() : base()
+		{
+
+		}
+		
+		public override void Draw (Context cx)
+		{
+			
 		}
 	}
 }

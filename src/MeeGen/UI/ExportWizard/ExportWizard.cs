@@ -18,7 +18,7 @@ namespace MeeGen
 		public ExportWizard(ShapeManager manager) : base()
 		{
 			this.SkipTaskbarHint = true;
-			this.Resizable = false;
+			this.Resizable = true;
 			
 			Title = "ExportWizard";
 			
@@ -28,7 +28,7 @@ namespace MeeGen
 			
 			this.manager = manager;
 			
-			Cancel += new EventHandler (AssistantCancel);
+			Cancel += new EventHandler(AssistantCancel);
 			
 			WidgetHelper.SetButtonRelief(this, ReliefStyle.None);
 		}
@@ -38,21 +38,21 @@ namespace MeeGen
 			get{return this.manager;}
 		}
 		
-		protected override bool OnDeleteEvent (Gdk.Event ev)
+		protected override bool OnDeleteEvent(Gdk.Event ev)
 		{
 			//Console.WriteLine ("Assistant Destroyed prematurely");
 			Application.Quit ();
 			return true;
 		}
 		
-		void AssistantCancel (object o, EventArgs args)
+		void AssistantCancel(object o, EventArgs args)
 		{
 			//Console.WriteLine ("Assistant cancelled.");
 			Destroy ();
 			//Application.Quit ();
 		}
 
-		void AssistantClose (object o, EventArgs args)
+		void AssistantClose(object o, EventArgs args)
 		{
 			//Console.WriteLine ("Assistant ran to completion.");
 			//Destroy (); //Destroy after the exporting has happened in SaveLocalPage and ExportWebPage

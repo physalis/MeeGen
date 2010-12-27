@@ -30,9 +30,7 @@ namespace MeeGen
 		
 		protected virtual void OnButtonClicked (object sender, System.EventArgs e)
 		{
-			ColorSelectionDialog colorDialog = new ColorSelectionDialog("Select a color");
-			colorDialog.ModifyBg(StateType.Normal, Colors.White);
-			colorDialog.Decorated = false;
+			ColorSelectDialog colorDialog = new ColorSelectDialog();
 			
 			colorDialog.ColorSelection.CurrentColor = this.color;
 			
