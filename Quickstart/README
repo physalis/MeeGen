@@ -16,7 +16,6 @@ sure that your system is updated.
 Try it: (won't do any system-wide changes)
 =============
 
-chmod +x setup.sh
 ./setup.sh 
 
 # to start the app:
