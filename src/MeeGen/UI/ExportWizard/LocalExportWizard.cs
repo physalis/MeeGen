@@ -8,8 +8,9 @@ namespace MeeGen
 	{	
 		public LocalExportWizard(ShapeManager manager) : base(manager)
 		{			
-			SetSizeRequest(400, 300);
-			
+			SetSizeRequest(400, 320);
+			this.Resizable = true;
+			this.AllowGrow = true;
 			SaveLocalPage local = new SaveLocalPage(this);
 			AppendPage(local);
 			SetPageTitle(local, "Save locally");

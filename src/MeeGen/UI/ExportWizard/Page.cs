@@ -188,8 +188,8 @@ namespace MeeGen
 		{
 			this.vbox1 = new global::Gtk.VBox ();
 			this.vbox1.Name = "vbox1";
-			this.vbox1.Spacing = 20;
-			this.vbox1.Homogeneous = true;
+			this.vbox1.Spacing = 5;
+			this.vbox1.Homogeneous = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.combobox1 = global::Gtk.ComboBox.NewText ();
 			this.combobox1.AppendText (global::Mono.Unix.Catalog.GetString ("SVG - Scalable Vector Graphic"));
